@@ -4,6 +4,7 @@ import LoginScreen from './Login/LoginScreen';
 import { RootStackParamList } from './types';
 import MainTab from './MainTab';
 import HomeScreen from './Home/HomeScreen';
+import SetNicknameScreen from './Login/SetNicknameScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -15,6 +16,11 @@ function RootStack () {
             <Stack.Screen
                 name='Login'
                 component={LoginScreen}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen
+                name='SetNickname'
+                component={SetNicknameScreen}
                 options={{headerShown: false}}
             />
             <Stack.Screen

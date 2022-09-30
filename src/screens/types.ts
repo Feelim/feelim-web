@@ -23,5 +23,6 @@ export type RootStackParamList = {
     MainTab: MainTabNavigationScreenParams;
     Login: undefined;
     Home: undefined;
+    SetNickname: undefined;
 };
 export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
