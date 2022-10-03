@@ -19,6 +19,7 @@ function RecommendItem({title}: Item){
 const styles = StyleSheet.create({
     item: {
         width: 104,
+        height:131,
         marginRight: 15,
         marginBottom: 16,
     },
@@ -30,6 +31,8 @@ const styles = StyleSheet.create({
         lineHeight: 15,
         width: 91,
         height: 18,
+        color: '#000000',
+        
     }
 })
 
