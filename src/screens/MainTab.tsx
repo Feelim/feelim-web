@@ -2,6 +2,8 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./Home/HomeScreen";
 import { MainTabParamList } from "./types";
+import Home from '../assets/images/TabBarIcons/Home.svg'
+import colors from "../assets/color";
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -13,9 +15,20 @@ function MainTab() {
                 name="Home"
                 component={HomeScreen}
                 options={{
-                    title: "home"
+                    title: "홈",
+                    tabBarIcon: ({focused}) =>
+                      focused ? (
+                        <Home/>
+                      ) : (
+                        <Home fill="#dddddd"/>
+                      ),
+                      tabBarActiveTintColor: colors.primary,
+                      tabBarInactiveTintColor: "#bfbfbf",
+                      headerTintColor: colors.primary,
+                      headerShown:false,
                 }}
             />
+            
         </Tab.Navigator>
     )
 }

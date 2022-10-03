@@ -1,30 +1,74 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Text, View, StyleSheet, Pressable, Image } from "react-native";
 import colors from "../../assets/color";
 import Logo from "../../assets/images/Login/Logo.svg";
 import LogoText from "../../assets/images/Login/LogoText.svg";
 import Kakao from "../../assets/images/Login/Kakao.svg";
 import {useNavigation} from '@react-navigation/core';
-import {MainTabNavigationProp, MainTabParamList} from '../types'
+import {MainTabNavigationProp, MainTabParamList,} from '../types'
+import {
+    KakaoOAuthToken,
+    KakaoProfile,
+    getProfile as getKakaoProfile,
+    login,
+    logout,
+    unlink,
+    loginWithKakaoAccount,
+  } from '@react-native-seoul/kakao-login';
+import KakaoLogin from "../../components/Login/KakaoLogin";
 
 function LoginScreen() {
     const navigation = useNavigation<MainTabNavigationProp>();
+    const [result, setResult] = useState<string>('');
+
+    const signInWithKakao = async (): Promise<void> => {
+        try {
+            const token: KakaoOAuthToken =  login();
+            console.log(token);
+            
+            setResult(JSON.stringify(token));
+          } catch(err) {
+            console.log(err);
+            
+          }
+    };
+
+
+    const getProfile = async (): Promise<void> => {
+        try {
+            const profile = getKakaoProfile();
+            console.log(JSON.stringify(profile));
+            } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error('signOut error', err);
+            }
+    };
+
 
     return (
         <View style={styles.fullScreen}>
+            <KakaoLogin result={result} />
             <View style={styles.logo}>
                 <View style={styles.logoText}>
-                    <Text style={styles.text}>필름카메라의 모든것,</Text>
+                    <Text style={styles.text}>필름 카메라의 모든것,</Text>
                     <LogoText />
                 </View >
                 <Logo />
             </View>
             <View style={styles.bottom}>
-                <Pressable>
+                <Pressable onPress={() => {signInWithKakao()}}>
                     <Kakao/>
                 </Pressable>
+
+                <Pressable
+                        onPress={() => getProfile()}
+                    >
+                        <Text style={styles.text}>
+                        프로필 조회
+                        </Text>
+                    </Pressable>
                 <Pressable onPress={()=>{
-                    navigation.navigate('Home');
+                    navigation.navigate('MainTab');
                 }}>
                     <Text style={styles.noLogin}>로그인 없이 둘러보기</Text>
                 </Pressable>
