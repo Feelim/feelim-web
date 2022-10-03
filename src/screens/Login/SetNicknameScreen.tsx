@@ -1,24 +1,33 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import { Text, View, StyleSheet, Pressable, Image, TextInput, Button, Animated, KeyboardAvoidingView } from "react-native";
+import { Text, View, StyleSheet, Pressable, Image, TextInput, Button, Animated, KeyboardAvoidingView, SafeAreaView } from "react-native";
 import colors from "../../assets/color";
 import Chalkak from "../../assets/images/Login/Chalkak.svg";
 import Star from "../../assets/images/Login/Star.svg";
 import Send from "../../assets/images/Login/Send.svg";
 import SendActive from "../../assets/images/Login/SendActive.svg";
 import SetNicknameToast from "../../components/Login/SetNicknameToast";
+import {useRecoilState} from 'recoil';
+import {nickNameState} from '../../atoms/nickname';
+import {useNavigation} from '@react-navigation/core';
+import {MainTabNavigationProp, RootStackNavigationProp} from '../types'
+
 
 
 function SetNicknameScreen(){
+    const navigation = useNavigation<RootStackNavigationProp>();
     const [inputFocus, setInputFocus] = useState(false);
     const [inputText, setInputText] = useState('');
     const [hidden1, setHidden1] = useState(true);
     const [hidden2, setHidden2] = useState(true);
+    const [authNickName, setAuthNickName] = useRecoilState(nickNameState);
 
     const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-  
+
       //toast animation
     const animation1 = useRef(new Animated.Value(0)).current;
     const animation2 = useRef(new Animated.Value(0)).current;
+
+
     useEffect(()=>{
         Animated.timing(animation1,{
             toValue: hidden1? 0 : 1,
@@ -26,21 +35,21 @@ function SetNicknameScreen(){
         }).start();
         try {
             setTimeout(() => {
-              setHidden1(true);
-            }, 2000);
-          } catch (e) {
-          }
+                setHidden1(true);
+                }, 2000);
+            } catch (e) {
+        }
 
-          Animated.timing(animation2,{
+        Animated.timing(animation2,{
             toValue: hidden2? 0 : 1,
             useNativeDriver: true,
         }).start();
         try {
             setTimeout(() => {
-              setHidden2(true);
+                setHidden2(true);
             }, 2000);
-          } catch (e) {
-          }
+            } catch (e) {
+        }
     },[hidden1, hidden2]);
 
     const onPress = () =>{
@@ -51,13 +60,19 @@ function SetNicknameScreen(){
             setHidden2(false);
         }
         if(inputText.length<=6 && !special_pattern.test(inputText)){
-            console.log(inputText); //닉네임 설정
+            setAuthNickName(inputText); //닉네임 설정
         }
-
     }
 
+    useEffect(()=>{
+        if(authNickName){
+            navigation.navigate('MainTab');
+        }
+
+    },[authNickName])
+
     return(
-        <View style={styles.fullScreen}>
+        <SafeAreaView style={styles.fullScreen}>
             <View style={styles.top}>
                 <Text style={styles.topText}>안녕하세요, 회원님!</Text>
                 <View style={styles.topSecondText}>
@@ -113,11 +128,8 @@ function SetNicknameScreen(){
                     ]}>
                     <SetNicknameToast  text="💡 입력 불가능한 문자가 포함되어 있어요."/>
                 </Animated.View>
-
             </KeyboardAvoidingView>
-            
-            
-        </View>
+        </SafeAreaView>
 
     )
 }

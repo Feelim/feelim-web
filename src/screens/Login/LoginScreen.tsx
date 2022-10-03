@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Text, View, StyleSheet, Pressable, Image } from "react-native";
+import { Text, View, StyleSheet, Pressable, Image, SafeAreaView } from "react-native";
 import colors from "../../assets/color";
 import Logo from "../../assets/images/Login/Logo.svg";
 import LogoText from "../../assets/images/Login/LogoText.svg";
@@ -12,45 +12,57 @@ import {
     getProfile as getKakaoProfile,
     login,
     logout,
-    unlink,
     loginWithKakaoAccount,
+    
   } from '@react-native-seoul/kakao-login';
-import KakaoLogin from "../../components/Login/KakaoLogin";
+import {useRecoilState} from 'recoil';
+import {usernameState} from '../../atoms/username';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function LoginScreen() {
     const navigation = useNavigation<MainTabNavigationProp>();
     const [result, setResult] = useState<string>('');
+    const [authUserName, setAuthUserName] = useRecoilState(usernameState);
 
     const signInWithKakao = async (): Promise<void> => {
         try {
-            const token: KakaoOAuthToken =  login();
-            console.log(token);
-            
+            const token = await loginWithKakaoAccount();
             setResult(JSON.stringify(token));
-          } catch(err) {
-            console.log(err);
-            
-          }
-    };
 
+            AsyncStorage.setItem('accessToken', token.accessToken);
+            getProfile();
+        } catch (err) {
+            console.error(err);
+        }     
+
+    };
+        
 
     const getProfile = async (): Promise<void> => {
+        
         try {
-            const profile = getKakaoProfile();
-            console.log(JSON.stringify(profile));
-            } catch (err) {
-            // eslint-disable-next-line no-console
-            console.error('signOut error', err);
-            }
-    };
+            const profile = await getKakaoProfile();
 
+            //카카오로그인 회원이름
+            setAuthUserName(profile.nickname);
+            } catch (err) {
+                console.error('signOut error', err);
+            }      
+    };
+        
+
+        useEffect(()=>{
+            if(result){
+                navigation.navigate('SetNickname');
+            }
+        },[result]);
 
     return (
-        <View style={styles.fullScreen}>
-            <KakaoLogin result={result} />
+        <SafeAreaView style={styles.fullScreen}>
+            {/* <KakaoLogin result={result} /> */}
             <View style={styles.logo}>
                 <View style={styles.logoText}>
-                    <Text style={styles.text}>필름 카메라의 모든것,</Text>
+                    <Text style={styles.text}>필름카메라의 모든것,</Text>
                     <LogoText />
                 </View >
                 <Logo />
@@ -60,21 +72,13 @@ function LoginScreen() {
                     <Kakao/>
                 </Pressable>
 
-                <Pressable
-                        onPress={() => getProfile()}
-                    >
-                        <Text style={styles.text}>
-                        프로필 조회
-                        </Text>
-                    </Pressable>
                 <Pressable onPress={()=>{
                     navigation.navigate('MainTab');
                 }}>
                     <Text style={styles.noLogin}>로그인 없이 둘러보기</Text>
                 </Pressable>
             </View>
-
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -84,7 +88,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primary,
         // justifyContent: "center",
         alignItems: 'center',
-       
     },
     logo: {
         justifyContent: "center",
@@ -104,8 +107,8 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSansKR-Bold',
         color: colors.on_primary,
         fontSize: 18,
-        fontWeight: '700',
         marginRight: 10,
+        lineHeight: 20,
     },
     bottom: {
         position: "absolute",
