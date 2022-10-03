@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     item: {
         width: 104,
         height:131,
-        marginRight: 15,
+        // marginRight: 15,
         marginBottom: 16,
     },
     text:{

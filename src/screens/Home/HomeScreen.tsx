@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Pressable, ScrollView} from "react-native";
+import { Text, View, StyleSheet, Pressable, ScrollView, SafeAreaView} from "react-native";
 import colors from "../../assets/color"
 import Chalkak from "../../assets/images/Login/Chalkak.svg";
 import Star from "../../assets/images/Login/Star.svg";
@@ -9,31 +9,42 @@ import TopBanner from "../../components/Home/TopBanner";
 import TopButtons from "../../components/Home/TopButtons";
 import VideoSection from "../../components/Home/VideoSection";
 import RecommendSection from "../../components/Home/RecommendSection";
+import {usernameState} from '../../atoms/username';
+import {nickNameState} from '../../atoms/nickname';
+import {useRecoilValue} from 'recoil';
 
 function HomeScreen() {
+    const username = useRecoilValue(usernameState);
+    const nickname = useRecoilValue(nickNameState);
     return(
-        <ScrollView style={styles.fullScreen}>
-            <View style={styles.homeTop}>
-                <View style={styles.logo}>
-                    <Chalkak/>
-                    <Star/>
+            <ScrollView style={styles.fullScreen}>
+                <SafeAreaView>
+                    <View style={styles.homeTop}>
+                    <View style={styles.logo}>
+                        <Chalkak/>
+                        <Star/>
+                    </View>
+                    <View style={styles.homeTopRight}>
+                        <Pressable style={styles.rightIcon}>
+                            <Bell/>
+                        </Pressable>
+                        <Pressable style={styles.rightIcon}>
+                            <MyPage/>
+                        </Pressable>
+                    </View>
                 </View>
-                <View style={styles.homeTopRight}>
-                    <Pressable style={styles.rightIcon}>
-                        <Bell/>
-                    </Pressable>
-                    <Pressable style={styles.rightIcon}>
-                        <MyPage/>
-                    </Pressable>
-                </View>
-            </View>
-            <TopBanner/>
-            <TopButtons/>
-            <View style={styles.underline}/>
-            <VideoSection/>
-            <View style={styles.underline}/>
-            <RecommendSection/>
+                <TopBanner/>
+                <TopButtons/>
+                <View style={styles.underline}/>
+                <VideoSection/>
+                <View style={styles.underline}/>
+                <RecommendSection/>
+                <Text>{username}</Text>
+                <Text>{nickname}</Text>
+                </SafeAreaView>
+            
         </ScrollView>
+        
     )
 }
 

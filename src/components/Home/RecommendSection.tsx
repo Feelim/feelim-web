@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     container:{
         flexDirection: "row",
         flexWrap: "wrap",
-        width: 360,
+        // width: 360,
+        justifyContent: 'space-around',
     }
     
 });

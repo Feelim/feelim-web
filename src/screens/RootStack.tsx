@@ -5,10 +5,17 @@ import { RootStackParamList } from './types';
 import MainTab from './MainTab';
 import HomeScreen from './Home/HomeScreen';
 import SetNicknameScreen from './Login/SetNicknameScreen';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack () {
+    //로그인시 바로 HomeScreen으로 가도록 구현
+    AsyncStorage.getItem('accessToken', (err, result) => { 
+        console.log(result);
+    });
+    
+
     return(
         <Stack.Navigator
             initialRouteName='Login'
