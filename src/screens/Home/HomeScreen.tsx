@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, StyleSheet, Pressable, ScrollView, SafeAreaView} from "react-native";
 import colors from "../../assets/color"
 import Chalkak from "../../assets/images/Login/Chalkak.svg";
@@ -11,11 +11,38 @@ import VideoSection from "../../components/Home/VideoSection";
 import RecommendSection from "../../components/Home/RecommendSection";
 import {usernameState} from '../../atoms/username';
 import {nickNameState} from '../../atoms/nickname';
-import {useRecoilValue} from 'recoil';
+import { emailState } from "../../atoms/email";
+import {useRecoilState} from 'recoil';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 function HomeScreen() {
-    const username = useRecoilValue(usernameState);
-    const nickname = useRecoilValue(nickNameState);
+    const [authUsername,setAuthUsername] = useRecoilState(usernameState);
+    const [authNickname,setAuthNickname] = useRecoilState(nickNameState);
+    const [authEmail,setAuthEmail] = useRecoilState(emailState);
+    
+
+    useEffect(() =>{
+        //자동로그인시 리코일에 회원정보 저장
+        const load = async () => {
+            try {
+                await AsyncStorage.getItem('username',(err, result: any) => { 
+                    setAuthUsername(result);
+                });
+                await AsyncStorage.getItem('nickname',(err, result: any) => { 
+                    setAuthNickname(result);
+                });
+                await AsyncStorage.getItem('email',(err, result: any) => { 
+                    setAuthEmail(result);
+                });
+
+            }catch(e){
+                console.log(e);
+            }
+        }
+        load();
+    })
+
     return(
             <ScrollView style={styles.fullScreen}>
                 <SafeAreaView>
@@ -39,8 +66,9 @@ function HomeScreen() {
                 <VideoSection/>
                 <View style={styles.underline}/>
                 <RecommendSection/>
-                <Text>{username}</Text>
-                <Text>{nickname}</Text>
+                <Text>{authUsername}</Text>
+                <Text>{authNickname}</Text>
+                <Text>{authEmail}</Text>
                 </SafeAreaView>
             
         </ScrollView>
