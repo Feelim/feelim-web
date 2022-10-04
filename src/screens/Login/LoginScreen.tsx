@@ -17,12 +17,14 @@ import {
   } from '@react-native-seoul/kakao-login';
 import {useRecoilState} from 'recoil';
 import {usernameState} from '../../atoms/username';
+import {emailState} from '../../atoms/email';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function LoginScreen() {
     const navigation = useNavigation<MainTabNavigationProp>();
     const [result, setResult] = useState<string>('');
-    const [authUserName, setAuthUserName] = useRecoilState(usernameState);
+    // const [authUserName, setAuthUserName] = useRecoilState(usernameState);
+    // const [authEmail, setAuthEmail] = useRecoilState(emailState);
 
     const signInWithKakao = async (): Promise<void> => {
         try {
@@ -43,8 +45,11 @@ function LoginScreen() {
         try {
             const profile = await getKakaoProfile();
 
-            //카카오로그인 회원이름
-            setAuthUserName(profile.nickname);
+            //카카오로그인 회원정보
+            // setAuthUserName(profile.nickname);
+            // setAuthEmail(profile.email);
+            AsyncStorage.setItem('username', profile.nickname);
+            AsyncStorage.setItem('email', profile.email);
             } catch (err) {
                 console.error('signOut error', err);
             }      
@@ -59,7 +64,6 @@ function LoginScreen() {
 
     return (
         <SafeAreaView style={styles.fullScreen}>
-            {/* <KakaoLogin result={result} /> */}
             <View style={styles.logo}>
                 <View style={styles.logoText}>
                     <Text style={styles.text}>필름카메라의 모든것,</Text>

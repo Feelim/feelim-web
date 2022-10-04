@@ -10,7 +10,7 @@ import {useRecoilState} from 'recoil';
 import {nickNameState} from '../../atoms/nickname';
 import {useNavigation} from '@react-navigation/core';
 import {MainTabNavigationProp, RootStackNavigationProp} from '../types'
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 function SetNicknameScreen(){
@@ -22,6 +22,9 @@ function SetNicknameScreen(){
     const [authNickName, setAuthNickName] = useRecoilState(nickNameState);
 
     const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+    const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+    const check_eng = /[a-zA-Z]/;
+
 
       //toast animation
     const animation1 = useRef(new Animated.Value(0)).current;
@@ -56,11 +59,13 @@ function SetNicknameScreen(){
         if(inputText.length>6){
             setHidden1(false);
         }
-        if(special_pattern.test(inputText)){
+        if(special_pattern.test(inputText) || !check_kor.test(inputText)){
             setHidden2(false);
         }
-        if(inputText.length<=6 && !special_pattern.test(inputText)){
-            setAuthNickName(inputText); //닉네임 설정
+        if(inputText.length<=6 && !special_pattern.test(inputText) && 
+            (check_kor.test(inputText) || check_eng.test(inputText))){
+            // setAuthNickName(inputText); //닉네임 설정
+            AsyncStorage.setItem('nickname', inputText);
         }
     }
 
@@ -73,6 +78,7 @@ function SetNicknameScreen(){
 
     return(
         <SafeAreaView style={styles.fullScreen}>
+            <KeyboardAvoidingView>
             <View style={styles.top}>
                 <Text style={styles.topText}>안녕하세요, 회원님!</Text>
                 <View style={styles.topSecondText}>
@@ -109,7 +115,7 @@ function SetNicknameScreen(){
             </View>
 
             {/* Validation Toast */}
-            <KeyboardAvoidingView style={styles.toastView}>
+            <View style={styles.toastView}>
                 <Animated.View 
                 style={[
                     styles.toast,
@@ -121,14 +127,15 @@ function SetNicknameScreen(){
                 </Animated.View>
                 <Animated.View 
                 style={[
-                    styles.toast,
+                    // styles.toast,
                     {
                         opacity: animation2,
                     }
                     ]}>
                     <SetNicknameToast  text="💡 입력 불가능한 문자가 포함되어 있어요."/>
                 </Animated.View>
-            </KeyboardAvoidingView>
+            </View>
+            </KeyboardAvoidingView> 
         </SafeAreaView>
 
     )
@@ -142,6 +149,7 @@ const styles = StyleSheet.create({
     },
     top:{
         paddingHorizontal: 26,
+        
     },
     topSecondText:{
         display: "flex",
@@ -158,6 +166,7 @@ const styles = StyleSheet.create({
     },
     setNickname:{
         marginTop: 42,
+        marginBottom:72,
     },
     setNicknameText:{
         fontSize: 24,
@@ -166,6 +175,7 @@ const styles = StyleSheet.create({
         marginBottom:28,
         color: colors.primary,
         paddingHorizontal: 26,
+        
     },
     setNicknameInput:{
         borderColor: colors.text4,
@@ -188,8 +198,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         alignItems:"center",
         width: '100%',
-        marginBottom: 43,
-        top: 78,
     },
     toast:{
         marginBottom:14,
