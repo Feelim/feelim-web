@@ -25,9 +25,13 @@ function UserInfo() {
         </View>
       </View>
       <View>
-        <Text style={[{color: colors.primary}]}>홍길동</Text>
-        <Text style={[{color: colors.primary}]}>010-1234-5678</Text>
-        <Text style={[{color: colors.primary}]}>kildongiii@naver.com</Text>
+        <Text style={[{color: colors.primary, fontSize: 12}]}>홍길동</Text>
+        <Text style={[{color: colors.primary, fontSize: 12}]}>
+          010-1234-5678
+        </Text>
+        <Text style={[{color: colors.primary, fontSize: 12}]}>
+          kildongiii@naver.com
+        </Text>
       </View>
     </View>
   );

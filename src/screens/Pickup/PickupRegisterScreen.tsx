@@ -13,6 +13,7 @@ import InfoItem from '../../components/Pickup/InfoItem';
 import PlaceInfo from '../../components/Pickup/PlaceInfo';
 import UserInfo from '../../components/Pickup/UserInfo';
 import FilmRegisterInfo from '../../components/Pickup/FilmRegisterInfo';
+import PickupFee from '../../components/Pickup/PickupFee';
 
 function PickupRegisterScreen() {
   const {width} = useWindowDimensions();
@@ -26,6 +27,8 @@ function PickupRegisterScreen() {
           <UserInfo />
           <View style={styles.underline} />
           <FilmRegisterInfo />
+          <View style={styles.underline} />
+          <PickupFee />
         </View>
       </SafeAreaView>
     </ScrollView>

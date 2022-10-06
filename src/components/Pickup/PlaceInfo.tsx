@@ -11,8 +11,8 @@ function PlaceInfo() {
         <Text style={styles.modify}>변경하기</Text>
       </View>
       <View>
-        <Text>서울특별시 강남구 강남대로 123-45</Text>
-        <Text>123동 1234호</Text>
+        <Text style={styles.text}>서울특별시 강남구 강남대로 123-45</Text>
+        <Text style={styles.text}>123동 1234호</Text>
       </View>
     </View>
   );
@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
   modify: {
     fontSize: 12,
     textDecorationLine: 'underline',
+  },
+  text: {
+    fontSize: 12,
   },
 });
 
