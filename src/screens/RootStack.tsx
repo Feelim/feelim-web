@@ -6,6 +6,10 @@ import MainTab from './MainTab';
 import HomeScreen from './Home/HomeScreen';
 import SetNicknameScreen from './Login/SetNicknameScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PickupScreen from './Pickup/PickupScreen';
+import PickupInfoScreen from './Pickup/PickupInfoScreen';
+import PickupRegister from './Pickup/PickupRegisterScreen';
+import PickupRegisterScreen from './Pickup/PickupRegisterScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,16 +27,26 @@ function RootStack() {
 
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen
-                        name='MainTab'
-                        component={MainTab}
-                        options={{headerShown: false}}
-                    /> */}
       {isLogin ? (
         <>
           <Stack.Screen
             name="MainTab"
             component={MainTab}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Pickup"
+            component={PickupScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PickupInfo"
+            component={PickupInfoScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PickupRegister"
+            component={PickupRegisterScreen}
             options={{headerShown: false}}
           />
         </>
@@ -51,6 +65,21 @@ function RootStack() {
           <Stack.Screen
             name="MainTab"
             component={MainTab}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Pickup"
+            component={PickupScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PickupInfo"
+            component={PickupInfoScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PickupRegister"
+            component={PickupRegisterScreen}
             options={{headerShown: false}}
           />
         </>
