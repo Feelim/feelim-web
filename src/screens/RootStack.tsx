@@ -10,10 +10,14 @@ import PickupScreen from './Pickup/PickupScreen';
 import PickupInfoScreen from './Pickup/PickupInfoScreen';
 import PickupRegister from './Pickup/PickupRegisterScreen';
 import PickupRegisterScreen from './Pickup/PickupRegisterScreen';
+import WriteScreen from './Community/WriteScreen';
+import {TouchableOpacity} from 'react-native';
+import Back from '../assets/images/Community/Back.svg';
+import {Text} from 'react-native-svg';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function RootStack() {
+function RootStack({navigation}: any) {
   //로그인시 바로 HomeScreen으로 가도록 구현
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
@@ -47,6 +51,11 @@ function RootStack() {
           <Stack.Screen
             name="PickupRegister"
             component={PickupRegisterScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Write"
+            component={WriteScreen}
             options={{headerShown: false}}
           />
         </>
@@ -84,12 +93,6 @@ function RootStack() {
           />
         </>
       )}
-
-      {/* <Stack.Screen
-                name='Home'
-                component={HomeScreen}
-                options={{headerShown: false}}
-            /> */}
     </Stack.Navigator>
   );
 }
