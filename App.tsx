@@ -5,24 +5,32 @@ import {Pressable, SafeAreaView, StyleSheet} from 'react-native';
 import {RecoilRoot} from 'recoil';
 import SplashScreen from 'react-native-splash-screen';
 
+import {QueryClientProvider, QueryClient} from 'react-query';
+
+
 function App() {
   useEffect(() => {
     try {
       setTimeout(() => {
         SplashScreen.hide();
-      }, 2000);
+      }, 2000); 
+
     } catch (e) {
       console.warn('스플래시 에러발생');
       console.warn(e);
     }
   });
 
+
+  const queryClient = new QueryClient();
+
   return (
     <RecoilRoot>
-      <NavigationContainer>
-        <RootStack />
-      </NavigationContainer>
-    </RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <RootStack />
+        </NavigationContainer>
+      </QueryClientProvider>
   );
 }
 

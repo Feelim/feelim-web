@@ -14,6 +14,7 @@ import PlaceInfo from '../../components/Pickup/PlaceInfo';
 import UserInfo from '../../components/Pickup/UserInfo';
 import FilmRegisterInfo from '../../components/Pickup/FilmRegisterInfo';
 import PickupFee from '../../components/Pickup/PickupFee';
+import StoreButton from '../../components/Pickup/StoreButton';
 
 function PickupRegisterScreen() {
   const {width} = useWindowDimensions();
@@ -29,6 +30,7 @@ function PickupRegisterScreen() {
           <FilmRegisterInfo />
           <View style={styles.underline} />
           <PickupFee />
+          <StoreButton text="신청하기" width={width - 32} src="/" />
         </View>
       </SafeAreaView>
     </ScrollView>
