@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   useWindowDimensions,
   Image,
+  FlatList,
 } from 'react-native';
 import colors from '../../assets/color';
 import Chalkak from '../../assets/images/Login/Chalkak.svg';
@@ -17,33 +18,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchStore from '../../components/Pickup/SearchStore';
 import StoreItem from '../../components/Pickup/StoreItem';
 import PickupTop from '../../components/Pickup/PickupTop';
+import {useQuery} from 'react-query';
+import {getLaboratories} from '../../api/laboratories';
+import Stores from '../../components/Pickup/Stores';
 
 function PickupScreen() {
+  const {data, isLoading} = useQuery('laboratories', getLaboratories);
+  console.log(data, isLoading);
+
   return (
-    <ScrollView style={styles.fullScreen}>
+    <View style={styles.fullScreen}>
       <SafeAreaView>
         <PickupTop name="매장 선택" info={true}></PickupTop>
         <View style={styles.block}>
           <SearchStore />
-          <ScrollView style={styles.fullScreen}>
-            <StoreItem></StoreItem>
-            <View style={styles.underline} />
-            <StoreItem></StoreItem>
-            <View style={styles.underline} />
-            <StoreItem></StoreItem>
-            <View style={styles.underline} />
-            <StoreItem></StoreItem>
-            <View style={styles.underline} />
-            <StoreItem></StoreItem>
-            <View style={styles.underline} />
-            <StoreItem></StoreItem>
-            <View style={styles.underline} />
-            <StoreItem></StoreItem>
-            <View style={styles.underline} />
-          </ScrollView>
+          <Stores stores={data} />
         </View>
       </SafeAreaView>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -76,11 +68,6 @@ const styles = StyleSheet.create({
   block: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  underline: {
-    backgroundColor: colors.devider1,
-    height: 4,
-    width: '100%',
   },
 });
 
