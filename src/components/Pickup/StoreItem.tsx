@@ -15,25 +15,32 @@ function StoreItem() {
   const {width} = useWindowDimensions();
   return (
     <View style={[styles.block, {width: width}]}>
-      <View style={[styles.infoWrap, {width: width - 32}]}>
-        <View style={styles.textInfo}>
-          <View style={styles.textWrap}>
-            <Text style={styles.title}>찰칵 현상소</Text>
-            <Text>·</Text>
-            <Text style={styles.distance}>150m</Text>
-            <Image source={require('../../assets/images/Pickup/frame.png')} />
+      <View style={[{height: 130}]}>
+        <View style={[styles.infoWrap, {width: width - 32}]}>
+          <View style={styles.textInfo}>
+            <View style={styles.textWrap}>
+              <Text style={styles.title}>찰칵 현상소</Text>
+              <Text>·</Text>
+              <Text style={styles.distance}>150m</Text>
+              <Image source={require('../../assets/images/Pickup/frame.png')} />
+            </View>
+            <Text style={styles.address}>
+              서울특별시 강남구 강남대로 123-45
+            </Text>
+            <View style={styles.starWrap}>
+              <Image source={require('../../assets/images/Pickup/star.png')} />
+              <Text>4.8(12)</Text>
+            </View>
           </View>
-          <Text style={styles.address}>서울특별시 강남구 강남대로 123-45</Text>
-          <View style={styles.starWrap}>
-            <Image source={require('../../assets/images/Pickup/star.png')} />
-            <Text>4.8(12)</Text>
-          </View>
+          <Image source={require('../../assets/images/Pickup/image.png')} />
         </View>
-        <Image source={require('../../assets/images/Pickup/image.png')} />
-      </View>
-      <View style={[styles.buttonWrap, {width: width - 32}]}>
-        <StoreButton text="가게 정보" width={169} src="/"></StoreButton>
-        <StoreButton text="선택" width={169} src="PickupRegister"></StoreButton>
+        <View style={[styles.buttonWrap, {width: width - 32}]}>
+          <StoreButton text="가게 정보" width={169} src="/"></StoreButton>
+          <StoreButton
+            text="선택"
+            width={169}
+            src="PickupRegister"></StoreButton>
+        </View>
       </View>
     </View>
   );

@@ -15,7 +15,7 @@ import {RootStackNavigationProp} from '../../screens/types';
 
 type StoreButtonType = {
   text: string;
-  width: number;
+  width: number | string;
   src: string;
 };
 
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 30,
   },
   text: {color: colors.on_primary},
 });
