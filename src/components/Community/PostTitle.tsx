@@ -3,27 +3,20 @@ import {Text, View, StyleSheet, Pressable, Image} from 'react-native';
 import colors from '../../assets/color';
 import Comment from '../../assets/images/Community/Comment.svg';
 import Scrap from '../../assets/images/Community/Scrap.svg';
-import {RootStackNavigationProp} from '../../screens/types';
-import {useNavigation} from '@react-navigation/core';
 
 export interface Item {
   title: string;
 }
 
-function FeedItem({title}: Item) {
-  const navigation = useNavigation<RootStackNavigationProp>();
-
+function PostTitle({title}: Item) {
   return (
-    // 이미지 없을때 기준
-    <Pressable
-      style={styles.item}
-      onPress={() => {
-        navigation.navigate('Post');
-      }}>
+    <View style={styles.item}>
+      <Text style={styles.filter}>필름</Text>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.info}>
         <View style={styles.infoLeft}>
           <Text style={styles.date}>22.10.11</Text>
+          <Text style={styles.time}>00.03</Text>
           <Text style={styles.divider}>|</Text>
           <Text style={styles.name}>까치</Text>
         </View>
@@ -38,25 +31,33 @@ function FeedItem({title}: Item) {
           </View>
         </View>
       </View>
-    </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   item: {
-    paddingVertical: 15,
+    paddingTop: 2,
+    paddingBottom: 15,
     paddingLeft: 24,
-    paddingRight: 16,
+    paddingRight: 17.5,
     borderBottomColor: colors.devider1,
     borderBottomWidth: 1,
   },
-  title: {
+  filter: {
+    fontFamily: 'NotoSansKR-Bold',
     fontSize: 14,
+    color: colors.text1,
+    height: 21,
+    lineHeight: 21,
+    marginBottom: 4,
+  },
+  title: {
+    fontSize: 16,
     letterSpacing: -0.408,
     color: colors.text1,
-    fontFamily: 'NotoSansKR-Bold',
-    lineHeight: 21,
-    height: 21,
+    lineHeight: 24,
+    fontWeight: '400',
   },
   info: {
     flexDirection: 'row',
@@ -72,6 +73,13 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     letterSpacing: -0.408,
     color: colors.text3,
+  },
+  time: {
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: -0.408,
+    color: colors.text3,
+    marginLeft: 12,
   },
   name: {
     fontSize: 12,
@@ -104,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FeedItem;
+export default PostTitle;

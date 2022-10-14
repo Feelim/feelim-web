@@ -12,8 +12,8 @@ import PickupRegister from './Pickup/PickupRegisterScreen';
 import PickupRegisterScreen from './Pickup/PickupRegisterScreen';
 import WriteScreen from './Community/WriteScreen';
 import {TouchableOpacity} from 'react-native';
-import Back from '../assets/images/Community/Back.svg';
-import {Text} from 'react-native-svg';
+import PostScreen from './Community/PostScreen';
+import CommunitySearchScreen from './Community/CommunitySearchScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -56,6 +56,16 @@ function RootStack({navigation}: any) {
           <Stack.Screen
             name="Write"
             component={WriteScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Post"
+            component={PostScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="CommunitySearch"
+            component={CommunitySearchScreen}
             options={{headerShown: false}}
           />
         </>
