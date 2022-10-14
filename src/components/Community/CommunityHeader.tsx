@@ -4,14 +4,10 @@ import colors from '../../assets/color';
 import Drawer from '../../assets/images/Community/Drawer.svg';
 import Search from '../../assets/images/Community/Search.svg';
 import Write from '../../assets/images/Community/Write.svg';
-import {
-  RootStackNavigationProp,
-  LeftDrawerNavigationProp,
-} from '../../screens/types';
+import {RootStackNavigationProp} from '../../screens/types';
 
 function CommunityHeader() {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const drawerNavigation = useNavigation<LeftDrawerNavigationProp>();
   return (
     <View style={styles.header}>
       <Pressable>
@@ -19,7 +15,11 @@ function CommunityHeader() {
       </Pressable>
       <Text style={styles.headerText}>커뮤니티</Text>
       <View style={styles.headerIcons}>
-        <Pressable style={styles.search}>
+        <Pressable
+          style={styles.search}
+          onPress={() => {
+            navigation.navigate('CommunitySearch');
+          }}>
           <Search />
         </Pressable>
         <Pressable

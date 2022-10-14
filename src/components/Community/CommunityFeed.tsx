@@ -6,7 +6,6 @@ import {
   Pressable,
   ScrollView,
   SafeAreaView,
-  Button,
 } from 'react-native';
 import colors from '../../assets/color';
 import FeedItem from './FeedItem';
@@ -28,7 +27,6 @@ function CommunityFeed() {
 const styles = StyleSheet.create({
   feed: {
     // flex: 1,
-    paddingTop: 18,
     width: '100%',
   },
 });
