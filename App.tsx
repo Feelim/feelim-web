@@ -7,19 +7,17 @@ import SplashScreen from 'react-native-splash-screen';
 
 import {QueryClientProvider, QueryClient} from 'react-query';
 
-
 function App() {
   useEffect(() => {
     try {
       setTimeout(() => {
         SplashScreen.hide();
-      }, 2000); 
+      }, 2000);
     } catch (e) {
       console.warn('스플래시 에러발생');
       console.warn(e);
     }
   });
-
 
   const queryClient = new QueryClient();
 
@@ -30,6 +28,7 @@ function App() {
           <RootStack />
         </NavigationContainer>
       </QueryClientProvider>
+    </RecoilRoot>
   );
 }
 
