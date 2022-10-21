@@ -9,6 +9,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 // MainTab
 export type MainTabParamList = {
   Home: undefined;
+  Community: undefined;
   //
 };
 export type MainTabNavigationScreenParams =
@@ -28,6 +29,11 @@ export type RootStackParamList = {
   Pickup: undefined;
   PickupInfo: undefined;
   PickupRegister: undefined;
+  Write: undefined;
+  Post: undefined;
+  CommunitySearch: undefined;
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
+
+

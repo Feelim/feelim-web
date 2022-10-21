@@ -42,7 +42,7 @@ function PickupTop({name, info}: PickupType) {
 
 const styles = StyleSheet.create({
   pickupTop: {
-    height: 41,
+    height: 44,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -51,12 +51,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 17,
     alignSelf: 'center',
-    fontWeight: '700',
     color: colors.primary,
+    fontFamily: 'NotoSansKR-Bold',
+    lineHeight: 27,
   },
   infoLink: {
     fontSize: 12,
     textDecorationLine: 'underline',
+    letterSpacing: -0.408,
   },
 });
 
