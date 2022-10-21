@@ -1,15 +1,42 @@
-import {StyleSheet, View, Text, Pressable, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  ScrollView,
+  FlatList,
+} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import colors from '../../assets/color';
 import CommunityFeed from './CommunityFeed';
+import FeedItem from './FeedItem';
 
-function SearchYes() {
+export interface SearchProps {
+  data: any;
+}
+
+function SearchYes({data}: SearchProps) {
+  const {bottom} = useSafeAreaInsets();
   return (
     <View style={styles.block}>
       <View style={styles.top}>
-        <Text style={styles.number}>12개</Text>
+        <Text style={styles.number}>{data.length}개</Text>
         <Text style={styles.text}>의 검색 결과가 있어요.</Text>
       </View>
-      <CommunityFeed />
+      <FlatList
+        data={data}
+        contentContainerStyle={{paddingBottom: bottom}}
+        renderItem={({item}) => (
+          <FeedItem
+            id={item.id}
+            title={item.title}
+            nickname={item.writer.nickname}
+            commentNum={item.commentNum}
+            time={item.time}
+          />
+        )}
+        keyExtractor={item => item.id.toString()}
+      />
     </View>
   );
 }

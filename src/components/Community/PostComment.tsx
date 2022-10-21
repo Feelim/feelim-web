@@ -2,13 +2,37 @@ import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
 import CommentMore from '../../assets/images/Community/CommentMore.svg';
 import colors from '../../assets/color';
 
-function PostComment() {
+export interface CommentProps {
+  id: number;
+  createdAt: string;
+  nickname: string;
+  content: string;
+  picture: string;
+}
+
+function PostComment({
+  id,
+  content,
+  createdAt,
+  nickname,
+  picture,
+}: CommentProps) {
+  console.log(content);
   return (
     <View style={styles.block}>
       <View style={styles.info}>
         <View style={styles.userInfo}>
-          <Image style={styles.userImage} />
-          <Text style={styles.userName}>블루</Text>
+          <Image
+            style={styles.userImage}
+            source={
+              picture
+                ? {
+                    uri: picture,
+                  }
+                : require('../../assets/images/Community/default.png')
+            }
+          />
+          <Text style={styles.userName}>{nickname}</Text>
           <Text style={styles.date}>2022.10.11.</Text>
           <Text style={styles.time}>09:13</Text>
         </View>
@@ -16,10 +40,7 @@ function PostComment() {
           <CommentMore />
         </Pressable>
       </View>
-      <Text style={styles.content}>
-        렌즈에 이상이 없다면 대부분 사진에는 영향이 없습니다. 그정도 먼지는 늘
-        있습니다.
-      </Text>
+      <Text style={styles.content}>{content}</Text>
     </View>
   );
 }

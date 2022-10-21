@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -16,27 +16,66 @@ import {
 } from '../../screens/types';
 import {useNavigation} from '@react-navigation/core';
 import {useRecoilValue} from 'recoil';
-import {titleState} from '../../atoms/title';
-import {bodyState} from '../../atoms/body';
+import {
+  bodyState,
+  categoryState,
+  titleState,
+  nameState,
+  typeState,
+  uriState,
+} from '../../atoms/writePost';
 import {useRecoilState} from 'recoil';
 import {writeToastState} from '../../atoms/writeToast';
 import {writeToastTextState} from '../../atoms/writeToastText';
+import {axiosInstance} from '../../queries';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useMutation, useQuery, useQueryClient} from 'react-query';
+import postNewHooks from '../../hooks/postNewHooks';
+import {postIDState} from '../../atoms/postID';
+import AlertModal from './AlertModal';
 
 function WriteHeader() {
   const navigation = useNavigation<MainTabNavigationProp>();
   const title = useRecoilValue(titleState);
-  const body = useRecoilValue(bodyState);
+  const content = useRecoilValue(bodyState);
+  const name = useRecoilValue(nameState);
+  const type = useRecoilValue(typeState);
+  const uri = useRecoilValue(uriState);
+  const category = useRecoilValue(categoryState);
   const [toastVisible, setToastVisible] = useRecoilState(writeToastState);
   const [toastText, setToastText] = useRecoilState(writeToastTextState);
+  const [token, setToken] = useState('');
 
+  const [postID, setPostId] = useRecoilState(postIDState);
+  const queryClient = useQueryClient();
+
+  // const {mutate: post} = useMutation(postNew, {
+  //   onSuccess: data => {
+  //     console.log(data);
+  //   },
+  //   onError: error => {
+  //     console.log(error);
+  //   },
+  // });
+
+  AsyncStorage.getItem('accessToken', (err, result) => {
+    if (result) {
+      setToken(result);
+    }
+  });
+
+  const [alertVisible, setAlertVisible] = useState(false);
   const onPressBack = () => {
-    if (title || body) {
+    if (title || content) {
       // 작성된 글이 있어요
-      console.log(title);
-      console.log(body);
+      setAlertVisible(true);
     } else {
       navigation.pop();
     }
+  };
+
+  const onClose = () => {
+    setAlertVisible(false);
   };
 
   const onPressSubmit = async () => {
@@ -46,7 +85,7 @@ function WriteHeader() {
       setTimeout(() => {
         setToastVisible(false);
       }, 1000);
-    } else if (!body) {
+    } else if (!content) {
       console.log('내용');
       setToastText('💡 내용이 입력되지 않았어요.');
       setToastVisible(true);
@@ -54,19 +93,60 @@ function WriteHeader() {
         setToastVisible(false);
       }, 1000);
     } else {
-      navigation.navigate('Community');
+      writeNewPost();
     }
+  };
+
+  const formdata = new FormData();
+  formdata.append('title', title);
+  formdata.append('content', content);
+  formdata.append('category', category);
+  formdata.append('images', {
+    uri: uri,
+    type: type,
+    name: name,
+  });
+
+  const writeNewPost = () => {
+    axiosInstance
+      .post(`/post/new`, formdata, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization:
+            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa25vamxoMjdAZGF1bS5uZXQiLCJyb2xlIjoidXNlciIsIm15TmFtZSI6InBrbm9qbGgyN0BkYXVtLm5ldCIsImV4cCI6MTY2NjM3MzE2MiwiaWF0IjoxNjY2MzU1MTYyfQ.p0-jW6fnfpQWZXbCsW2xK7CvL4GV4IdHIHQBscN8tmo',
+        },
+      })
+      .then(response => {
+        console.log(response.data);
+        if (response.data.isSuccess) {
+          setPostId(response.data.result);
+          navigation.navigate('Community');
+          queryClient.invalidateQueries('postAll');
+        }
+      })
+      .catch(e => {
+        console.log(e, '글 작성 에러');
+      });
   };
 
   return (
     <View style={styles.header}>
-      <Pressable onPress={onPressBack}>
+      <Pressable onPress={onPressBack} hitSlop={8}>
         <Back />
       </Pressable>
       <Text style={styles.headerText}>게시글 작성</Text>
-      <Pressable style={styles.submit} onPress={onPressSubmit}>
+      <Pressable onPress={onPressSubmit} hitSlop={8}>
         <Text style={styles.submitText}>완료</Text>
       </Pressable>
+      <AlertModal
+        visible={alertVisible}
+        onClose={onClose}
+        text="작성된 글이 있어요. 
+        정말 나가시겠어요?"
+        postId={0}
+        button="나가기"
+      />
     </View>
   );
 }
@@ -86,16 +166,12 @@ const styles = StyleSheet.create({
     color: colors.primary,
     marginTop: -2,
   },
-  submit: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+
   submitText: {
     color: '#3F97BD',
     fontWeight: '400',
     fontSize: 14,
+    textAlign: 'center',
   },
 });
 

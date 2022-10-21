@@ -30,8 +30,13 @@ export type RootStackParamList = {
   PickupInfo: undefined;
   PickupRegister: undefined;
   Write: undefined;
-  Post: undefined;
+  Post: {
+    id: number;
+  };
   CommunitySearch: undefined;
+  Modify: {
+    postId: number;
+  };
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
