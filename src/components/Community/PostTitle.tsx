@@ -5,20 +5,36 @@ import Comment from '../../assets/images/Community/Comment.svg';
 import Scrap from '../../assets/images/Community/Scrap.svg';
 
 export interface Item {
-  title: string;
+  title?: string;
+  category?: string;
+  createdAt?: string;
+  nickname?: string;
+  content?: string;
 }
 
-function PostTitle({title}: Item) {
+function PostTitle({title, category, createdAt, nickname}: Item) {
+  const formattedDate = new Date(createdAt).toLocaleDateString();
+  const hour = new Date(createdAt).getHours().toString().padStart(2, '0');
+  const minute = new Date(createdAt).getMinutes().toString().padStart(2, '0');
+  if (category === 'FILM') {
+    category = '필름';
+  } else if (category === 'CAMERA') {
+    category = '카메라';
+  } else if (category === 'QUESTION') {
+    category = 'QnA';
+  }
   return (
     <View style={styles.item}>
-      <Text style={styles.filter}>필름</Text>
+      <Text style={styles.filter}>{category}</Text>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.info}>
         <View style={styles.infoLeft}>
-          <Text style={styles.date}>22.10.11</Text>
-          <Text style={styles.time}>00.03</Text>
+          <Text style={styles.date}>{formattedDate}</Text>
+          <Text style={styles.time}>
+            {hour}:{minute}
+          </Text>
           <Text style={styles.divider}>|</Text>
-          <Text style={styles.name}>까치</Text>
+          <Text style={styles.name}>{nickname}</Text>
         </View>
         <View style={styles.reaction}>
           <View style={styles.reactionItem}>

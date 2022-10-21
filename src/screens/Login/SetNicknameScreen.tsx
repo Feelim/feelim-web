@@ -10,6 +10,8 @@ import {
   Animated,
   KeyboardAvoidingView,
   SafeAreaView,
+  StatusBar,
+  Platform,
 } from 'react-native';
 import colors from '../../assets/color';
 import Chalkak from '../../assets/images/Login/Chalkak.svg';
@@ -64,10 +66,16 @@ function SetNicknameScreen() {
   const onPress = () => {
     if (inputText.length > 6) {
       setHidden1(false);
-    }
-    if (special_pattern.test(inputText) || !check_kor.test(inputText)) {
+      if (special_pattern.test(inputText)) {
+        setHidden2(false);
+      }
+    } else if (special_pattern.test(inputText)) {
       setHidden2(false);
+      if (inputText.length > 6) {
+        setHidden1(false);
+      }
     }
+
     if (
       inputText.length <= 6 &&
       !special_pattern.test(inputText) &&
@@ -85,8 +93,11 @@ function SetNicknameScreen() {
   }, [authNickName]);
 
   return (
-    <SafeAreaView style={styles.fullScreen}>
-      <KeyboardAvoidingView>
+    <KeyboardAvoidingView
+      behavior={Platform.select({ios: 'padding'})}
+      style={{backgroundColor: '#ffffff', flex: 1}}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
+      <View style={styles.fullScreen}>
         <View style={styles.top}>
           <Text style={styles.topText}>안녕하세요, 회원님!</Text>
           <View style={styles.topSecondText}>
@@ -123,40 +134,39 @@ function SetNicknameScreen() {
             </View>
           )}
         </View>
-
-        {/* Validation Toast */}
-        <View style={styles.toastView}>
-          <Animated.View
-            style={[
-              styles.toast,
-              {
-                opacity: animation1,
-              },
-            ]}>
-            <SetNicknameToast text="💡 한글 최대 6자, 영문 최대 6자 까지 가능해요. " />
-          </Animated.View>
-          <Animated.View
-            style={[
-              // styles.toast,
-              {
-                opacity: animation2,
-              },
-            ]}>
-            <SetNicknameToast text="💡 입력 불가능한 문자가 포함되어 있어요." />
-          </Animated.View>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </View>
+      {/* Validation Toast */}
+      <View style={styles.toastView}>
+        <Animated.View
+          style={[
+            styles.toast,
+            {
+              opacity: animation1,
+            },
+          ]}>
+          <SetNicknameToast text="💡 한글 최대 6자, 영문 최대 6자 까지 가능해요. " />
+        </Animated.View>
+        <Animated.View
+          style={[
+            // styles.toast,
+            {
+              opacity: animation2,
+            },
+          ]}>
+          <SetNicknameToast text="💡 입력 불가능한 문자가 포함되어 있어요." />
+        </Animated.View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   fullScreen: {
-    flex: 1,
-    paddingTop: 73,
     backgroundColor: colors.on_primary,
+    flex: 1,
   },
   top: {
+    marginTop: 73,
     paddingHorizontal: 26,
   },
   topSecondText: {
@@ -173,8 +183,7 @@ const styles = StyleSheet.create({
     height: 27,
   },
   setNickname: {
-    marginTop: 42,
-    marginBottom: 72,
+    marginTop: 43,
   },
   setNicknameText: {
     fontSize: 24,
@@ -205,6 +214,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center',
     width: '100%',
+    marginBottom: 14,
   },
   toast: {
     marginBottom: 14,

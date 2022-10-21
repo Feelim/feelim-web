@@ -6,6 +6,7 @@ import {
   Pressable,
   Image,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import colors from '../../assets/color';
 import Logo from '../../assets/images/Login/Logo.svg';
@@ -26,6 +27,7 @@ import {usernameState} from '../../atoms/username';
 import {emailState} from '../../atoms/email';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {axiosInstance} from '../../queries';
+import {applyToken} from '../../api/client';
 
 function LoginScreen() {
   const navigation = useNavigation<MainTabNavigationProp>();
@@ -34,9 +36,9 @@ function LoginScreen() {
 
   const signInWithKakao = async (): Promise<void> => {
     try {
-      const token = await loginWithKakaoAccount();
+      const token: KakaoOAuthToken = await loginWithKakaoAccount();
+      console.log(token.accessToken, '토큰');
       setJwt(token.accessToken);
-      AsyncStorage.setItem('accessToken', token.accessToken);
       getProfile();
     } catch (err) {
       console.error(err);
@@ -46,6 +48,7 @@ function LoginScreen() {
   const getProfile = async (): Promise<void> => {
     try {
       const profile = await getKakaoProfile();
+      console.log(profile, '프로필');
       setUserId(profile.id);
       AsyncStorage.setItem('username', profile.nickname);
       AsyncStorage.setItem('email', profile.email);
@@ -56,10 +59,12 @@ function LoginScreen() {
 
   const completeLogin = () => {
     axiosInstance
-      .get(`/auth?id=${userId}&jwt=${jwt}`)
+      .get(`/auth?jwt=${jwt}&id=${userId}`)
       .then(response => {
         console.log(response.data);
         if (response.data.isSuccess) {
+          applyToken(response.data.result.jwt);
+          AsyncStorage.setItem('accessToken', response.data.result.jwt);
           navigation.navigate('SetNickname');
         }
       })
@@ -76,6 +81,7 @@ function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.fullScreen}>
+      <StatusBar backgroundColor={colors.primary} barStyle="dark-content" />
       <View style={styles.logo}>
         <View style={styles.logoText}>
           <Text style={styles.text}>필름카메라의 모든것,</Text>
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    top: 255,
+    top: '30%',
   },
   logoText: {
     display: 'flex',
