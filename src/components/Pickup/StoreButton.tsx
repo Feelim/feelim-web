@@ -14,15 +14,21 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
 type StoreButtonType = {
+  id: number;
   text: string;
   width: number | string;
   src: string;
 };
 
-function StoreButton({text, width, src}: StoreButtonType) {
+function StoreButton({id, text, width, src}: StoreButtonType) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <Pressable onPress={() => navigation.navigate('PickupRegister')}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate(src, {
+          id,
+        })
+      }>
       <View style={[styles.button, {width: width}]}>
         <Text style={styles.text}>{text}</Text>
       </View>

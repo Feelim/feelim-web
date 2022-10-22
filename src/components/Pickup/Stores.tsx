@@ -1,11 +1,12 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-import {Laboratory} from '../../api/types';
+import {FlatList} from 'react-native';
+import {Laboratories} from '../../api/types';
 import StoreItem from './StoreItem';
-import colors from '../../assets/color';
+
+import Divider from './Divider';
 
 export interface StoresProps {
-  stores: Laboratory | undefined;
+  stores: Laboratories | undefined;
 }
 
 function Stores({stores}: StoresProps) {
@@ -20,20 +21,13 @@ function Stores({stores}: StoresProps) {
           reviewNum={item.reviewNum}
           star={item.star}
           name={item.name}
+          id={item.id}
         />
       )}
       keyExtractor={item => item.id.toString()}
-      ItemSeparatorComponent={() => <View style={styles.underline} />}
+      ItemSeparatorComponent={() => <Divider />}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  underline: {
-    backgroundColor: colors.devider1,
-    height: 4,
-    width: '100%',
-  },
-});
 
 export default Stores;

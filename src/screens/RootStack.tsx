@@ -10,6 +10,7 @@ import PickupScreen from './Pickup/PickupScreen';
 import PickupInfoScreen from './Pickup/PickupInfoScreen';
 import PickupRegister from './Pickup/PickupRegisterScreen';
 import PickupRegisterScreen from './Pickup/PickupRegisterScreen';
+import PickupDetailScreen from './Pickup/PickupDetailScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,6 +50,11 @@ function RootStack() {
             component={PickupRegisterScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="PickupDetail"
+            component={PickupDetailScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -80,6 +86,11 @@ function RootStack() {
           <Stack.Screen
             name="PickupRegister"
             component={PickupRegisterScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PickupDetail"
+            component={PickupDetailScreen}
             options={{headerShown: false}}
           />
         </>

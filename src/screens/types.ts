@@ -28,6 +28,9 @@ export type RootStackParamList = {
   Pickup: undefined;
   PickupInfo: undefined;
   PickupRegister: undefined;
+  PickupDetail: {
+    id: number;
+  };
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
