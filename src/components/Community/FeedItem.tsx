@@ -8,29 +8,36 @@ import {useNavigation} from '@react-navigation/core';
 
 export interface Item {
   title: string;
+  id: number;
+  nickname: string;
+  commentNum: number;
+  time: string;
 }
 
-function FeedItem({title}: Item) {
+function FeedItem({title, id, nickname, commentNum, time}: Item) {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const formattedDate = new Date(time).toLocaleDateString();
 
   return (
     // 이미지 없을때 기준
     <Pressable
       style={styles.item}
       onPress={() => {
-        navigation.navigate('Post');
+        navigation.navigate('Post', {
+          id,
+        });
       }}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.info}>
         <View style={styles.infoLeft}>
-          <Text style={styles.date}>22.10.11</Text>
+          <Text style={styles.date}>{formattedDate}</Text>
           <Text style={styles.divider}>|</Text>
-          <Text style={styles.name}>까치</Text>
+          <Text style={styles.name}>{nickname}</Text>
         </View>
         <View style={styles.reaction}>
           <View style={styles.reactionItem}>
             <Comment />
-            <Text style={styles.reactionText}>12</Text>
+            <Text style={styles.reactionText}>{commentNum}</Text>
           </View>
           <View style={styles.reactionItem}>
             <Scrap />

@@ -6,18 +6,30 @@ import {
   Pressable,
   ScrollView,
   SafeAreaView,
-  Button,
   TextInput,
   Platform,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import colors from '../../assets/color';
 import GetImage from '../../assets/images/Community/GetImage.svg';
 import Delete from '../../assets/images/Community/Delete.svg';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {useSetRecoilState} from 'recoil';
-import {titleState} from '../../atoms/title';
-import {bodyState} from '../../atoms/body';
+import {useSetRecoilState, useRecoilState} from 'recoil';
+import {
+  bodyState,
+  titleState,
+  categoryState,
+  nameState,
+  typeState,
+  uriState,
+} from '../../atoms/writePost';
+
+export interface Img {
+  uri: string | undefined;
+  type: string | undefined;
+  name: string | undefined;
+}
 
 function WriteEditor() {
   const [title, setTitle] = useState<string>('');
@@ -26,18 +38,37 @@ function WriteEditor() {
 
   const setRecoilTitle = useSetRecoilState(titleState);
   const setRecoilBody = useSetRecoilState(bodyState);
+  const setRecoilCategory = useSetRecoilState(categoryState);
+  const setRecoilName = useSetRecoilState(nameState);
+  const setRecoilType = useSetRecoilState(typeState);
+  const setRecoilUri = useSetRecoilState(uriState);
 
-  const onSelectImage = () => {
-    launchImageLibrary(
+  const image: Img = {
+    uri: '',
+    type: '',
+    name: '',
+  };
+  const onSelectImage = async () => {
+    await launchImageLibrary(
       {
         mediaType: 'photo',
-        includeBase64: Platform.OS === 'android',
+        includeBase64: true,
       },
       res => {
         if (res.didCancel) {
           return;
+        } else if (res.assets) {
+          image.name = res.assets[0].fileName;
+          image.type = res.assets[0].type;
+          image.uri =
+            Platform.OS === 'android'
+              ? res.assets[0].uri
+              : res.assets[0].uri.replace('file://', '');
+          setResponse(res);
+          setRecoilName(image.name);
+          setRecoilType(image.type);
+          setRecoilUri(image.uri);
         }
-        setResponse(res);
       },
     );
   };
@@ -54,6 +85,29 @@ function WriteEditor() {
     setRecoilBody(body);
   }, [body]);
 
+  const [select1, setSelect1] = useState(true);
+  const [select2, setSelect2] = useState(false);
+  const [select3, setSelect3] = useState(false);
+
+  const onPress1 = () => {
+    setSelect2(false);
+    setSelect1(true);
+    setSelect3(false);
+    setRecoilCategory('FILM');
+  };
+  const onPress2 = () => {
+    setSelect2(true);
+    setSelect1(false);
+    setSelect3(false);
+    setRecoilCategory('CAMERA');
+  };
+  const onPress3 = () => {
+    setSelect2(false);
+    setSelect1(false);
+    setSelect3(true);
+    setRecoilCategory('QUESTION');
+  };
+
   return (
     <View style={styles.block}>
       <TextInput
@@ -66,14 +120,38 @@ function WriteEditor() {
       />
       <View style={styles.filters}>
         <Text style={styles.filterName}>분류</Text>
-        <Pressable style={[styles.filterItem && styles.selected]}>
-          <Text style={[styles.filterText && styles.selectedText]}>필름</Text>
+        <Pressable
+          style={[!select1 && styles.filterItem, select1 && styles.selected]}
+          onPress={onPress1}>
+          <Text
+            style={[
+              !select1 && styles.filterText,
+              select1 && styles.selectedText,
+            ]}>
+            필름
+          </Text>
         </Pressable>
-        <Pressable style={styles.filterItem}>
-          <Text style={styles.filterText}>카메라</Text>
+        <Pressable
+          style={[!select2 && styles.filterItem, select2 && styles.selected]}
+          onPress={onPress2}>
+          <Text
+            style={[
+              !select2 && styles.filterText,
+              select2 && styles.selectedText,
+            ]}>
+            카메라
+          </Text>
         </Pressable>
-        <Pressable style={styles.filterItem}>
-          <Text style={styles.filterText}>QnA</Text>
+        <Pressable
+          style={[!select3 && styles.filterItem, select3 && styles.selected]}
+          onPress={onPress3}>
+          <Text
+            style={[
+              !select3 && styles.filterText,
+              select3 && styles.selectedText,
+            ]}>
+            QnA
+          </Text>
         </Pressable>
       </View>
       <TextInput

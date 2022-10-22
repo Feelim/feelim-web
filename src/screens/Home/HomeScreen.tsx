@@ -6,6 +6,7 @@ import {
   Pressable,
   ScrollView,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import colors from '../../assets/color';
 import Chalkak from '../../assets/images/Login/Chalkak.svg';
@@ -49,6 +50,7 @@ function HomeScreen() {
 
   return (
     <ScrollView style={styles.fullScreen}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
       <SafeAreaView>
         <View style={styles.homeTop}>
           <View style={styles.logo}>
