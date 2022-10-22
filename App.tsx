@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './src/screens/RootStack';
-import {SafeAreaView} from 'react-native';
+import {Pressable, SafeAreaView, StyleSheet} from 'react-native';
 import {RecoilRoot} from 'recoil';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -31,5 +31,7 @@ function App() {
     </RecoilRoot>
   );
 }
+
+const styles = StyleSheet.create({});
 
 export default App;

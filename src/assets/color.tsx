@@ -9,6 +9,7 @@ export const colors = {
   devider1: '#F2F2F2',
   devider2: '#FFFFFF',
   on_primary: '#FFFFFF',
+  bold: 'NotoSansKR-Bold',
 };
 
 export default colors;
