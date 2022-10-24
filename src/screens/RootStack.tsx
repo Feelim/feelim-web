@@ -15,16 +15,19 @@ import WriteScreen from './Community/WriteScreen';
 import PostScreen from './Community/PostScreen';
 import {TouchableOpacity} from 'react-native';
 import CommunitySearchScreen from './Community/CommunitySearchScreen';
+import {applyToken} from '../api/client';
+import ModifyScreen from './Community/ModifyScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function RootStack({navigation}: any) {
+function RootStack() {
   //로그인시 바로 HomeScreen으로 가도록 구현
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     // AsyncStorage.clear();
     AsyncStorage.getItem('accessToken', (err, result) => {
       if (result) {
+        applyToken(result);
         setIsLogin(true);
       }
     });
@@ -74,6 +77,11 @@ function RootStack({navigation}: any) {
             component={CommunitySearchScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="Modify"
+            component={ModifyScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -110,6 +118,18 @@ function RootStack({navigation}: any) {
           <Stack.Screen
             name="PickupDetail"
             component={PickupDetailScreen}
+            name="Post"
+            component={PostScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="CommunitySearch"
+            component={CommunitySearchScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Write"
+            component={WriteScreen}
             options={{headerShown: false}}
           />
         </>

@@ -30,10 +30,14 @@ export type RootStackParamList = {
   PickupInfo: undefined;
   PickupRegister: undefined;
   Write: undefined;
-  Post: undefined;
+  Post: {
+    id: number;
+  };
   CommunitySearch: undefined;
   PickupDetail: {
     id: number;
+  Modify: {
+    postId: number;
   };
 };
 export type RootStackNavigationProp =
