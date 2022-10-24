@@ -34,6 +34,8 @@ export type RootStackParamList = {
     id: number;
   };
   CommunitySearch: undefined;
+  PickupDetail: {
+    id: number;
   Modify: {
     postId: number;
   };

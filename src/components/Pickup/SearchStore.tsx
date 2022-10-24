@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import colors from '../../assets/color';
+import {searchLaboratory} from '../../constants/SearchLaboratory';
 
 function SearchStore() {
   const {width} = useWindowDimensions();
@@ -17,6 +18,9 @@ function SearchStore() {
       <TextInput
         style={styles.input}
         placeholder="매장명 또는 주소를 입력하세요."
+        onChangeText={text => {
+          searchLaboratory(text);
+        }}
         autoFocus
       />
       <Pressable>

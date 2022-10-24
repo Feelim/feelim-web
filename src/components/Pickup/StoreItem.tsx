@@ -13,15 +13,16 @@ import StoreButton from './StoreButton';
 
 export interface StoreItemProps {
   address: {
-    city: 'string';
-    province: 'string';
-    street: 'string';
+    city: string;
+    province: string;
+    street: string;
   };
   distance: number;
   name: string;
   images: string[];
   reviewNum: number;
   star: number;
+  id: number;
 }
 
 function StoreItem({
@@ -31,6 +32,7 @@ function StoreItem({
   reviewNum,
   star,
   name,
+  id,
 }: StoreItemProps) {
   const {width} = useWindowDimensions();
   // console.log(images);
@@ -56,8 +58,14 @@ function StoreItem({
           <Image source={require('../../assets/images/Pickup/image.png')} />
         </View>
         <View style={[styles.buttonWrap, {width: width - 32}]}>
-          <StoreButton text="가게 정보" width={169} src="/"></StoreButton>
           <StoreButton
+            id={id}
+            text="가게 정보"
+            width={169}
+            src="PickupDetail"></StoreButton>
+          {/* 수정 필요 */}
+          <StoreButton
+            id={id}
             text="선택"
             width={169}
             src="PickupRegister"></StoreButton>

@@ -10,9 +10,10 @@ import PickupScreen from './Pickup/PickupScreen';
 import PickupInfoScreen from './Pickup/PickupInfoScreen';
 import PickupRegister from './Pickup/PickupRegisterScreen';
 import PickupRegisterScreen from './Pickup/PickupRegisterScreen';
+import PickupDetailScreen from './Pickup/PickupDetailScreen';
 import WriteScreen from './Community/WriteScreen';
-import {TouchableOpacity} from 'react-native';
 import PostScreen from './Community/PostScreen';
+import {TouchableOpacity} from 'react-native';
 import CommunitySearchScreen from './Community/CommunitySearchScreen';
 import {applyToken} from '../api/client';
 import ModifyScreen from './Community/ModifyScreen';
@@ -54,6 +55,11 @@ function RootStack() {
           <Stack.Screen
             name="PickupRegister"
             component={PickupRegisterScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PickupDetail"
+            component={PickupDetailScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
@@ -110,6 +116,8 @@ function RootStack() {
             options={{headerShown: false}}
           />
           <Stack.Screen
+            name="PickupDetail"
+            component={PickupDetailScreen}
             name="Post"
             component={PostScreen}
             options={{headerShown: false}}
