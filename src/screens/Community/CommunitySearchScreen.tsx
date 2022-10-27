@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/core';
 import {useEffect, useState} from 'react';
 import {
@@ -27,6 +28,22 @@ function CommunitySearchScreen() {
   }, [keyword]);
   const [enter, setEnter] = useState(false);
 
+  // 최근검색어
+  const [getKeyword, setGetKeyword] = useState('');
+  AsyncStorage.getItem('keywords', (err, result) => {
+    if (result) {
+      setGetKeyword(result);
+    }
+  });
+  const [keywords, setKeywords] = useState(JSON.parse(getKeyword || '[]'));
+  const setRecentItem = (text: string) => {
+    const newKeyword = {
+      id: Date.now(),
+      text: text,
+    };
+    setKeywords([newKeyword, ...keywords]);
+  };
+
   return (
     <SafeAreaView style={styles.block}>
       <View style={styles.searchInput}>
@@ -46,14 +63,21 @@ function CommunitySearchScreen() {
           returnKeyType="search"
           onSubmitEditing={() => {
             setEnter(true);
+            setRecentItem(keyword);
           }}
         />
       </View>
 
-      {keyword.length < 2 && <SearchMain enter={enter} />}
-      {searchTitleQuery.data?.result?.length >= 1 && keyword.length >= 2 && (
-        <SearchYes data={searchTitleQuery.data?.result} />
+      {keyword.length < 2 && (
+        <SearchMain
+          enter={enter}
+          keywords={keywords}
+          setKeywords={setKeywords}
+        />
       )}
+      {/* {searchTitleQuery.data?.result?.length >= 1 && keyword.length >= 2 && (
+        <SearchYes data={searchTitleQuery.data?.result} />
+      )} */}
       {searchTitleQuery.data?.result?.length < 1 && keyword.length >= 2 && (
         <SearchNo />
       )}

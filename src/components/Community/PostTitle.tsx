@@ -10,9 +10,10 @@ export interface Item {
   createdAt?: string;
   nickname?: string;
   content?: string;
+  commentNum: number;
 }
 
-function PostTitle({title, category, createdAt, nickname}: Item) {
+function PostTitle({title, category, createdAt, nickname, commentNum}: Item) {
   const formattedDate = new Date(createdAt).toLocaleDateString();
   const hour = new Date(createdAt).getHours().toString().padStart(2, '0');
   const minute = new Date(createdAt).getMinutes().toString().padStart(2, '0');
@@ -23,6 +24,7 @@ function PostTitle({title, category, createdAt, nickname}: Item) {
   } else if (category === 'QUESTION') {
     category = 'QnA';
   }
+
   return (
     <View style={styles.item}>
       <Text style={styles.filter}>{category}</Text>
@@ -39,7 +41,7 @@ function PostTitle({title, category, createdAt, nickname}: Item) {
         <View style={styles.reaction}>
           <View style={styles.reactionItem}>
             <Comment />
-            <Text style={styles.reactionText}>12</Text>
+            <Text style={styles.reactionText}>{commentNum}</Text>
           </View>
           <View style={styles.reactionItem}>
             <Scrap />

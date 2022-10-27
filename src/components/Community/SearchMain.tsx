@@ -12,12 +12,22 @@ import React, {useState, useCallback, useRef, useEffect} from 'react';
 import colors from '../../assets/color';
 import RecentSearchItem from './RecentSearchItem';
 import SetNicknameToast from '../../components/Login/SetNicknameToast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface LengthProps {
   enter: boolean;
+  keywords: any;
+  setKeywords: any;
 }
 
-function SearchMain({enter}: LengthProps) {
+export interface KeywordProps {
+  id: number;
+  text: string;
+}
+
+const items = [{id: 0}];
+
+function SearchMain({enter, keywords, setKeywords}: LengthProps) {
   const animation1 = useRef(new Animated.Value(0)).current;
   const [hidden1, setHidden1] = useState(true);
   useEffect(() => {
@@ -40,6 +50,10 @@ function SearchMain({enter}: LengthProps) {
     }
   }, [enter]);
 
+  const deleteAll = () => {
+    setKeywords([]);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.select({ios: 'padding'})}
@@ -47,7 +61,10 @@ function SearchMain({enter}: LengthProps) {
       <View style={styles.block}>
         <View style={styles.top}>
           <Text style={styles.title}>최근검색어</Text>
-          <Pressable style={styles.deleteButton}>
+          <Pressable
+            style={styles.deleteButton}
+            onPress={deleteAll}
+            hitSlop={8}>
             <Text style={styles.delete}>전체삭제</Text>
           </Pressable>
         </View>
@@ -55,12 +72,17 @@ function SearchMain({enter}: LengthProps) {
           horizontal={true}
           style={styles.content}
           showsHorizontalScrollIndicator={false}>
-          <RecentSearchItem />
-          <RecentSearchItem />
-          <RecentSearchItem />
-          <RecentSearchItem />
-          <RecentSearchItem />
-          <RecentSearchItem />
+          {keywords.map(({id, text}: KeywordProps) => {
+            return (
+              <RecentSearchItem
+                key={id}
+                text={text}
+                id={id}
+                keywords={keywords}
+                setKeywords={setKeywords}
+              />
+            );
+          })}
         </ScrollView>
       </View>
       <Animated.View

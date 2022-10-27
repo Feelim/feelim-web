@@ -10,6 +10,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type MainTabParamList = {
   Home: undefined;
   Community: undefined;
+ 
   //
 };
 export type MainTabNavigationScreenParams =
@@ -36,7 +37,10 @@ export type RootStackParamList = {
   CommunitySearch: undefined;
   Modify: {
     postId: number;
+
   };
+  WebView: undefined;
+  
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;

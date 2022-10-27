@@ -3,7 +3,12 @@ import { Post, PostAll, PostDetail, PostSearch } from "./types";
 
 
 export async function getPostAll() {
-    const response = await client.get<PostAll[]>('/post');
+    const response = await client.get<PostAll>('/post');
+    return response.data;
+}
+
+export async function getPostCategory(category: string) {
+    const response = await client.get<PostAll>(`/post/category/${category}`);
     return response.data;
 }
 
@@ -23,17 +28,15 @@ export async function getPostSearchTitle(keyword: string) {
     return response.data;
 }
 
+export async function reportPost(params: {
+    etc: string;
+    reason:string;
+    postId: number;
+}) {
+    const {etc, reason, postId} = params;
+    const response = await client.post<Post>
+    (`/post/${postId}/report`, {etc, reason},
+    );
+    return response.data;
+}
 
-
-// export async function postNew(params: PostParams){
-//     console.log(params);
-//     const response = await client.post<Post>('/post/new', params, );
-//     return response.data;
-// }
-
-// interface PostParams {
-//     category: string,
-//     content: string,
-//     images: string,
-//     title: string,
-// }

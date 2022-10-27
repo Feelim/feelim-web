@@ -15,7 +15,7 @@ import colors from '../../assets/color';
 import GetImage from '../../assets/images/Community/GetImage.svg';
 import Delete from '../../assets/images/Community/Delete.svg';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {useRecoilState, useSetRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import {writeToastState} from '../../atoms/writeToast';
 import {writeToastTextState} from '../../atoms/writeToastText';
 import {axiosInstance} from '../../queries';
@@ -32,6 +32,13 @@ import WriteErrorToast from '../../components/Community/WriteErrorToast';
 import {PostDetail} from '../../api/types';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {nameState, typeState, uriState} from '../../atoms/writePost';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getPostDetail} from '../../api/post';
+import {
+  patchImgNameState,
+  patchImgTypeState,
+  patchImgUrlState,
+} from '../../atoms/patchImg';
 
 export interface Img {
   uri: string | undefined;
@@ -44,6 +51,7 @@ type ModifyScreenRouteProp = RouteProp<RootStackParamList, 'Modify'>;
 function ModifyScreen() {
   const navigation = useNavigation<MainTabNavigationProp>();
   const {params} = useRoute<ModifyScreenRouteProp>();
+
   const queryClient = useQueryClient();
   const cachedPost = useMemo(
     () =>
@@ -57,11 +65,20 @@ function ModifyScreen() {
   const [titles, setTitles] = useState(cachedPost?.result?.title ?? '');
   const [bodys, setBodys] = useState(cachedPost?.result?.content ?? '');
   const [filters, setFilters] = useState(cachedPost?.result?.category ?? '');
-  const [images, setImages] = useState(cachedPost?.result?.images?.pop() ?? '');
-
+  const [imageUrl, setImageUrl] = useRecoilState(patchImgUrlState);
+  const [imageType, setImageType] = useRecoilState(patchImgTypeState);
+  const [imageName, setImageName] = useRecoilState(patchImgNameState);
   const [toastVisible, setToastVisible] = useRecoilState(writeToastState);
   const [toastText, setToastText] = useRecoilState(writeToastTextState);
   const [alertVisible, setAlertVisible] = useState(false);
+
+  const [token, setToken] = useState('');
+
+  AsyncStorage.getItem('accessToken', (err, result) => {
+    if (result) {
+      setToken(result);
+    }
+  });
 
   const onPressBack = () => {
     if (titles || bodys) {
@@ -94,10 +111,6 @@ function ModifyScreen() {
     }
   };
 
-  const [recoilName, setRecoilName] = useRecoilState(nameState);
-  const [recoilType, setRecoilType] = useRecoilState(typeState);
-  const [recoilUri, setRecoilUri] = useRecoilState(uriState);
-
   const image: Img = {
     uri: '',
     type: '',
@@ -119,17 +132,16 @@ function ModifyScreen() {
             Platform.OS === 'android'
               ? res.assets[0].uri
               : res.assets[0].uri.replace('file://', '');
-          setImages(res.assets[0].uri);
-          setRecoilName(image.name);
-          setRecoilType(image.type);
-          setRecoilUri(image.uri);
+          setImageName(image.name);
+          setImageType(image.type);
+          setImageUrl(image.uri);
         }
       },
     );
   };
 
   const deleteImage = () => {
-    setImages(null);
+    setImageUrl(null);
   };
 
   const [select1, setSelect1] = useState(true);
@@ -166,14 +178,16 @@ function ModifyScreen() {
   };
 
   const formdata = new FormData();
-  formdata.append('title', titles);
-  formdata.append('content', bodys);
-  formdata.append('category', filters);
-  formdata.append('images', {
-    uri: images,
-    type: recoilType,
-    name: recoilName,
-  });
+  useEffect(() => {
+    formdata.append('title', titles);
+    formdata.append('content', bodys);
+    formdata.append('category', filters);
+    formdata.append('images', {
+      uri: imageUrl,
+      type: imageType,
+      name: imageName,
+    });
+  }, [titles, bodys, filters, imageUrl]);
 
   const patchPost = () => {
     axiosInstance
@@ -181,8 +195,7 @@ function ModifyScreen() {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
-          Authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa25vamxoMjdAZGF1bS5uZXQiLCJyb2xlIjoidXNlciIsIm15TmFtZSI6InBrbm9qbGgyN0BkYXVtLm5ldCIsImV4cCI6MTY2NjM3MzE2MiwiaWF0IjoxNjY2MzU1MTYyfQ.p0-jW6fnfpQWZXbCsW2xK7CvL4GV4IdHIHQBscN8tmo',
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(response => {
@@ -190,6 +203,7 @@ function ModifyScreen() {
         if (response.data.isSuccess) {
           navigation.navigate('Community');
           queryClient.invalidateQueries('postAll');
+          queryClient.invalidateQueries('postDetail');
         }
       })
       .catch(e => {
@@ -214,6 +228,8 @@ function ModifyScreen() {
         정말 나가시겠어요?"
           postId={0}
           button="나가기"
+          isPost={true}
+          commentId={0}
         />
       </View>
 
@@ -272,9 +288,9 @@ function ModifyScreen() {
           textAlignVertical="top"
         />
 
-        {images ? (
+        {imageUrl ? (
           <View style={styles.photoContainer}>
-            <Image source={{uri: images}} style={styles.photo} />
+            <Image source={{uri: imageUrl}} style={styles.photo} />
             <Pressable style={styles.deleteButton} onPress={deleteImage}>
               <Delete />
             </Pressable>
@@ -332,8 +348,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 24,
-    paddingTop: 16,
-    paddingBottom: 9,
+    paddingVertical: 12.5,
   },
   filterName: {
     color: '#000000',

@@ -16,6 +16,7 @@ import PostScreen from './Community/PostScreen';
 import CommunitySearchScreen from './Community/CommunitySearchScreen';
 import {applyToken} from '../api/client';
 import ModifyScreen from './Community/ModifyScreen';
+import WebViewScreen from './Login/WebViewScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -76,6 +77,11 @@ function RootStack() {
             component={ModifyScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="WebView"
+            component={WebViewScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -122,6 +128,16 @@ function RootStack() {
           <Stack.Screen
             name="Write"
             component={WriteScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Modify"
+            component={ModifyScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="WebView"
+            component={WebViewScreen}
             options={{headerShown: false}}
           />
         </>

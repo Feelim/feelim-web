@@ -1,23 +1,58 @@
 import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
 import CommentMore from '../../assets/images/Community/CommentMore.svg';
 import colors from '../../assets/color';
+import {useState} from 'react';
+import BottomSheet from './BottomSheet';
+import {useRecoilState} from 'recoil';
+import {patchCommentContentState} from '../../atoms/patchComment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ReportBottomSheet from './ReportBottomSheet';
 
 export interface CommentProps {
-  id: number;
+  postId: number;
+  commentId: number;
   createdAt: string;
   nickname: string;
   content: string;
   picture: string;
+  userId: number;
 }
 
 function PostComment({
-  id,
+  postId,
+  commentId,
   content,
   createdAt,
   nickname,
   picture,
+  userId,
 }: CommentProps) {
-  console.log(content);
+  const formattedDate = new Date(createdAt).toLocaleDateString();
+  const hour = new Date(createdAt).getHours().toString().padStart(2, '0');
+  const minute = new Date(createdAt).getMinutes().toString().padStart(2, '0');
+
+  const [showMore, setShowMore] = useState(false);
+  const [reportVisible, setReportVisible] = useState(false);
+  const [currentId, setCurrentId] = useState('');
+  const [contentRecoil, setContentRecoil] = useRecoilState(
+    patchCommentContentState,
+  );
+
+  AsyncStorage.getItem('userId', (err, result) => {
+    if (result) {
+      setCurrentId(result);
+    }
+  });
+
+  const onPressMore = () => {
+    //회원가입 후에 id 저장해서 비교하기
+    if (userId === Number(currentId)) {
+      setShowMore(true);
+    } else {
+      setReportVisible(true);
+    }
+    setContentRecoil(content);
+  };
   return (
     <View style={styles.block}>
       <View style={styles.info}>
@@ -33,14 +68,28 @@ function PostComment({
             }
           />
           <Text style={styles.userName}>{nickname}</Text>
-          <Text style={styles.date}>2022.10.11.</Text>
-          <Text style={styles.time}>09:13</Text>
+          <Text style={styles.date}>{formattedDate}</Text>
+          <Text style={styles.time}>
+            {hour}:{minute}
+          </Text>
         </View>
-        <Pressable>
+        <Pressable onPress={onPressMore} hitSlop={8}>
           <CommentMore />
         </Pressable>
       </View>
       <Text style={styles.content}>{content}</Text>
+      <BottomSheet
+        postId={postId}
+        commentId={commentId}
+        modalVisible={showMore}
+        setModalVisible={setShowMore}
+        isPost={false}
+      />
+      <ReportBottomSheet
+        postId={postId}
+        modalVisible={reportVisible}
+        setModalVisible={setReportVisible}
+      />
     </View>
   );
 }
@@ -50,7 +99,6 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     borderTopColor: colors.devider1,
     borderTopWidth: 1,
-    height: 93,
     marginBottom: 16,
   },
   info: {
@@ -58,7 +106,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 2,
   },
   userInfo: {
     flexDirection: 'row',
@@ -69,7 +116,7 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 14,
     marginRight: 9,
-    backgroundColor: 'black',
+    backgroundColor: '#D6D6D6',
   },
   userName: {
     fontSize: 14,

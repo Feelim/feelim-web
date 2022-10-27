@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/core';
 import {useState} from 'react';
 import {Text, View, StyleSheet, Pressable, SafeAreaView} from 'react-native';
@@ -6,11 +7,30 @@ import Drawer from '../../assets/images/Community/Drawer.svg';
 import Search from '../../assets/images/Community/Search.svg';
 import WriteSvg from '../../assets/images/Community/Write.svg';
 import {RootStackNavigationProp} from '../../screens/types';
+import IsLoginModal from '../Login/IsLoginModal';
 import CommunityDrawer from './CommunityDrawer';
 
 function CommunityHeader() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [visible, setVisible] = useState(false);
+  AsyncStorage.getItem('accessToken', (err, result) => {
+    if (result) {
+      setIsLogin(true);
+    }
+  });
+
+  const onPressWrite = () => {
+    if (isLogin) {
+      navigation.navigate('Write');
+    } else {
+      setVisible(true);
+    }
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
   return (
     <>
       <View style={styles.header}>
@@ -31,16 +51,13 @@ function CommunityHeader() {
             hitSlop={8}>
             <Search />
           </Pressable>
-          <Pressable
-            onPress={() => {
-              navigation.navigate('Write');
-            }}
-            hitSlop={8}>
+          <Pressable onPress={onPressWrite} hitSlop={8}>
             <WriteSvg />
           </Pressable>
         </View>
       </View>
       <CommunityDrawer open={drawerOpen} setOpen={setDrawerOpen} />
+      <IsLoginModal visible={visible} onClose={onClose} />
     </>
   );
 }
