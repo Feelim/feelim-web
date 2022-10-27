@@ -13,35 +13,43 @@ import Send from '../../assets/images/Community/Send.svg';
 import colors from '../../assets/color';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useEffect, useRef, useState} from 'react';
+import {useRecoilValue} from 'recoil';
+import {patchCommentState} from '../../atoms/patchComment';
 
 export interface CommentFormProps {
   visible: boolean;
   onClose(): void;
   onSubmit(content: string): void;
-  initialMessage?: string;
   uri?: string;
+  patchValue?: string;
 }
 
 function PostCommentInput({
   visible,
   onClose,
   onSubmit,
-  initialMessage,
   uri,
+  patchValue,
 }: CommentFormProps) {
   const {bottom} = useSafeAreaInsets();
   const [content, setContent] = useState('');
   const inputRef = useRef<TextInput>(null);
+  const patchCommentRecoil = useRecoilValue(patchCommentState);
+
+  // 수정시에만 기본값 바뀌도록
+  useEffect(() => {
+    if (patchCommentRecoil > 0) {
+      setContent(patchValue);
+    } else {
+      setContent('');
+    }
+  }, [patchCommentRecoil]);
 
   useEffect(() => {
     if (visible) {
       inputRef.current?.focus();
     }
   }, [visible]);
-
-  useEffect(() => {
-    setContent(initialMessage ?? '');
-  }, [initialMessage]);
 
   return (
     <Modal

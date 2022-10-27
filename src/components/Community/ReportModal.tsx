@@ -1,68 +1,37 @@
 import {useNavigation} from '@react-navigation/core';
 import {useState} from 'react';
 import {Modal, StyleSheet, View, Text, Pressable} from 'react-native';
-import {InfiniteData, useMutation, useQueryClient} from 'react-query';
-import {deleteComment} from '../../api/comments';
-import {deletePost} from '../../api/post';
-import {Post} from '../../api/types';
+import {useMutation} from 'react-query';
+import {reportPost} from '../../api/post';
+
 import colors from '../../assets/color';
 import {RootStackNavigationProp} from '../../screens/types';
 
 export interface AlertProps {
   visible: boolean;
   onClose(): void;
-  text: string;
   postId: number;
-  button: string;
-  isPost: boolean;
-  commentId: number;
+  reason: string;
 }
 
-function AlertModal({
-  visible,
-  onClose,
-  text,
-  postId,
-  button,
-  isPost,
-  commentId,
-}: AlertProps) {
+function ReportModal({visible, onClose, postId, reason}: AlertProps) {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const queryClient = useQueryClient();
-
-  const {mutate: removePost} = useMutation(deletePost, {
-    onSuccess: e => {
-      queryClient.invalidateQueries('postAll');
-      navigation.goBack();
-    },
-    onError: e => {
-      console.log(e, '글 삭제 에러');
-    },
-  });
-  const {mutate: removeComment} = useMutation(deleteComment, {
+  const {mutate} = useMutation(reportPost, {
     onSuccess: e => {
       console.log(e);
-      queryClient.invalidateQueries('postDetail');
-      queryClient.invalidateQueries('postAll');
+      onClose();
     },
     onError: e => {
-      console.log(e, '댓글 삭제 에러');
+      console.log(e, '신고 에러');
     },
   });
 
-  const onPressRemove = () => {
-    if (button === '나가기') {
-      navigation.goBack();
-    } else if (button === '네' && isPost) {
-      removePost(postId);
-    } else if (button === '네' && !isPost) {
-      removeComment({
-        postId: postId,
-        commentId: commentId,
-      });
-    } else if (button === '확인') {
-      //신고
-    }
+  const onPressReport = () => {
+    mutate({
+      etc: 'etc',
+      reason: reason,
+      postId: postId,
+    });
   };
   const onCancle = () => {
     onClose();
@@ -75,14 +44,16 @@ function AlertModal({
       onRequestClose={onClose}>
       <View style={styles.block}>
         <View style={styles.whiteBox}>
-          <Text style={styles.text}> {text}</Text>
+          <Text style={styles.text}>
+            확인을 누르면 신고가{'\n'} 정상적으로 접수됩니다.
+          </Text>
         </View>
         <View style={styles.btns}>
-          <Pressable style={styles.btn1} onPress={onPressRemove}>
-            <Text style={styles.btnText}>{button}</Text>
+          <Pressable style={styles.btn1} onPress={onCancle}>
+            <Text style={styles.btnText}>나가기</Text>
           </Pressable>
-          <Pressable style={styles.btn2} onPress={onCancle}>
-            <Text style={styles.btnText}>아니요</Text>
+          <Pressable style={styles.btn2} onPress={onPressReport}>
+            <Text style={styles.btnText}>확인</Text>
           </Pressable>
         </View>
       </View>
@@ -112,6 +83,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.408,
     color: '#000000',
     paddingVertical: 37,
+    textAlign: 'center',
   },
   btns: {
     flexDirection: 'row',
@@ -141,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AlertModal;
+export default ReportModal;

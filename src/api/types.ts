@@ -58,11 +58,11 @@ export interface Post {
   result: number;
 }
 
-export interface PostAll {
+export interface PostAll{
   code: number;
   isSuccess: boolean;
   message: string;
-  result: ResultPostAll;
+  result: ResultPostAll[];
 }
 
 export interface ResultPostAll {
@@ -79,7 +79,7 @@ export interface PostDetail {
   code: number;
   isSuccess: boolean;
   message: string;
-  result?: ResultPostDetail;
+  result: ResultPostDetail;
 }
 
 export interface ResultPostDetail {
@@ -88,9 +88,15 @@ export interface ResultPostDetail {
   content: string,
   id: number,
   createdAt: string,
-  images?: string[],
+  images: Images[],
   title: string,
   writer: Writer,
+}
+
+export interface Images{
+  fileName: string,
+  fileType: string,
+  url: string,
 }
 
 export interface Comment {

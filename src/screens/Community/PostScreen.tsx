@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import colors from '../../assets/color';
 import PostBody from '../../components/Community/PostBody';
@@ -26,7 +27,12 @@ function PostScreen() {
   const {id} = params;
 
   const postDetailQuery = useQuery(['postDetail', id], () => getPostDetail(id));
-  console.log(postDetailQuery.data?.result);
+
+  if (!postDetailQuery.data) {
+    return (
+      <ActivityIndicator size="large" style={styles.spinner} color="black" />
+    );
+  }
 
   return (
     <SafeAreaView style={styles.fullScreen}>
@@ -42,6 +48,7 @@ function PostScreen() {
           createdAt={postDetailQuery.data?.result?.createdAt}
           nickname={postDetailQuery.data?.result?.writer.nickname}
           content={postDetailQuery.data?.result?.content}
+          commentNum={postDetailQuery.data.result.comment.length}
         />
         <PostBody
           content={postDetailQuery.data?.result?.content}
@@ -60,6 +67,9 @@ const styles = StyleSheet.create({
   fullScreen: {
     flex: 1,
     backgroundColor: '#ffffff',
+  },
+  spinner: {
+    flex: 1,
   },
 });
 

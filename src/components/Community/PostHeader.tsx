@@ -13,9 +13,10 @@ import ScrapHeader from '../../assets/images/Community/ScrapHeader.svg';
 import MoreHeader from '../../assets/images/Community/MoreHeader.svg';
 import Back from '../../assets/images/Community/Back.svg';
 import {RootStackNavigationProp} from '../../screens/types';
-import AlertModal from './AlertModal';
 import {useState} from 'react';
 import BottomSheet from './BottomSheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ReportBottomSheet from './ReportBottomSheet';
 
 export interface HeaderProps {
   postId: number;
@@ -25,36 +26,21 @@ export interface HeaderProps {
 function PostHeader({postId, userId}: HeaderProps) {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [showMore, setShowMore] = useState(false);
+  const [currentId, setCurrentId] = useState('');
+  const [reportVisible, setReportVisible] = useState(false);
 
-  const [visible, setVisible] = useState(false);
-  const [text, setText] = useState('');
-  const onClose = () => {
-    setVisible(false);
-  };
+  AsyncStorage.getItem('userId', (err, result) => {
+    if (result) {
+      setCurrentId(result);
+    }
+  });
 
   const onPressMore = () => {
     //회원가입 후에 id 저장해서 비교하기
-    if (userId) {
-      if (Platform.OS === 'android') {
-        setShowMore(true);
-      } else {
-        ActionSheetIOS.showActionSheetWithOptions(
-          {
-            options: ['수정', '삭제', '취소'],
-            destructiveButtonIndex: 1,
-            cancelButtonIndex: 2,
-          },
-          buttonindex => {
-            if (buttonindex === 0) {
-              setVisible(true);
-              setText('수정하시겠습니까?');
-            } else if (buttonindex === 1) {
-              setVisible(true);
-              setText('삭제하시겠습니까?');
-            }
-          },
-        );
-      }
+    if (userId === Number(currentId)) {
+      setShowMore(true);
+    } else {
+      setReportVisible(true);
     }
   };
 
@@ -78,14 +64,13 @@ function PostHeader({postId, userId}: HeaderProps) {
         postId={postId}
         modalVisible={showMore}
         setModalVisible={setShowMore}
+        isPost={true}
+        commentId={0}
       />
-      {/* IOS */}
-      <AlertModal
-        visible={visible}
-        onClose={onClose}
-        text={text}
+      <ReportBottomSheet
         postId={postId}
-        button="삭제"
+        modalVisible={reportVisible}
+        setModalVisible={setReportVisible}
       />
     </View>
   );
