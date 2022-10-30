@@ -1,28 +1,48 @@
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {
-    CompositeNavigationProp,
-    NavigatorScreenParams,
-    RouteProp,
+  CompositeNavigationProp,
+  NavigatorScreenParams,
+  RouteProp,
 } from '@react-navigation/core';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 // MainTab
 export type MainTabParamList = {
-    Home: undefined;
-    // 
+  Home: undefined;
+  Community: undefined;
+  //
 };
-export type MainTabNavigationScreenParams = NavigatorScreenParams<MainTabParamList>;
+export type MainTabNavigationScreenParams =
+  NavigatorScreenParams<MainTabParamList>;
 export type MainTabNavigationProp = CompositeNavigationProp<
-    RootStackNavigationProp,
-    BottomTabNavigationProp<MainTabParamList>
+  RootStackNavigationProp,
+  BottomTabNavigationProp<MainTabParamList>
 >;
 export type MainTabRouteProp = RouteProp<RootStackParamList, 'MainTab'>;
 
 // RootStack
 export type RootStackParamList = {
-    MainTab: MainTabNavigationScreenParams;
-    Login: undefined;
-    Home: undefined;
-    SetNickname: undefined;
+  MainTab: MainTabNavigationScreenParams;
+  Login: undefined;
+  Home: undefined;
+  SetNickname: undefined;
+  Pickup: undefined;
+  PickupInfo: undefined;
+  PickupRegister: {
+    id: number;
+  };
+  Write: undefined;
+  Map: undefined;
+  Post: {
+    id: number;
+  };
+  CommunitySearch: undefined;
+  PickupDetail: {
+    id: number;
+  };
+  Modify: {
+    postId: number;
+  };
 };
-export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+export type RootStackNavigationProp =
+  NativeStackNavigationProp<RootStackParamList>;
