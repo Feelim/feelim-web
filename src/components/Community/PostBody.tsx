@@ -9,21 +9,45 @@ import {
   Image,
 } from 'react-native';
 import colors from '../../assets/color';
+import {useSetRecoilState} from 'recoil';
+import {
+  patchImgNameState,
+  patchImgTypeState,
+  patchImgUrlState,
+} from '../../atoms/patchImg';
 
 export interface Item {
   content?: string;
-  images?: string[];
+  images?: Images[];
+}
+export interface Images {
+  fileName: string;
+  fileType: string;
+  url: string;
 }
 
 function PostBody({content, images}: Item) {
-  const uri = images?.pop();
+  const image = images?.pop();
+  const [url, setUrl] = useState('http://');
+  const setImgName = useSetRecoilState(patchImgNameState);
+  const setImgUrl = useSetRecoilState(patchImgUrlState);
+  const setImgType = useSetRecoilState(patchImgTypeState);
+
+  useEffect(() => {
+    if (image) {
+      setUrl(image.url);
+      setImgName(image.fileName);
+      setImgType(image.fileType);
+      setImgUrl(image.url);
+    }
+  }, []);
 
   return (
     <View style={styles.block}>
       <ScrollView>
         {images ? (
           <>
-            <Image style={styles.image} source={{uri: uri}} />
+            <Image style={styles.image} source={{uri: url}} />
           </>
         ) : (
           <></>

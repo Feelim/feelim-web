@@ -200,8 +200,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 24,
-    paddingTop: 16,
-    paddingBottom: 9,
+    paddingVertical: 12.5,
   },
   filterName: {
     color: '#000000',

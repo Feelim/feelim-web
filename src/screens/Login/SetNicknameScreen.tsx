@@ -24,6 +24,8 @@ import {nickNameState} from '../../atoms/nickname';
 import {useNavigation} from '@react-navigation/core';
 import {MainTabNavigationProp, RootStackNavigationProp} from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {axiosInstance} from '../../queries';
+import {applyToken} from '../../api/client';
 
 function SetNicknameScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();

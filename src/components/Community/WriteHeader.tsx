@@ -113,8 +113,7 @@ function WriteHeader() {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
-          Authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwa25vamxoMjdAZGF1bS5uZXQiLCJyb2xlIjoidXNlciIsIm15TmFtZSI6InBrbm9qbGgyN0BkYXVtLm5ldCIsImV4cCI6MTY2NjM3MzE2MiwiaWF0IjoxNjY2MzU1MTYyfQ.p0-jW6fnfpQWZXbCsW2xK7CvL4GV4IdHIHQBscN8tmo',
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(response => {
@@ -146,6 +145,8 @@ function WriteHeader() {
         정말 나가시겠어요?"
         postId={0}
         button="나가기"
+        commentId={0}
+        isPost={true}
       />
     </View>
   );

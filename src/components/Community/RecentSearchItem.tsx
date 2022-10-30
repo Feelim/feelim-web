@@ -1,11 +1,27 @@
 import {Pressable, StyleSheet, Text} from 'react-native';
 import colors from '../../assets/color';
 
-function RecentSearchItem() {
+export interface ItemProps {
+  id: number;
+  text: string;
+  keywords: any;
+  setKeywords: any;
+}
+
+function RecentSearchItem({text, id, keywords, setKeywords}: ItemProps) {
+  const removeItem = (id: number) => {
+    const nextKeyword = keywords.filter((thisKeyword: any) => {
+      return thisKeyword.id != id;
+    });
+    setKeywords(nextKeyword);
+  };
   return (
     <Pressable style={styles.block}>
-      <Text style={styles.text}>필름카메라</Text>
-      <Pressable style={styles.delete} onPress={() => console.log('click')}>
+      <Text style={styles.text}>{text}</Text>
+      <Pressable
+        style={styles.delete}
+        onPress={() => removeItem(id)}
+        hitSlop={8}>
         <Text style={styles.x}>x</Text>
       </Pressable>
     </Pressable>
@@ -17,7 +33,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 4,
     paddingLeft: 13,
     borderColor: colors.text1,
     borderWidth: 1,

@@ -17,6 +17,7 @@ import {TouchableOpacity} from 'react-native';
 import CommunitySearchScreen from './Community/CommunitySearchScreen';
 import {applyToken} from '../api/client';
 import ModifyScreen from './Community/ModifyScreen';
+import WebViewScreen from './Login/WebViewScreen';
 import MapScreen from './Map/MapScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -83,6 +84,11 @@ function RootStack() {
             component={ModifyScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="WebView"
+            component={WebViewScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -139,6 +145,16 @@ function RootStack() {
           <Stack.Screen
             name="Map"
             component={MapScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Modify"
+            component={ModifyScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="WebView"
+            component={WebViewScreen}
             options={{headerShown: false}}
           />
         </>

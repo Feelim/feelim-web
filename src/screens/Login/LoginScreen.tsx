@@ -7,77 +7,26 @@ import {
   Image,
   SafeAreaView,
   StatusBar,
+  Linking,
 } from 'react-native';
 import colors from '../../assets/color';
 import Logo from '../../assets/images/Login/Logo.svg';
 import LogoText from '../../assets/images/Login/LogoText.svg';
 import Kakao from '../../assets/images/Login/Kakao.svg';
 import {useNavigation} from '@react-navigation/core';
-import {MainTabNavigationProp, MainTabParamList} from '../types';
-// import {
-//   KakaoOAuthToken,
-//   KakaoProfile,
-//   getProfile as getKakaoProfile,
-//   login,
-//   logout,
-//   loginWithKakaoAccount,
-// } from '@react-native-seoul/kakao-login';
-import {useRecoilValue} from 'recoil';
-import {usernameState} from '../../atoms/username';
-import {emailState} from '../../atoms/email';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {axiosInstance} from '../../queries';
-import {applyToken} from '../../api/client';
+import {
+  MainTabNavigationProp,
+  MainTabParamList,
+  RootStackNavigationProp,
+} from '../types';
 
 function LoginScreen() {
   const navigation = useNavigation<MainTabNavigationProp>();
-  const [userId, setUserId] = useState<number>(0);
-  const [jwt, setJwt] = useState<string>('');
+  const navigation2 = useNavigation<RootStackNavigationProp>();
 
   const signInWithKakao = async (): Promise<void> => {
-    // try {
-    //   const token: KakaoOAuthToken = await loginWithKakaoAccount();
-    //   console.log(token.accessToken, '토큰');
-    //   setJwt(token.accessToken);
-    //   getProfile();
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    navigation2.navigate('WebView');
   };
-
-  const getProfile = async (): Promise<void> => {
-    // try {
-    //   const profile = await getKakaoProfile();
-    //   console.log(profile, '프로필');
-    //   setUserId(profile.id);
-    //   AsyncStorage.setItem('username', profile.nickname);
-    //   AsyncStorage.setItem('email', profile.email);
-    // } catch (err) {
-    //   console.error('getProfile error', err);
-    // }
-  };
-
-  const completeLogin = () => {
-    axiosInstance
-      .get(`/auth?jwt=${jwt}&id=${userId}`)
-      .then(response => {
-        console.log(response.data);
-        if (response.data.isSuccess) {
-          applyToken(response.data.result.jwt);
-          AsyncStorage.setItem('accessToken', response.data.result.jwt);
-          navigation.navigate('SetNickname');
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-
-  useEffect(() => {
-    if (userId > 0) {
-      completeLogin();
-    }
-  }, [userId]);
 
   return (
     <SafeAreaView style={styles.fullScreen}>

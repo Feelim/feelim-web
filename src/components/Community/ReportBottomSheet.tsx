@@ -20,21 +20,18 @@ import Write from '../../assets/images/Community/Write.svg';
 import PostCommentInput from './PostCommentInput';
 import {useSetRecoilState} from 'recoil';
 import {patchCommentState} from '../../atoms/patchComment';
+import ReportModal from './ReportModal';
 
 export interface BottomSheetProps {
   modalVisible: boolean;
   setModalVisible: any;
   postId: number;
-  isPost: boolean;
-  commentId: number;
 }
 
-const BottomSheet = ({
+const ReportBottomSheet = ({
   modalVisible,
   setModalVisible,
   postId,
-  commentId,
-  isPost,
 }: BottomSheetProps) => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const screenHeight = Dimensions.get('screen').height;
@@ -86,23 +83,12 @@ const BottomSheet = ({
   };
 
   const [visible, setVisible] = useState(false);
-  const [text, setText] = useState('');
-  const [btnText, setBtnText] = useState('');
+  const [reason, setReason] = useState('');
   const setPatchComment = useSetRecoilState(patchCommentState);
-  const onPressModify = () => {
-    if (isPost) {
-      navigation.navigate('Modify', {postId});
-    } else {
-      //댓글 수정
-      setPatchComment(commentId);
-      setModalVisible(false);
-    }
-  };
-  const onPressDelete = () => {
+  const onPressReport = (content: string) => {
+    setReason(content);
     setVisible(true);
-    setText('정말 삭제하시겠어요?');
     setModalVisible(false);
-    setBtnText('네');
   };
   const onClose = () => {
     setVisible(false);
@@ -127,29 +113,42 @@ const BottomSheet = ({
             {...panResponders.panHandlers}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={onPressModify}
+              onPress={() => onPressReport('INSULT')}
               style={styles.itemFirst}>
-              <Write style={{width: 19, height: 19}} />
-              <Text style={styles.text}>수정</Text>
+              <Text style={styles.text}>욕설/비하</Text>
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={onPressDelete}
+              onPress={() => onPressReport('FISHING')}
+              style={styles.item}>
+              <Text style={styles.text}>낚시/놀람/도배</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => onPressReport('INAPPROPRIATE')}
+              style={styles.item}>
+              <Text style={styles.text}>게시판 성격에 부적절함</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => onPressReport('PORN')}
+              style={styles.item}>
+              <Text style={styles.text}>음란물</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => onPressReport('COMMERCE')}
               style={styles.itemLast}>
-              <Close2 style={{width: 19, height: 19}} />
-              <Text style={styles.text}>삭제</Text>
+              <Text style={styles.text}>상업적 광고 및 판매</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
       </Modal>
-      <AlertModal
+      <ReportModal
         visible={visible}
         onClose={onClose}
-        text={text}
         postId={postId}
-        button={btnText}
-        isPost={isPost}
-        commentId={commentId}
+        reason={reason}
       />
     </>
   );
@@ -165,15 +164,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomSheetContainer: {
-    height: 128,
+    height: 272,
     justifyContent: 'center',
     backgroundColor: 'white',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   itemFirst: {
-    paddingTop: 23.5,
+    paddingTop: 18,
     paddingBottom: 15,
+    borderBottomColor: colors.devider1,
+    borderBottomWidth: 1,
+    paddingLeft: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  item: {
+    paddingVertical: 15,
     borderBottomColor: colors.devider1,
     borderBottomWidth: 1,
     paddingLeft: 24,
@@ -182,9 +189,7 @@ const styles = StyleSheet.create({
   },
   itemLast: {
     paddingTop: 15,
-    paddingBottom: 29,
-    borderBottomColor: colors.devider1,
-    borderBottomWidth: 1,
+    paddingBottom: 22,
     paddingLeft: 24,
     flexDirection: 'row',
     alignItems: 'center',
@@ -197,4 +202,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BottomSheet;
+export default ReportBottomSheet;
