@@ -8,6 +8,7 @@ export interface Laboratories {
   result: LaboratoriesResult[];
 }
 
+
 export interface Laboratory {
   code: number;
   isSuccess: boolean;
