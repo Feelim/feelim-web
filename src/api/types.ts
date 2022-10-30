@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import {AxiosError} from 'axios';
 
 export interface Laboratories {
   code: number;
@@ -34,6 +34,7 @@ export interface LaboratoriesResult {
 
 export interface LaboratoryResult {
   bills: string[];
+  address: Address;
   distance: number;
   id: number;
   introduction: string;
@@ -66,13 +67,13 @@ export interface PostAll {
 }
 
 export interface ResultPostAll {
-  category: string,
-  commentNum: number,
-  content: string,
-  id: number,
-  nickname: string,
-  time: string,
-  title: string,
+  category: string;
+  commentNum: number;
+  content: string;
+  id: number;
+  nickname: string;
+  time: string;
+  title: string;
 }
 
 export interface PostDetail {
@@ -83,28 +84,28 @@ export interface PostDetail {
 }
 
 export interface ResultPostDetail {
-  category: string,
-  comment?: Comment[],
-  content: string,
-  id: number,
-  createdAt: string,
-  images?: string[],
-  title: string,
-  writer: Writer,
+  category: string;
+  comment?: Comment[];
+  content: string;
+  id: number;
+  createdAt: string;
+  images?: string[];
+  title: string;
+  writer: Writer;
 }
 
 export interface Comment {
-  content: string,
-  createdAt: string,
-  id: number,
-  nickname: string,
-  picture: string,
-  userId: number,
+  content: string;
+  createdAt: string;
+  id: number;
+  nickname: string;
+  picture: string;
+  userId: number;
 }
 
-export interface Writer{
-  id: number,
-  nickname: string,
+export interface Writer {
+  id: number;
+  nickname: string;
 }
 
 export interface PostSearch {
@@ -115,11 +116,19 @@ export interface PostSearch {
 }
 
 export interface ResultPostSearch {
-  category: string,
-  commentNym: number,
-  content: string,
-  id: number,
-  time: string,
-  title: string,
-  writer: Writer,
+  category: string;
+  commentNym: number;
+  content: string;
+  id: number;
+  time: string;
+  title: string;
+  writer: Writer;
+}
+
+export interface nearbyLaboratories {
+  code: number;
+  id: number;
+  isSuccess: boolean;
+  message: string;
+  result: LaboratoriesResult[];
 }

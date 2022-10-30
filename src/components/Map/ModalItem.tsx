@@ -9,10 +9,8 @@ import {
   Image,
 } from 'react-native';
 import colors from '../../assets/color';
-import StoreButtonLeft from './StoreButtonLeft';
-import StoreButtonRight from './StoreButtonRight';
 
-export interface StoreItemProps {
+export interface ModalItemProps {
   address: {
     city: string;
     province: string;
@@ -26,7 +24,7 @@ export interface StoreItemProps {
   id: number;
 }
 
-function StoreItem({
+function ModalItem({
   address,
   images,
   distance,
@@ -34,12 +32,12 @@ function StoreItem({
   star,
   name,
   id,
-}: StoreItemProps) {
+}: ModalItemProps) {
   const {width} = useWindowDimensions();
   // console.log(images);
   return (
     <View style={[styles.block, {width: width}]}>
-      <View style={[{height: 130}]}>
+      <View style={[{height: 90}]}>
         <View style={[styles.infoWrap, {width: width - 32}]}>
           <View style={styles.textInfo}>
             <View style={styles.textWrap}>
@@ -60,19 +58,6 @@ function StoreItem({
           </View>
           <Image source={require('../../assets/images/Pickup/image.png')} />
         </View>
-        <View style={[styles.buttonWrap, {width: width - 32}]}>
-          <StoreButtonLeft
-            id={id}
-            text="가게 정보"
-            width={169}
-            src="PickupDetail"></StoreButtonLeft>
-          {/* 수정 필요 */}
-          <StoreButtonRight
-            id={id}
-            text="선택"
-            width={169}
-            src="PickupRegister"></StoreButtonRight>
-        </View>
       </View>
     </View>
   );
@@ -81,10 +66,11 @@ function StoreItem({
 const styles = StyleSheet.create({
   block: {
     flex: 1,
-    height: 160,
+    height: 120,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: colors.on_primary,
   },
   title: {
     fontSize: 16,
@@ -128,15 +114,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 18,
   },
-  input: {
-    flex: 1,
-    height: 32,
-    backgroundColor: '#F2F2F2',
-    borderRadius: 32,
-    padding: 10,
-    color: colors.text2,
-    marginRight: 5,
-  },
 });
 
-export default StoreItem;
+export default ModalItem;

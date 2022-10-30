@@ -17,6 +17,7 @@ import {TouchableOpacity} from 'react-native';
 import CommunitySearchScreen from './Community/CommunitySearchScreen';
 import {applyToken} from '../api/client';
 import ModifyScreen from './Community/ModifyScreen';
+import MapScreen from './Map/MapScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -133,6 +134,11 @@ function RootStack() {
           <Stack.Screen
             name="Write"
             component={WriteScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Map"
+            component={MapScreen}
             options={{headerShown: false}}
           />
         </>

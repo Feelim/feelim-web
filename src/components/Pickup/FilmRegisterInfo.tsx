@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import colors from '../../assets/color';
 import PickupInput from './PickupInput';
+import {Laboratory} from '../../api/types';
 
-function FilmRegisterInfo() {
+function FilmRegisterInfo({data}: {data: Laboratory}) {
   const {width} = useWindowDimensions();
   return (
     <View style={[styles.block, {width: width - 32}]}>
@@ -20,9 +21,13 @@ function FilmRegisterInfo() {
       <View style={styles.storeInfo}>
         <View style={styles.storeTextInfo}>
           <Text style={styles.subtitle}>전달 매장</Text>
-          <Text style={[{fontSize: 12}]}>찰칵 현상소</Text>
+          <Text style={[{fontSize: 12}]}>{data?.result.name}</Text>
           <Text style={[{fontSize: 12}]}>
-            서울특별시 강남구 강남대로 123-45
+            {`${data?.result.address.city && data?.result.address.city}${
+              data?.result.address.province
+                ? ' ' + data?.result.address.province
+                : ' '
+            }${data?.result.address.street && data?.result.address.street}`}
           </Text>
         </View>
         <Image

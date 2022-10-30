@@ -11,6 +11,7 @@ import PickupFee from './PickupFee';
 import Introduction from './Introduction';
 import {Laboratory} from '../../api/types';
 import Review from './Review';
+import MaterialTabs from 'react-native-material-tabs';
 
 type DetailBottomInfoType = {
   data: Laboratory | undefined;
@@ -18,58 +19,45 @@ type DetailBottomInfoType = {
 
 function DetailBottomInfo({data}: DetailBottomInfoType) {
   const {width} = useWindowDimensions();
-  const [tabSelected, setTabSelected] = useState(true);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   return (
     <View style={{width: width, alignItems: 'center'}}>
-      <View style={[{width: width - 32}, styles.tabButtons]}>
-        <Pressable
-          style={{width: '50%'}}
-          onPress={() => {
-            setTabSelected(true);
-          }}>
-          <View style={styles.tabButton}>
-            <Text
-              style={
-                tabSelected
-                  ? styles.tabButtonSelectedText
-                  : styles.tabButtonText
-              }>
-              상세정보
-            </Text>
-          </View>
-        </Pressable>
-        <Pressable
-          style={{width: '50%'}}
-          onPress={() => {
-            setTabSelected(false);
-          }}>
-          <View style={styles.tabButton}>
-            <Text
-              style={
-                tabSelected
-                  ? styles.tabButtonText
-                  : styles.tabButtonSelectedText
-              }>{`후기(${data?.result.reviewNum})`}</Text>
-          </View>
-        </Pressable>
+      <View style={[{width: width}, styles.tabButtons]}>
+        <View style={{width: width}}>
+          <MaterialTabs
+            items={['상세 정보', `후기(${data?.result.reviewNum}건)`]}
+            selectedIndex={selectedTab}
+            onChange={setSelectedTab}
+            barColor="#ffffff"
+            indicatorColor={colors.primary}
+            activeTextColor={colors.primary}
+            inactiveTextColor={colors.text3}
+            textStyle={{fontSize: 14, fontFamily: 'NotoSansKR-Regular'}}
+            activeTextStyle={{
+              fontSize: 16,
+              fontFamily: 'NotoSansKR-Bold',
+              lineHeight: 24,
+              letterSpacing: -0.408,
+            }}
+            uppercase={false}
+            barHeight={41}
+          />
+        </View>
       </View>
-      <View style={[styles.divider, {width: width}]} />
-      <View
-        style={[
-          styles.dividerSelected,
-          {width: width / 2, marginTop: -1},
-          tabSelected ? {alignSelf: 'flex-start'} : {alignSelf: 'flex-end'},
-        ]}
-      />
       <View style={{width: width - 32}}>
-        {tabSelected ? <Introduction data={data} /> : <Review />}
+        {selectedTab === 0 ? <Introduction data={data} /> : <Review />}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  block2: {
+    width: 300,
+    paddingLeft: 24,
+  },
+  // --
   tabButtons: {
     flexDirection: 'row',
     height: 55,

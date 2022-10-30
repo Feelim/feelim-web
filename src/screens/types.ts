@@ -28,8 +28,11 @@ export type RootStackParamList = {
   SetNickname: undefined;
   Pickup: undefined;
   PickupInfo: undefined;
-  PickupRegister: undefined;
+  PickupRegister: {
+    id: number;
+  };
   Write: undefined;
+  Map: undefined;
   Post: {
     id: number;
   };
@@ -43,5 +46,3 @@ export type RootStackParamList = {
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
-
-
