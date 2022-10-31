@@ -16,7 +16,7 @@ import {
 import colors from '../../assets/color';
 import PostComment from './PostComment';
 import Send from '../../assets/images/Community/Send.svg';
-import {useMutation, useQueryClient} from 'react-query';
+import {useMutation, useQuery, useQueryClient} from 'react-query';
 import {writeComment, patchComment} from '../../api/comments';
 import {Comment} from '../../api/types';
 import PostCommentInput from './PostCommentInput';
@@ -27,10 +27,11 @@ import {
 } from '../../atoms/patchComment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IsLoginModal from '../Login/IsLoginModal';
+import {getMyProfile} from '../../api/mypage';
 
 export interface CommentInputProps {
   postId: number;
-  commentData: any[];
+  commentData: Comment[];
 }
 
 function PostCommentSection({postId, commentData}: CommentInputProps) {
@@ -40,6 +41,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
     useRecoilState(patchCommentState);
   const patchContent = useRecoilValue(patchCommentContentState);
   const queryClient = useQueryClient();
+  const profileQuery = useQuery('myProfile', getMyProfile);
 
   const [visibleLogin, setVisibleLogin] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -130,9 +132,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
     };
   }, []);
 
-  const img = false;
-  const imgUri = '';
-
+  const img = profileQuery.data.result.image;
   return (
     <>
       <View style={[styles.block]}>
@@ -142,7 +142,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
             source={
               img
                 ? {
-                    uri: imgUri,
+                    uri: img,
                   }
                 : require('../../assets/images/Community/default.png')
             }
@@ -178,7 +178,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
         onClose={onClose}
         visible={writingComment}
         onSubmit={onSubmit}
-        uri={imgUri}
+        uri={img}
         patchValue={patchContent}
       />
       <IsLoginModal visible={visibleLogin} onClose={onCloseLogin} />

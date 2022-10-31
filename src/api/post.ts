@@ -2,9 +2,21 @@ import client from "./client";
 import { Post, PostAll, PostDetail, PostSearch } from "./types";
 
 
-export async function getPostAll() {
-    const response = await client.get<PostAll>('/post');
-    return response.data;
+export async function getPostAll({
+    limit = 10,
+    cursor,
+}: {
+    limit?: number;
+    cursor? : number;
+}) {
+    const response = await client.get<PostAll>('/post', {
+        params: {
+            _sort: 'id:DESC',
+            _limit: limit,
+            id_lt: cursor,
+        },
+    });
+    return response.data.result;
 }
 
 export async function getPostCategory(category: string) {
