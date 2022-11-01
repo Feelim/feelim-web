@@ -1,4 +1,3 @@
-import {AxiosResponse} from 'axios';
 import client from './client';
 import {Laboratories, Laboratory} from './types';
 

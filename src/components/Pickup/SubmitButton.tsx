@@ -13,19 +13,18 @@ import colors from '../../assets/color';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
-type StoreButtonType = {
+type SubmitButtonType = {
   id: number;
   text: string;
   width: number | string;
-  src: string;
 };
 
-function StoreButton({id, text, width, src}: StoreButtonType) {
+function SubmitButton({id, text, width}: SubmitButtonType) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <Pressable
       onPress={() =>
-        navigation.navigate(src, {
+        navigation.navigate('PickupDetail', {
           id,
         })
       }>
@@ -48,4 +47,4 @@ const styles = StyleSheet.create({
   text: {color: colors.on_primary},
 });
 
-export default StoreButton;
+export default SubmitButton;

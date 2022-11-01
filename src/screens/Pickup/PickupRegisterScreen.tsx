@@ -14,10 +14,27 @@ import PlaceInfo from '../../components/Pickup/PlaceInfo';
 import UserInfo from '../../components/Pickup/UserInfo';
 import FilmRegisterInfo from '../../components/Pickup/FilmRegisterInfo';
 import PickupFee from '../../components/Pickup/PickupFee';
-import StoreButton from '../../components/Pickup/StoreButton';
+import StoreButton from '../../components/Pickup/StoreButtonRight';
+import {getLaboratory} from '../../api/laboratories';
+import {useQuery} from 'react-query';
+import {useRoute, RouteProp} from '@react-navigation/core';
+import {RootStackParamList} from '../types';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
+import SubmitButton from '../../components/Pickup/SubmitButton';
 
+type PickupRegisterScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'PickupDetail'
+>;
 function PickupRegisterScreen() {
   const {width} = useWindowDimensions();
+  const {params} = useRoute<PickupRegisterScreenRouteProp>();
+  const {id} = params;
+
+  const {data, isLoading} = useQuery(['laboratory', id], () =>
+    getLaboratory(id),
+  );
   return (
     <ScrollView style={styles.fullScreen}>
       <SafeAreaView>
@@ -27,10 +44,10 @@ function PickupRegisterScreen() {
           <View style={styles.underline} />
           <UserInfo />
           <View style={styles.underline} />
-          <FilmRegisterInfo />
+          <FilmRegisterInfo data={data} />
           <View style={styles.underline} />
           <PickupFee />
-          <StoreButton text="신청하기" width={width - 32} src="/" />
+          <SubmitButton text="신청하기" width={width - 32} id={id} />
         </View>
       </SafeAreaView>
     </ScrollView>

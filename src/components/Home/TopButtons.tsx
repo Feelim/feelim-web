@@ -26,7 +26,9 @@ function TopButtons() {
             서비스 신청
           </Text>
         </Pressable>
-        <Pressable style={styles.blackBtn}>
+        <Pressable
+          style={styles.blackBtn}
+          onPress={() => navigation.navigate('Map')}>
           <Location />
           <Text style={styles.text}>
             내 주변{'\n'}

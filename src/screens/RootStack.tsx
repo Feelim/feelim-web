@@ -18,6 +18,7 @@ import CommunitySearchScreen from './Community/CommunitySearchScreen';
 import {applyToken} from '../api/client';
 import ModifyScreen from './Community/ModifyScreen';
 import WebViewScreen from './Login/WebViewScreen';
+import MapScreen from './Map/MapScreen';
 import {useNavigation} from '@react-navigation/core';
 import MypageScreen from './Mypage/MypageScreen';
 import NoticeScreen from './Mypage/NoticeScreen';
@@ -181,6 +182,11 @@ function RootStack() {
           <Stack.Screen
             name="Write"
             component={WriteScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Map"
+            component={MapScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
