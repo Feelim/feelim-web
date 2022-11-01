@@ -12,6 +12,8 @@ import colors from '../../assets/color';
 import ScrapHeader from '../../assets/images/Community/ScrapHeader.svg';
 import MoreHeader from '../../assets/images/Community/MoreHeader.svg';
 import Back from '../../assets/images/Community/Back.svg';
+import Siren from '../../assets/images/Community/Siren.svg';
+
 import {RootStackNavigationProp} from '../../screens/types';
 import {useState} from 'react';
 import BottomSheet from './BottomSheet';
@@ -57,7 +59,15 @@ function PostHeader({postId, userId}: HeaderProps) {
           <ScrapHeader />
         </Pressable>
         <Pressable onPress={onPressMore} hitSlop={8}>
-          <MoreHeader />
+          {userId === Number(currentId) ? (
+            <>
+              <MoreHeader />
+            </>
+          ) : (
+            <>
+              <Siren />
+            </>
+          )}
         </Pressable>
       </View>
       <BottomSheet
