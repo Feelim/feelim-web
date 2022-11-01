@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -22,11 +22,22 @@ import {nickNameState} from '../../atoms/nickname';
 import {emailState} from '../../atoms/email';
 import {useRecoilState} from 'recoil';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/core';
+import {RootStackNavigationProp} from '../types';
+import IsLoginModal from '../../components/Login/IsLoginModal';
 
 function HomeScreen() {
+  const navigation = useNavigation<RootStackNavigationProp>();
   const [authUsername, setAuthUsername] = useRecoilState(usernameState);
   const [authNickname, setAuthNickname] = useRecoilState(nickNameState);
   const [authEmail, setAuthEmail] = useRecoilState(emailState);
+  const [isLogin, setIsLogin] = useState(false);
+  const [visible, setVisible] = useState(false);
+  AsyncStorage.getItem('accessToken', (err, result) => {
+    if (result) {
+      setIsLogin(true);
+    }
+  });
 
   useEffect(() => {
     //자동로그인시 리코일에 회원정보 저장
@@ -48,6 +59,18 @@ function HomeScreen() {
     load();
   });
 
+  const onPressMypage = () => {
+    if (isLogin) {
+      navigation.navigate('Mypage');
+    } else {
+      setVisible(true);
+    }
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
   return (
     <ScrollView style={styles.fullScreen}>
       <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
@@ -61,7 +84,10 @@ function HomeScreen() {
             <Pressable style={styles.rightIcon}>
               <Bell />
             </Pressable>
-            <Pressable style={styles.rightIcon}>
+            <Pressable
+              style={styles.rightIcon}
+              hitSlop={8}
+              onPress={onPressMypage}>
               <MyPage />
             </Pressable>
           </View>
@@ -72,10 +98,8 @@ function HomeScreen() {
         <VideoSection />
         <View style={styles.underline} />
         <RecommendSection />
-        <Text>{authUsername}</Text>
-        <Text>{authNickname}</Text>
-        <Text>{authEmail}</Text>
       </SafeAreaView>
+      <IsLoginModal visible={visible} onClose={onClose} />
     </ScrollView>
   );
 }

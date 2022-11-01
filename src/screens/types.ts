@@ -10,8 +10,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type MainTabParamList = {
   Home: undefined;
   Community: undefined;
- 
-  //
 };
 export type MainTabNavigationScreenParams =
   NavigatorScreenParams<MainTabParamList>;
@@ -41,11 +39,17 @@ export type RootStackParamList = {
   PickupDetail: {
     id: number;
   };
+
   Modify: {
     postId: number;
-
   };
   WebView: undefined;
+  Mypage: undefined;
+  Notice: undefined;
+  Event: undefined;
+  Setting: undefined;
+  Service: undefined;
+  Edit: undefined;
   
 };
 export type RootStackNavigationProp =

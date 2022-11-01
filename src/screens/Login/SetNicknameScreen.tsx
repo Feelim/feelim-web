@@ -26,6 +26,8 @@ import {MainTabNavigationProp, RootStackNavigationProp} from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {axiosInstance} from '../../queries';
 import {applyToken} from '../../api/client';
+import {useQuery} from 'react-query';
+import {getMyProfile} from '../../api/mypage';
 
 function SetNicknameScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -34,6 +36,13 @@ function SetNicknameScreen() {
   const [hidden1, setHidden1] = useState(true);
   const [hidden2, setHidden2] = useState(true);
   const [authNickName, setAuthNickName] = useRecoilState(nickNameState);
+  const [token, setToken] = useState('');
+
+  AsyncStorage.getItem('accessToken', (err, result) => {
+    if (result) {
+      setToken(result);
+    }
+  });
 
   const special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
   const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -85,7 +94,35 @@ function SetNicknameScreen() {
     ) {
       setAuthNickName(inputText); //닉네임 설정
       AsyncStorage.setItem('nickname', inputText);
+      setNickname();
     }
+  };
+
+  const formdata = new FormData();
+  useEffect(() => {
+    formdata.append('nickname', inputText);
+    formdata.append('image', {
+      uri: 'file:///data/user/0/com.feelimweb/cache/rn_image_picker_lib_temp_abafb33e-faf6-4507-8508-a87da8c9f164.jpg',
+      type: 'image/jpeg',
+      name: 'rn_image_picker_lib_temp_abafb33e-faf6-4507-8508-a87da8c9f164.jpg',
+    });
+  }, [inputText]);
+
+  const setNickname = () => {
+    axiosInstance
+      .patch('home/my-page', formdata, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e, '닉네임설정 에러');
+      });
   };
 
   useEffect(() => {

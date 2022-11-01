@@ -68,13 +68,13 @@ export interface PostAll{
 }
 
 export interface ResultPostAll {
-  category: string;
-  commentNum: number;
-  content: string;
-  id: number;
-  nickname: string;
-  time: string;
-  title: string;
+  category: string,
+  commentNum: number,
+  content: string,
+  id: number,
+  writer: Writer,
+  time: string,
+  title: string,
 }
 
 export interface PostDetail {
@@ -138,4 +138,18 @@ export interface nearbyLaboratories {
   isSuccess: boolean;
   message: string;
   result: LaboratoriesResult[];
+}
+
+export interface MyPage {
+  code: number;
+  isSuccess: boolean;
+  message: string;
+  result: ResultMypage;
+}
+
+export interface ResultMypage {
+  id: number;
+  image?: string;
+  nickname: string;
+  introduction? : string;
 }

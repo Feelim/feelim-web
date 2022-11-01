@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Pressable, Image} from 'react-native';
 import colors from '../../assets/color';
 import Comment from '../../assets/images/Community/Comment.svg';
@@ -9,12 +9,12 @@ import {useNavigation} from '@react-navigation/core';
 export interface Item {
   title: string;
   id: number;
-  nickname: string;
   commentNum: number;
   time: string;
+  nickname: string;
 }
 
-function FeedItem({title, id, nickname, commentNum, time}: Item) {
+function FeedItem({title, id, commentNum, time, nickname}: Item) {
   const navigation = useNavigation<RootStackNavigationProp>();
   const formattedDate = new Date(time).toLocaleDateString();
 
@@ -41,7 +41,7 @@ function FeedItem({title, id, nickname, commentNum, time}: Item) {
           </View>
           <View style={styles.reactionItem}>
             <Scrap />
-            <Text style={styles.reactionText}>12</Text>
+            <Text style={styles.reactionText}>0</Text>
           </View>
         </View>
       </View>
