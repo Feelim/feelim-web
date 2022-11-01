@@ -132,7 +132,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
     };
   }, []);
 
-  const img = profileQuery.data.result.image;
+  const img = profileQuery.data?.result?.image;
   return (
     <>
       <View style={[styles.block]}>
