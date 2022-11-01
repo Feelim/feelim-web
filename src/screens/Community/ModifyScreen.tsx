@@ -139,7 +139,6 @@ function ModifyScreen() {
       },
     );
   };
-
   const deleteImage = () => {
     setImageUrl(null);
   };

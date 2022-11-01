@@ -70,7 +70,7 @@ export interface ResultPostAll {
   commentNum: number,
   content: string,
   id: number,
-  nickname: string,
+  writer: Writer,
   time: string,
   title: string,
 }
@@ -128,4 +128,18 @@ export interface ResultPostSearch {
   time: string,
   title: string,
   writer: Writer,
+}
+
+export interface MyPage {
+  code: number;
+  isSuccess: boolean;
+  message: string;
+  result: ResultMypage;
+}
+
+export interface ResultMypage {
+  id: number;
+  image?: string;
+  nickname: string;
+  introduction? : string;
 }

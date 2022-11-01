@@ -23,19 +23,23 @@ function CommunitySearchScreen() {
   const searchTitleQuery = useQuery(['searchTitle', keyword], () =>
     getPostSearchTitle(keyword),
   );
-  useEffect(() => {
-    searchTitleQuery;
-  }, [keyword]);
+
   const [enter, setEnter] = useState(false);
 
   // 최근검색어
-  const [getKeyword, setGetKeyword] = useState('');
-  AsyncStorage.getItem('keywords', (err, result) => {
-    if (result) {
-      setGetKeyword(result);
-    }
-  });
-  const [keywords, setKeywords] = useState(JSON.parse(getKeyword || '[]'));
+  const [keywords, setKeywords] = useState([]);
+  useEffect(() => {
+    AsyncStorage.getItem('keywords', (err, result) => {
+      if (result) {
+        setKeywords(JSON.parse(result));
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem('keywords', JSON.stringify(keywords));
+  }, [keywords]);
+
   const setRecentItem = (text: string) => {
     const newKeyword = {
       id: Date.now(),
@@ -75,9 +79,9 @@ function CommunitySearchScreen() {
           setKeywords={setKeywords}
         />
       )}
-      {/* {searchTitleQuery.data?.result?.length >= 1 && keyword.length >= 2 && (
+      {searchTitleQuery.data?.result?.length >= 1 && keyword.length >= 2 && (
         <SearchYes data={searchTitleQuery.data?.result} />
-      )} */}
+      )}
       {searchTitleQuery.data?.result?.length < 1 && keyword.length >= 2 && (
         <SearchNo />
       )}

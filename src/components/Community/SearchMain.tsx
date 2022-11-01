@@ -12,7 +12,6 @@ import React, {useState, useCallback, useRef, useEffect} from 'react';
 import colors from '../../assets/color';
 import RecentSearchItem from './RecentSearchItem';
 import SetNicknameToast from '../../components/Login/SetNicknameToast';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface LengthProps {
   enter: boolean;
@@ -24,8 +23,6 @@ export interface KeywordProps {
   id: number;
   text: string;
 }
-
-const items = [{id: 0}];
 
 function SearchMain({enter, keywords, setKeywords}: LengthProps) {
   const animation1 = useRef(new Animated.Value(0)).current;
