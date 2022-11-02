@@ -67,17 +67,17 @@ function MapScreen() {
   // location && setX(location.longitude);
   // location && setY(location.latitude);
 
-  const x = location ? location.longitude : 0;
-  const y = location ? location.latitude : 0;
+  const lon = location ? location.longitude : 0;
+  const lat = location ? location.latitude : 0;
 
-  console.log(x, y);
+  // console.log(x, y);
 
   // const data = getNearbyLaboratories(x, y);
   // console.log(data);
 
   // react-query error남 왜 그럼? -> 고치기..
-  const {data, isLoading} = useQuery(['nearby', x, y], () =>
-    getNearbyLaboratories(x, y),
+  const {data, isLoading} = useQuery(['nearby', lon, lat], () =>
+    getNearbyLaboratories(lon, lat),
   );
   console.log('hi', data);
 
@@ -94,7 +94,10 @@ function MapScreen() {
           <View></View>
         </View>
       </View>
-      {/* <SearchStore /> */}
+      <View style={[styles.searchWrap, {width: width}]}>
+        <SearchStore />
+      </View>
+
       <KakaoMapView
         markerImageUrl="https://imgur.com/a/MObdHBD" // 옵션2
         markerList={[
@@ -110,10 +113,10 @@ function MapScreen() {
           },
         ]}
         width={width}
-        height={height - 100}
+        height={height - 150}
         centerPoint={{
-          lat: 37.59523,
-          lng: 127.086,
+          lat: 37.4963,
+          lng: 126.9556,
         }}
       />
       <Pressable
@@ -157,6 +160,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textDecorationLine: 'underline',
     letterSpacing: -0.408,
+  },
+  searchWrap: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

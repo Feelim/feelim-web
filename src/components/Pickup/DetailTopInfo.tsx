@@ -58,7 +58,9 @@ function DetailTopInfo({data}: DetailTopInfoType) {
                   style={starNum >= 5 ? [{opacity: 1}] : [{opacity: 0.2}]}
                   source={require('../../assets/images/Pickup/star.png')}
                 />
-                <Text style={styles.starText}>{data?.result.star}</Text>
+                <Text style={styles.starText}>
+                  {data?.result.star.toFixed(1)}
+                </Text>
               </View>
               <View style={styles.topBtnWrap}>
                 <Pressable

@@ -38,7 +38,7 @@ function PickupDetailScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
-    <ScrollView style={styles.fullScreen}>
+    <ScrollView style={styles.fullScreen} horizontal={true}>
       {/* 헤더 (수정하기) */}
       <View style={{width: width, alignItems: 'center'}}>
         <View style={[styles.pickupTop, {width: width - 32}]}>

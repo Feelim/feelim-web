@@ -26,6 +26,7 @@ import EventScreen from './Mypage/EventScreen';
 import SettingScreen from './Mypage/SettingScreen';
 import ServiceScreen from './Mypage/ServiceScreen';
 import EditScreen from './Mypage/EditScreen';
+import SearchScreen from './Search/SearchScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -104,6 +105,11 @@ function RootStack() {
           <Stack.Screen
             name="WebView"
             component={WebViewScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Search"
+            component={SearchScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
@@ -227,6 +233,11 @@ function RootStack() {
           <Stack.Screen
             name="Edit"
             component={EditScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Search"
+            component={SearchScreen}
             options={{headerShown: false}}
           />
         </>

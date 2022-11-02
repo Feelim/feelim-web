@@ -8,7 +8,6 @@ export interface Laboratories {
   result: LaboratoriesResult[];
 }
 
-
 export interface Laboratory {
   code: number;
   isSuccess: boolean;
@@ -18,7 +17,8 @@ export interface Laboratory {
 
 export interface Review {
   content: string;
-  id: number;
+  reviewId: number;
+  userId: number;
   nickname: string;
   star: number;
 }
@@ -60,7 +60,7 @@ export interface Post {
   result: number;
 }
 
-export interface PostAll{
+export interface PostAll {
   code: number;
   isSuccess: boolean;
   message: string;
@@ -85,20 +85,20 @@ export interface PostDetail {
 }
 
 export interface ResultPostDetail {
-  category: string,
-  comment?: Comment[],
-  content: string,
-  id: number,
-  createdAt: string,
-  images: Images[],
-  title: string,
-  writer: Writer,
+  category: string;
+  comment?: Comment[];
+  content: string;
+  id: number;
+  createdAt: string;
+  images: Images[];
+  title: string;
+  writer: Writer;
 }
 
-export interface Images{
-  fileName: string,
-  fileType: string,
-  url: string,
+export interface Images {
+  fileName: string;
+  fileType: string;
+  url: string;
 }
 
 export interface Comment {
@@ -152,4 +152,12 @@ export interface ResultMypage {
   image?: string;
   nickname: string;
   introduction? : string;
+}
+
+export interface searchLaboratories {
+  code: number;
+  id: number;
+  isSuccess: boolean;
+  message: string;
+  result: LaboratoriesResult[];
 }
