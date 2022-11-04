@@ -55,9 +55,9 @@ function PostHeader({postId, userId}: HeaderProps) {
         <Back />
       </Pressable>
       <View style={styles.headerIcons}>
-        <Pressable style={styles.scrap} hitSlop={8}>
+        {/* <Pressable style={styles.scrap} hitSlop={8}>
           <ScrapHeader />
-        </Pressable>
+        </Pressable> */}
         <Pressable onPress={onPressMore} hitSlop={8}>
           {userId === Number(currentId) ? (
             <>

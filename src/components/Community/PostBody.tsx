@@ -15,6 +15,7 @@ import {
   patchImgTypeState,
   patchImgUrlState,
 } from '../../atoms/patchImg';
+import ImageModal from 'react-native-image-modal';
 
 export interface Item {
   content?: string;
@@ -40,14 +41,18 @@ function PostBody({content, images}: Item) {
       setImgType(image.fileType);
       setImgUrl(image.url);
     }
-  }, []);
+  }, [image]);
 
   return (
     <View style={styles.block}>
       <ScrollView>
         {images ? (
           <>
-            <Image style={styles.image} source={{uri: url}} />
+            <ImageModal
+              resizeMode="contain"
+              style={styles.image}
+              source={{uri: url}}
+            />
           </>
         ) : (
           <></>
@@ -63,7 +68,7 @@ const styles = StyleSheet.create({
   block: {
     paddingVertical: 18,
     paddingHorizontal: 24,
-    height: 272,
+    height: 290,
   },
   image: {
     width: 83,

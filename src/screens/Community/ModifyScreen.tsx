@@ -223,7 +223,7 @@ function ModifyScreen() {
         <AlertModal
           visible={alertVisible}
           onClose={onClose}
-          text="작성된 글이 있어요. 
+          text="작성된 글이 있어요.  
         정말 나가시겠어요?"
           postId={0}
           button="나가기"

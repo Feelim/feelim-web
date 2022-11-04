@@ -13,7 +13,7 @@ function ServiceScreen() {
         <Text style={styles.content}>
           운영진이 24시간 내에 문의하신 메일로 답변을 드립니다!
         </Text>
-        <Text style={styles.email}>sdjfashkdjlfhsadkf@naver.com</Text>
+        <Text style={styles.email}>teamchalkak@gmail.com</Text>
       </View>
     </SafeAreaView>
   );

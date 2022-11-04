@@ -28,14 +28,14 @@ function MypageContents() {
   };
   return (
     <View style={styles.block}>
-      <Pressable style={styles.item}>
+      {/* <Pressable style={styles.item}>
         <Film />
         <Text style={styles.text}>비대면 현상 신청내역</Text>
       </Pressable>
       <Pressable style={styles.item}>
         <Heart />
         <Text style={styles.text}>찜한 현상소</Text>
-      </Pressable>
+      </Pressable> */}
       <Pressable style={styles.item} onPress={onPressNotice}>
         <Notice />
         <Text style={styles.text}>공지사항</Text>

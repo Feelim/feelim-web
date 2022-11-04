@@ -6,6 +6,7 @@ import {
   View,
   Text,
   Platform,
+  Animated,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../assets/color';
@@ -18,11 +19,12 @@ import {getMyProfile} from '../../api/mypage';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {axiosInstance} from '../../queries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useRecoilState} from 'recoil';
 import {patchProfileState} from '../../atoms/patchProfile';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../types';
+import SetNicknameToast from '../../components/Login/SetNicknameToast';
 
 export interface Img {
   uri: string | undefined;
@@ -36,6 +38,8 @@ function EditScreen() {
   const [token, setToken] = useState('');
   const [imageName, setImageName] = useState('');
   const [imageType, setImageType] = useState('');
+  const [hidden1, setHidden1] = useState(true);
+  const [hidden2, setHidden2] = useState(true);
   const [imageUrl, setImageUrl] = useState(profileQuery.data.result.image);
   const [nickname, setNickname] = useState(profileQuery.data.result.nickname);
   const [patch, setPatch] = useRecoilState(patchProfileState);
@@ -86,7 +90,6 @@ function EditScreen() {
   }, [nickname, imageUrl, patch]);
 
   const patchProfile = () => {
-    console.log(nickname, imageName, '패치');
     axiosInstance
       .patch('home/my-page', formdata, {
         headers: {
@@ -114,8 +117,67 @@ function EditScreen() {
   };
 
   useEffect(() => {
-    if (patch) patchProfile();
+    if (patch) {
+      openToast();
+    }
   }, [patch]);
+
+  const special_pattern = /[`~!|=+-@#$%^&*|\\\'\";:\/?]/gi;
+  const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+  const check_eng = /[a-zA-Z]/;
+
+  //toast animation
+  const animation1 = useRef(new Animated.Value(0)).current;
+  const animation2 = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(animation1, {
+      toValue: hidden1 ? 0 : 1,
+      useNativeDriver: true,
+    }).start();
+    try {
+      setTimeout(() => {
+        setHidden1(true);
+      }, 2000);
+    } catch (e) {}
+
+    Animated.timing(animation2, {
+      toValue: hidden2 ? 0 : 1,
+      useNativeDriver: true,
+    }).start();
+    try {
+      setTimeout(() => {
+        setHidden2(true);
+      }, 2000);
+    } catch (e) {}
+  }, [hidden1, hidden2]);
+
+  const openToast = () => {
+    if (nickname.length > 6) {
+      setHidden1(false);
+      setPatch(false);
+      if (special_pattern.test(nickname)) {
+        setHidden2(false);
+        setPatch(false);
+      }
+    } else if (special_pattern.test(nickname)) {
+      setHidden2(false);
+      setPatch(false);
+      if (nickname.length > 6) {
+        setHidden1(false);
+        setPatch(false);
+      }
+    }
+
+    if (
+      nickname.length <= 6 &&
+      !special_pattern.test(nickname) &&
+      (check_kor.test(nickname) || check_eng.test(nickname))
+    ) {
+      //성공시
+      patchProfile();
+    }
+  };
 
   return (
     <SafeAreaView style={styles.fullScreen}>
@@ -139,6 +201,27 @@ function EditScreen() {
           <Text style={styles.emailText}>kikikikikikiki@naver.com</Text>
         </View>
       </View>
+
+      <View style={styles.toastView}>
+        <Animated.View
+          style={[
+            styles.toast,
+            {
+              opacity: animation1,
+            },
+          ]}>
+          <SetNicknameToast text="💡 한글 최대 6자, 영문 최대 6자 까지 가능해요. " />
+        </Animated.View>
+        <Animated.View
+          style={[
+            // styles.toast,
+            {
+              opacity: animation2,
+            },
+          ]}>
+          <SetNicknameToast text="💡 입력 불가능한 문자가 포함되어 있어요." />
+        </Animated.View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -151,6 +234,7 @@ const styles = StyleSheet.create({
   block: {
     alignItems: 'center',
     paddingTop: 51,
+    flex: 1,
   },
   profileImage: {
     position: 'relative',
@@ -193,6 +277,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: -0.408,
     marginLeft: 4,
+  },
+  toastView: {
+    textAlign: 'center',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 10,
+  },
+  toast: {
+    marginBottom: 14,
   },
 });
 

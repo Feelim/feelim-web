@@ -38,6 +38,7 @@ function PostCommentInput({
 
   // 수정시에만 기본값 바뀌도록
   useEffect(() => {
+    console.log(patchCommentRecoil);
     if (patchCommentRecoil > 0) {
       setContent(patchValue);
     } else {
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
     borderTopColor: colors.devider1,
     borderTopWidth: 4,
     alignItems: 'center',
+    backgroundColor: colors.on_primary,
   },
   inputProfile: {
     width: 28,
