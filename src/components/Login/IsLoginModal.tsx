@@ -14,7 +14,7 @@ function IsLoginModal({visible, onClose}: AlertProps) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   const onPressLogin = () => {
-    navigation.navigate('WebView');
+    navigation.navigate('Login');
   };
   const onCancle = () => {
     onClose();

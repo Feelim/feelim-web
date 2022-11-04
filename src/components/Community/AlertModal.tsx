@@ -105,13 +105,14 @@ const styles = StyleSheet.create({
     width: 276,
     borderTopLeftRadius: 3,
     borderTopRightRadius: 3,
-    paddingHorizontal: 55,
+    paddingHorizontal: 65,
   },
   text: {
     fontSize: 16,
     letterSpacing: -0.408,
     color: '#000000',
     paddingVertical: 37,
+    textAlign: 'center',
   },
   btns: {
     flexDirection: 'row',

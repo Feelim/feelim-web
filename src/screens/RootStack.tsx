@@ -26,6 +26,8 @@ import EventScreen from './Mypage/EventScreen';
 import SettingScreen from './Mypage/SettingScreen';
 import ServiceScreen from './Mypage/ServiceScreen';
 import EditScreen from './Mypage/EditScreen';
+import MyPostScreen from './Community/MyPostScreen';
+import MyCommentScreen from './Community/MyCommnentScreen';
 import SearchScreen from './Search/SearchScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -137,6 +139,16 @@ function RootStack() {
             component={EditScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="MyPost"
+            component={MyPostScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MyComment"
+            component={MyCommentScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -233,6 +245,16 @@ function RootStack() {
           <Stack.Screen
             name="Edit"
             component={EditScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MyPost"
+            component={MyPostScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MyComment"
+            component={MyCommentScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen

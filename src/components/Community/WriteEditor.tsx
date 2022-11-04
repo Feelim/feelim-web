@@ -117,6 +117,7 @@ function WriteEditor() {
         returnKeyType="next"
         onChangeText={setTitle}
         value={title}
+        autoFocus
       />
       <View style={styles.filters}>
         <Text style={styles.filterName}>분류</Text>
@@ -162,6 +163,7 @@ function WriteEditor() {
         value={body}
         multiline
         textAlignVertical="top"
+        scrollEnabled={false}
       />
 
       {response ? (
@@ -213,6 +215,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     borderTopColor: colors.devider1,
     borderTopWidth: 1,
+    flex: 1,
   },
   filterItem: {
     borderRadius: 39,
