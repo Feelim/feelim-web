@@ -10,23 +10,28 @@ import {
 } from 'react-native';
 import colors from '../../assets/color';
 import {searchLaboratory} from '../../constants/SearchLaboratory';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 
 function SearchStore() {
+  const navigation = useNavigation<RootStackNavigationProp>();
   const {width} = useWindowDimensions();
   return (
-    <View style={[styles.block, {width: width - 32}]}>
-      <TextInput
-        style={styles.input}
-        placeholder="매장명 또는 주소를 입력하세요."
-        onChangeText={text => {
-          searchLaboratory(text);
-        }}
-        autoFocus
-      />
-      <Pressable>
+    <Pressable
+      onPress={() => {
+        navigation.navigate('Search');
+      }}>
+      <View style={[styles.block, {width: width - 32}]}>
+        <TextInput
+          style={styles.input}
+          placeholder="매장명 또는 주소를 입력하세요."
+          onChangeText={text => {}}
+          editable={false}
+          autoFocus
+        />
         <Image source={require('../../assets/images/Pickup/search.png')} />
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   );
 }
 
@@ -34,6 +39,7 @@ const styles = StyleSheet.create({
   block: {
     flexDirection: 'row',
     alignItems: 'center',
+    height: 50,
   },
   input: {
     flex: 1,

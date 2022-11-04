@@ -5,13 +5,16 @@ import {
   useWindowDimensions,
   View,
   Text,
+  FlatList,
 } from 'react-native';
 import colors from '../../assets/color';
 import PickupFee from './PickupFee';
 import Introduction from './Introduction';
 import {Laboratory} from '../../api/types';
-import Review from './Review';
+import Review from './ReviewComponent';
 import MaterialTabs from 'react-native-material-tabs';
+import Divider from './Divider';
+import ReviewComponent from './ReviewComponent';
 
 type DetailBottomInfoType = {
   data: Laboratory | undefined;
@@ -20,6 +23,7 @@ type DetailBottomInfoType = {
 function DetailBottomInfo({data}: DetailBottomInfoType) {
   const {width} = useWindowDimensions();
   const [selectedTab, setSelectedTab] = useState(0);
+  console.log(data?.result.reviews);
 
   return (
     <View style={{width: width, alignItems: 'center'}}>
@@ -45,8 +49,18 @@ function DetailBottomInfo({data}: DetailBottomInfoType) {
           />
         </View>
       </View>
-      <View style={{width: width - 32}}>
-        {selectedTab === 0 ? <Introduction data={data} /> : <Review />}
+      <View style={{width: width, alignItems: 'center'}}>
+        {selectedTab === 0 ? (
+          <Introduction data={data} />
+        ) : (
+          <FlatList
+            data={data?.result.reviews}
+            renderItem={({item}) => <ReviewComponent data={item} />}
+            keyExtractor={item => item.reviewId.toString()}
+            // ItemSeparatorComponent={() => <Divider />}
+          />
+          // <View></View>
+        )}
       </View>
     </View>
   );
