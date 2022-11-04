@@ -9,6 +9,8 @@ import {
   Image,
 } from 'react-native';
 import colors from '../../assets/color';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 
 export interface ModalItemProps {
   address: {
@@ -34,32 +36,45 @@ function ModalItem({
   id,
 }: ModalItemProps) {
   const {width} = useWindowDimensions();
-  // console.log(images);
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <View style={[styles.block, {width: width}]}>
-      <View style={[{height: 90}]}>
-        <View style={[styles.infoWrap, {width: width - 32}]}>
-          <View style={styles.textInfo}>
-            <View style={styles.textWrap}>
-              <Text style={styles.title}>{name}</Text>
-              <Text>·</Text>
-              <Text style={styles.distance}>{distance}</Text>
-              <Image source={require('../../assets/images/Pickup/frame.png')} />
+    <Pressable
+      onPress={() => {
+        navigation.navigate('PickupDetail', {
+          id,
+        });
+      }}>
+      <View style={[styles.block, {width: width}]}>
+        <View style={[{height: 90}]}>
+          <View style={[styles.infoWrap, {width: width - 32}]}>
+            <View style={styles.textInfo}>
+              <View style={styles.textWrap}>
+                <Text style={styles.title}>{name}</Text>
+                <Text>·</Text>
+                <Text style={styles.distance}>
+                  {(distance / 1000).toFixed(1)}
+                </Text>
+                <Image
+                  source={require('../../assets/images/Pickup/frame.png')}
+                />
+              </View>
+              <Text style={styles.address}>
+                {`${address.city && address.city}${
+                  address.province ? ' ' + address.province : ' '
+                }${address.street && address.street}`}
+              </Text>
+              <View style={styles.starWrap}>
+                <Image
+                  source={require('../../assets/images/Pickup/star.png')}
+                />
+                <Text>{`${star.toFixed(1)}(${reviewNum})`}</Text>
+              </View>
             </View>
-            <Text style={styles.address}>
-              {`${address.city && address.city}${
-                address.province ? ' ' + address.province : ' '
-              }${address.street && address.street}`}
-            </Text>
-            <View style={styles.starWrap}>
-              <Image source={require('../../assets/images/Pickup/star.png')} />
-              <Text>{`${star}(${reviewNum})`}</Text>
-            </View>
+            <Image source={require('../../assets/images/Pickup/image.png')} />
           </View>
-          <Image source={require('../../assets/images/Pickup/image.png')} />
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

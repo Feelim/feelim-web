@@ -1,10 +1,18 @@
 import React from 'react';
-import {View, Text, Pressable, Image, Linking} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  Linking,
+  useWindowDimensions,
+} from 'react-native';
 import {Laboratory} from '../../api/types';
 
 function Introduction({data}: {data: Laboratory | undefined}) {
+  const {width} = useWindowDimensions();
   return (
-    <View style={{marginTop: 30}}>
+    <View style={{marginTop: 30, width: width - 32}}>
       <Pressable
         onPress={() => {
           Linking.openURL(data?.result.url ? data?.result.url : '/');

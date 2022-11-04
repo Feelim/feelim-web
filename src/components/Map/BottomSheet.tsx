@@ -83,6 +83,7 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
             <View style={styles.background} />
           </TouchableWithoutFeedback>
           <Animated.ScrollView
+            horizontal={true}
             style={{
               ...styles.bottomSheetContainer,
               transform: [{translateY: translateY}],
