@@ -92,6 +92,7 @@ const BottomSheet = ({
   const onPressModify = () => {
     if (isPost) {
       navigation.navigate('Modify', {postId});
+      setModalVisible(false);
     } else {
       //댓글 수정
       setPatchComment(commentId);

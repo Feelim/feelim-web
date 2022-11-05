@@ -7,6 +7,7 @@ import {
   ScrollView,
   SafeAreaView,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import colors from '../../assets/color';
 import {useSetRecoilState} from 'recoil';
@@ -28,7 +29,7 @@ export interface Images {
 }
 
 function PostBody({content, images}: Item) {
-  const image = images?.pop();
+  const image = images[images.length - 1];
   const [url, setUrl] = useState('http://');
   const setImgName = useSetRecoilState(patchImgNameState);
   const setImgUrl = useSetRecoilState(patchImgUrlState);
@@ -41,7 +42,7 @@ function PostBody({content, images}: Item) {
       setImgType(image.fileType);
       setImgUrl(image.url);
     }
-  }, [image]);
+  }, [image, url]);
 
   return (
     <View style={styles.block}>
@@ -80,6 +81,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 28,
+  },
+  spinner: {
+    flex: 1,
+    height: 290,
   },
 });
 

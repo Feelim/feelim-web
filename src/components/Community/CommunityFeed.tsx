@@ -88,7 +88,6 @@ function CommunityFeed() {
                 commentNum={item.commentNum}
                 time={item.time}
                 nickname={item.writer.nickname}
-                // image={item.image}
               />
             )}
             keyExtractor={item => item.id.toString()}

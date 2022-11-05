@@ -29,11 +29,11 @@ import EditScreen from './Mypage/EditScreen';
 import MyPostScreen from './Community/MyPostScreen';
 import MyCommentScreen from './Community/MyCommnentScreen';
 import SearchScreen from './Search/SearchScreen';
+import RequestScreen from './Login/RequestScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
-  //로그인시 바로 HomeScreen으로 가도록 구현
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     AsyncStorage.clear();
@@ -149,6 +149,11 @@ function RootStack() {
             component={MyCommentScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="Request"
+            component={RequestScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -260,6 +265,11 @@ function RootStack() {
           <Stack.Screen
             name="Search"
             component={SearchScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Request"
+            component={RequestScreen}
             options={{headerShown: false}}
           />
         </>
