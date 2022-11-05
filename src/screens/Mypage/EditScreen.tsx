@@ -8,6 +8,13 @@ import {
   Platform,
   Animated,
 } from 'react-native';
+import {
+  PERMISSIONS,
+  RESULTS,
+  request,
+  checkMultiple,
+  requestMultiple,
+} from 'react-native-permissions';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../assets/color';
 import MypageHeader from '../../components/Mypage/MypageHeader';
@@ -25,6 +32,8 @@ import {patchProfileState} from '../../atoms/patchProfile';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../types';
 import SetNicknameToast from '../../components/Login/SetNicknameToast';
+import {permissionImageState} from '../../atoms/permission';
+import PermissionModal from '../../components/Community/PermissionModal';
 
 export interface Img {
   uri: string | undefined;
@@ -50,33 +59,90 @@ function EditScreen() {
       setToken(result);
     }
   });
+
+  //접근권한
+  const [visible, setVisible] = useState(false);
+  const onClose = () => {
+    setVisible(false);
+  };
+  const [permissionImage, setPermissionImage] =
+    useRecoilState(permissionImageState);
+
+  const requestMultiplePermissions = () => {
+    requestMultiple(
+      Platform.OS === 'ios'
+        ? [
+            // PERMISSIONS.IOS.CAMERA,
+            PERMISSIONS.IOS.PHOTO_LIBRARY,
+            PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY,
+          ]
+        : [
+            // PERMISSIONS.ANDROID.CAMERA,
+            PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+            PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+          ],
+    ).then(response => {
+      console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setPermissionImage(
+        Platform.OS === 'ios'
+          ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
+          : response['android.permission.WRITE_EXTERNAL_STORAGE'],
+      );
+    });
+  };
+  const checkMultiplePermissions = () => {
+    checkMultiple(
+      Platform.OS === 'ios'
+        ? [
+            // PERMISSIONS.IOS.CAMERA,
+            PERMISSIONS.IOS.PHOTO_LIBRARY,
+            PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY,
+          ]
+        : [
+            // PERMISSIONS.ANDROID.CAMERA,
+            PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+            PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+          ],
+    ).then(response => {
+      console.log('MULTIPLE CHECK RESPONSE : ', response);
+    });
+  };
   const image: Img = {
     uri: '',
     type: '',
     name: '',
   };
   const onSelectImage = async () => {
-    await launchImageLibrary(
-      {
-        mediaType: 'photo',
-        includeBase64: true,
-      },
-      res => {
-        if (res.didCancel) {
-          return;
-        } else if (res.assets) {
-          image.name = res.assets[0].fileName;
-          image.type = res.assets[0].type;
-          image.uri =
-            Platform.OS === 'android'
-              ? res.assets[0].uri
-              : res.assets[0].uri.replace('file://', '');
-          setImageName(image.name);
-          setImageType(image.type);
-          setImageUrl(image.uri);
-        }
-      },
-    );
+    requestMultiplePermissions();
+    if (permissionImage !== 'granted') {
+      if (Platform.OS === 'android') {
+        requestMultiplePermissions();
+      } else {
+        setVisible(true);
+      }
+    } else {
+      await launchImageLibrary(
+        {
+          mediaType: 'photo',
+          includeBase64: true,
+        },
+        res => {
+          if (res.didCancel) {
+            return;
+          } else if (res.assets) {
+            image.name = res.assets[0].fileName;
+            image.type = res.assets[0].type;
+            image.uri =
+              Platform.OS === 'android'
+                ? res.assets[0].uri
+                : res.assets[0].uri.replace('file://', '');
+            setImageName(image.name);
+            setImageType(image.type);
+            setImageUrl(image.uri);
+          }
+        },
+      );
+    }
   };
 
   const formdata = new FormData();
@@ -222,6 +288,7 @@ function EditScreen() {
           <SetNicknameToast text="💡 입력 불가능한 문자가 포함되어 있어요." />
         </Animated.View>
       </View>
+      <PermissionModal visible={visible} onClose={onClose} />
     </SafeAreaView>
   );
 }

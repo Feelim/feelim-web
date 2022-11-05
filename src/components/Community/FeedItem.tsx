@@ -22,13 +22,13 @@ function FeedItem({title, id, commentNum, time, nickname}: Item) {
   const [image, setImage] = useState('');
 
   const postDetailQuery = useQuery(['postDetail', id], () => getPostDetail(id));
-  const images = postDetailQuery.data?.result?.images.pop();
+  const images = postDetailQuery.data?.result?.images;
 
   useEffect(() => {
     if (images) {
-      setImage(images?.url);
+      setImage(images[images.length - 1].url);
     }
-  }, [postDetailQuery]);
+  }, [images, image]);
 
   return (
     // 이미지 없을때 기준

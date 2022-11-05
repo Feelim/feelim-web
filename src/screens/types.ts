@@ -55,6 +55,7 @@ export type RootStackParamList = {
   Edit: undefined;
   MyPost: undefined;
   MyComment: undefined;
+  Request: undefined;
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
