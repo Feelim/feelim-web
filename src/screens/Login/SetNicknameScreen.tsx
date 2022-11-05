@@ -99,6 +99,7 @@ function SetNicknameScreen() {
   };
 
   const formdata = new FormData();
+  console.log(inputText);
   useEffect(() => {
     formdata.append('nickname', inputText);
     formdata.append('image', {

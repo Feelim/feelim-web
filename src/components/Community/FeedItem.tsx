@@ -5,6 +5,8 @@ import Comment from '../../assets/images/Community/Comment.svg';
 import Scrap from '../../assets/images/Community/Scrap.svg';
 import {RootStackNavigationProp} from '../../screens/types';
 import {useNavigation} from '@react-navigation/core';
+import {useQuery} from 'react-query';
+import {getPostDetail} from '../../api/post';
 
 export interface Item {
   title: string;
@@ -17,6 +19,16 @@ export interface Item {
 function FeedItem({title, id, commentNum, time, nickname}: Item) {
   const navigation = useNavigation<RootStackNavigationProp>();
   const formattedDate = new Date(time).toLocaleDateString();
+  const [image, setImage] = useState('');
+
+  const postDetailQuery = useQuery(['postDetail', id], () => getPostDetail(id));
+  const images = postDetailQuery.data?.result?.images.pop();
+
+  useEffect(() => {
+    if (images) {
+      setImage(images?.url);
+    }
+  }, [postDetailQuery]);
 
   return (
     // 이미지 없을때 기준
@@ -39,10 +51,17 @@ function FeedItem({title, id, commentNum, time, nickname}: Item) {
             <Comment />
             <Text style={styles.reactionText}>{commentNum}</Text>
           </View>
-          <View style={styles.reactionItem}>
+          {image ? (
+            <>
+              <Image source={{uri: image}} style={styles.imageBox} />
+            </>
+          ) : (
+            <></>
+          )}
+          {/* <View style={styles.reactionItem}>
             <Scrap />
             <Text style={styles.reactionText}>0</Text>
-          </View>
+          </View> */}
         </View>
       </View>
     </Pressable>
@@ -96,8 +115,9 @@ const styles = StyleSheet.create({
   },
   reaction: {
     flexDirection: 'row',
-    width: 61.5,
-    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    // width: 61.5,
+    // justifyContent: 'space-between',
   },
   reactionText: {
     color: colors.text3,
@@ -108,6 +128,12 @@ const styles = StyleSheet.create({
   reactionItem: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  imageBox: {
+    width: 45,
+    height: 45,
+    borderRadius: 3,
+    marginLeft: 6,
   },
 });
 

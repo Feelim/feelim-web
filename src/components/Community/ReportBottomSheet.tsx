@@ -113,7 +113,7 @@ const ReportBottomSheet = ({
             {...panResponders.panHandlers}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => onPressReport('INSULT')}
+              onPress={() => onPressReport('FISHING')}
               style={styles.itemFirst}>
               <Text style={styles.text}>욕설/비하</Text>
             </TouchableOpacity>
@@ -125,7 +125,7 @@ const ReportBottomSheet = ({
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => onPressReport('INAPPROPRIATE')}
+              onPress={() => onPressReport('FISHING')}
               style={styles.item}>
               <Text style={styles.text}>게시판 성격에 부적절함</Text>
             </TouchableOpacity>

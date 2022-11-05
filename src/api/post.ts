@@ -52,3 +52,12 @@ export async function reportPost(params: {
     return response.data;
 }
 
+export async function getMyPost() {
+    const response = await client.get<PostAll>('/post/my-post');
+    return response.data;
+}
+
+export async function getMyComment() {
+    const response = await client.get<PostAll>('/post/user/commenting');
+    return response.data;
+}

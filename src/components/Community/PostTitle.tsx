@@ -43,10 +43,10 @@ function PostTitle({title, category, createdAt, nickname, commentNum}: Item) {
             <Comment />
             <Text style={styles.reactionText}>{commentNum}</Text>
           </View>
-          <View style={styles.reactionItem}>
+          {/* <View style={styles.reactionItem}>
             <Scrap />
-            <Text style={styles.reactionText}>12</Text>
-          </View>
+            <Text style={styles.reactionText}>0</Text>
+          </View> */}
         </View>
       </View>
     </View>
@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
   },
   reaction: {
     flexDirection: 'row',
-    width: 61.5,
-    justifyContent: 'space-between',
+    // width: 61.5,
+    // justifyContent: 'space-between',
   },
   reactionText: {
     color: colors.text3,

@@ -12,6 +12,7 @@ import {
   Platform,
   FlatList,
   Keyboard,
+  useWindowDimensions,
 } from 'react-native';
 import colors from '../../assets/color';
 import PostComment from './PostComment';
@@ -35,8 +36,10 @@ export interface CommentInputProps {
 }
 
 function PostCommentSection({postId, commentData}: CommentInputProps) {
+  const {height} = useWindowDimensions();
   const [writingComment, setWritingComment] = useState(false);
   const inputRef = useRef<TextInput>(null);
+  const inputRef2 = useRef<TextInput>(null);
   const [patchCommentRecoil, setPatchCommentRecoil] =
     useRecoilState(patchCommentState);
   const patchContent = useRecoilValue(patchCommentContentState);
@@ -64,6 +67,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
     onSuccess: data => {
       console.log(data);
       queryClient.invalidateQueries('postDetail');
+      setPatchCommentRecoil(0);
     },
     onError: error => {
       console.log(error, '댓글수정에러');
@@ -76,8 +80,8 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
 
   const onPress = () => {
     if (isLogin) {
-      setWritingComment(true);
       inputRef.current?.focus();
+      setWritingComment(true);
     } else {
       setVisibleLogin(true);
     }
@@ -119,11 +123,12 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
   }, [patchCommentRecoil]);
 
   useEffect(() => {
-    const didShow = Keyboard.addListener('keyboardDidShow', () =>
-      console.log('open'),
-    );
+    const didShow = Keyboard.addListener('keyboardDidShow', () => {
+      console.log('open');
+    });
     const didHide = Keyboard.addListener('keyboardDidHide', () => {
-      setWritingComment(false), setPatchCommentRecoil(0);
+      console.log('hide');
+      // setPatchCommentRecoil(0);
     });
 
     return () => {
@@ -132,46 +137,67 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
     };
   }, []);
 
-  const img = profileQuery.data.result.image;
+  const img = profileQuery.data?.result?.image;
   return (
     <>
-      <View style={[styles.block]}>
-        <View style={styles.commentInput}>
-          <Image
-            style={styles.inputProfile}
-            source={
-              img
-                ? {
-                    uri: img,
-                  }
-                : require('../../assets/images/Community/default.png')
-            }
-          />
-          <Pressable style={styles.input} onPress={onPress}>
-            <Text style={styles.inputText}>댓글을 입력해주세요.</Text>
-            <TextInput ref={inputRef} style={{height: 0, width: '100%'}} />
-            <Pressable style={styles.send}>
-              <Send />
-            </Pressable>
-          </Pressable>
-        </View>
-        <SafeAreaView style={styles.commentSection}>
-          <FlatList
-            data={commentData}
-            renderItem={({item}) => (
-              <PostComment
-                postId={postId}
-                commentId={item.id}
-                content={item.content}
-                createdAt={item.createdAt}
-                nickname={item.nickname}
-                picture={item.picture}
-                userId={item.userId}
+      <View style={[styles.block, {height: height - 476}]}>
+        {writingComment ? (
+          <>
+            <TextInput
+              autoFocus
+              ref={inputRef}
+              style={{
+                height: 0,
+                width: 1,
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <View style={styles.commentInput}>
+              <Image
+                style={styles.inputProfile}
+                source={
+                  img
+                    ? {
+                        uri: img,
+                      }
+                    : require('../../assets/images/Community/default.png')
+                }
               />
-            )}
-            keyExtractor={item => item.id.toString()}
-          />
-        </SafeAreaView>
+              <Pressable style={styles.input} onPress={onPress}>
+                <Text style={styles.inputText}>댓글을 입력해주세요.</Text>
+                <TextInput
+                  ref={inputRef}
+                  style={{
+                    height: 0,
+                    width: 0,
+                  }}
+                />
+                <Pressable style={styles.send}>
+                  <Send />
+                </Pressable>
+              </Pressable>
+            </View>
+            <SafeAreaView style={styles.commentSection}>
+              <FlatList
+                data={commentData}
+                renderItem={({item}) => (
+                  <PostComment
+                    postId={postId}
+                    commentId={item.id}
+                    content={item.content}
+                    createdAt={item.createdAt}
+                    nickname={item.nickname}
+                    picture={item.picture}
+                    userId={item.userId}
+                  />
+                )}
+                keyExtractor={item => item.id.toString()}
+              />
+            </SafeAreaView>
+          </>
+        )}
       </View>
 
       <PostCommentInput
@@ -181,6 +207,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
         uri={img}
         patchValue={patchContent}
       />
+
       <IsLoginModal visible={visibleLogin} onClose={onCloseLogin} />
     </>
   );
@@ -188,9 +215,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
 
 const styles = StyleSheet.create({
   block: {
-    borderTopColor: colors.devider1,
-    borderTopWidth: 4,
-    height: 200, //다른폰으로 확인!!!
+    // height: 342, //다른폰으로 확인!!!
   },
   commentInput: {
     paddingTop: 11,
@@ -198,6 +223,8 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     borderBottomColor: colors.devider1,
     borderBottomWidth: 1,
+    borderTopColor: colors.devider1,
+    borderTopWidth: 4,
     flexDirection: 'row',
     height: 53,
     alignItems: 'center',
@@ -225,6 +252,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.text3,
     marginTop: 8,
+    zIndex: 1,
   },
   send: {
     position: 'absolute',

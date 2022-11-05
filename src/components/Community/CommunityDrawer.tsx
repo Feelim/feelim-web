@@ -12,6 +12,11 @@ import Write from '../../assets/images/Community/Write.svg';
 import ScrapPage from '../../assets/images/Community/ScrapPage.svg';
 import CommentPage from '../../assets/images/Community/CommentPage.svg';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/core';
+import {RootStackNavigationProp} from '../../screens/types';
+import IsLoginModal from '../Login/IsLoginModal';
+import {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface Drawer {
   open: boolean;
@@ -20,6 +25,34 @@ export interface Drawer {
 
 function CommunityDrawer({open, setOpen}: Drawer) {
   const {height} = useWindowDimensions();
+  const navigation = useNavigation<RootStackNavigationProp>();
+  const [isLogin, setIsLogin] = useState(false);
+  const [visible, setVisible] = useState(false);
+  AsyncStorage.getItem('accessToken', (err, result) => {
+    if (result) {
+      setIsLogin(true);
+    }
+  });
+
+  const onPressMyPost = () => {
+    if (isLogin) {
+      navigation.navigate('MyPost');
+      setOpen(false);
+    } else {
+      setVisible(true);
+    }
+  };
+  const onPressMyComment = () => {
+    if (isLogin) {
+      navigation.navigate('MyComment');
+      setOpen(false);
+    } else {
+      setVisible(true);
+    }
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
   return (
     <View>
       <Modal
@@ -36,7 +69,7 @@ function CommunityDrawer({open, setOpen}: Drawer) {
           </Pressable>
           <Text style={styles.title}>게시글 관리</Text>
           <View style={styles.pages}>
-            <Pressable style={styles.page}>
+            <Pressable style={styles.page} hitSlop={8} onPress={onPressMyPost}>
               <Write />
               <Text style={styles.pageText}>작성한{'\n'}게시글</Text>
             </Pressable>
@@ -44,13 +77,17 @@ function CommunityDrawer({open, setOpen}: Drawer) {
               <ScrapPage />
               <Text style={styles.pageText}>스크랩{'\n'}게시글</Text>
             </Pressable>
-            <Pressable style={styles.page}>
+            <Pressable
+              style={styles.page}
+              hitSlop={8}
+              onPress={onPressMyComment}>
               <CommentPage />
               <Text style={styles.pageText}>작성한{'\n'}댓글</Text>
             </Pressable>
           </View>
         </SafeAreaView>
       </Modal>
+      <IsLoginModal visible={visible} onClose={onClose} />
     </View>
   );
 }
@@ -87,7 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   page: {
-    width: 30,
+    // width: 40,
     height: 65,
     justifyContent: 'space-between',
     alignItems: 'center',

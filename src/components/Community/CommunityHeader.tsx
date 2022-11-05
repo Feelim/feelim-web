@@ -31,6 +31,7 @@ function CommunityHeader() {
   const onClose = () => {
     setVisible(false);
   };
+
   return (
     <>
       <View style={styles.header}>
