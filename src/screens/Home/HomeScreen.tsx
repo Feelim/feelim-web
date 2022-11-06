@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: colors.primary,
+    paddingTop: 9,
   },
   logo: {
     display: 'flex',

@@ -1,6 +1,6 @@
 import {RouteProp, useRoute} from '@react-navigation/core';
 import {useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../assets/color';
 import MypageHeader from '../../components/Mypage/MypageHeader';
@@ -81,6 +81,7 @@ function HomeEventScreen() {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.on_primary}}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
       <MypageHeader name={name} edit={false} complete={false} />
       <NoticeContent title={title} date={date} content={content} />
     </SafeAreaView>

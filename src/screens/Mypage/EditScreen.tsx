@@ -32,7 +32,7 @@ import {patchProfileState} from '../../atoms/patchProfile';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../types';
 import SetNicknameToast from '../../components/Login/SetNicknameToast';
-import {permissionImageState} from '../../atoms/permission';
+import {androidCountState, permissionImageState} from '../../atoms/permission';
 import PermissionModal from '../../components/Community/PermissionModal';
 
 export interface Img {
@@ -67,6 +67,7 @@ function EditScreen() {
   };
   const [permissionImage, setPermissionImage] =
     useRecoilState(permissionImageState);
+  const [androidCount, setAndroidCount] = useRecoilState(androidCountState);
 
   const requestMultiplePermissions = () => {
     requestMultiple(
@@ -83,6 +84,8 @@ function EditScreen() {
           ],
     ).then(response => {
       console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
+
       setPermissionImage(
         Platform.OS === 'ios'
           ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
@@ -116,7 +119,11 @@ function EditScreen() {
     requestMultiplePermissions();
     if (permissionImage !== 'granted') {
       if (Platform.OS === 'android') {
-        requestMultiplePermissions();
+        if (androidCount >= 2) {
+          setVisible(true);
+        } else {
+          requestMultiplePermissions();
+        }
       } else {
         setVisible(true);
       }

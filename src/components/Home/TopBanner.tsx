@@ -106,11 +106,11 @@ const styles = StyleSheet.create({
     height: 174,
     marginTop: 24,
     borderRadius: 13,
-    marginLeft: 23,
+    marginLeft: 33,
   },
   pagination: {
     position: 'absolute',
-    left: 240,
+    left: 260,
     bottom: -10,
   },
   item: {

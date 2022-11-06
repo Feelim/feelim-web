@@ -6,6 +6,7 @@ import {
   Pressable,
   useWindowDimensions,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import colors from '../../assets/color';
 import Star from '../../assets/images/Home/Star.svg';
@@ -26,7 +27,8 @@ function TopButtons() {
   return (
     <View style={styles.block}>
       <View style={styles.topBtns}>
-        <Pressable
+        <TouchableOpacity
+          activeOpacity={0.7}
           style={[styles.whiteBtn, {width: itemWidth}]}
           onPress={() => navigation.navigate('Map')}>
           <View style={styles.textSection}>
@@ -36,7 +38,7 @@ function TopButtons() {
             <Text style={styles.text}>내 주변 현상소</Text>
           </View>
           <Photographer />
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );

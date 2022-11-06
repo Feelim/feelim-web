@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/core';
 import {useState} from 'react';
-import {Modal, StyleSheet, View, Text, Pressable} from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import {InfiniteData, useMutation, useQueryClient} from 'react-query';
 import {deleteComment} from '../../api/comments';
 import {deletePost} from '../../api/post';
@@ -78,12 +85,18 @@ function AlertModal({
           <Text style={styles.text}> {text}</Text>
         </View>
         <View style={styles.btns}>
-          <Pressable style={styles.btn1} onPress={onPressRemove}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.btn1}
+            onPress={onPressRemove}>
             <Text style={styles.btnText}>{button}</Text>
-          </Pressable>
-          <Pressable style={styles.btn2} onPress={onCancle}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.btn2}
+            onPress={onCancle}>
             <Text style={styles.btnText}>아니요</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>

@@ -9,14 +9,15 @@ import {
   requestMultiple,
 } from 'react-native-permissions';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useSetRecoilState} from 'recoil';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 import colors from '../../assets/color';
-import {permissionImageState} from '../../atoms/permission';
+import {androidCountState, permissionImageState} from '../../atoms/permission';
 import {RootStackNavigationProp} from '../types';
 
 function RequestScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const setPermissionImage = useSetRecoilState(permissionImageState);
+  const [androidCount, setAndroidCount] = useRecoilState(androidCountState);
 
   const requestMultiplePermissions = () => {
     requestMultiple(
@@ -35,6 +36,7 @@ function RequestScreen() {
           ],
     ).then(response => {
       console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
       setPermissionImage(
         Platform.OS === 'ios'
           ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
