@@ -9,8 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import colors from '../../assets/color';
-import Chalkak from '../../assets/images/Login/Chalkak.svg';
-import Star from '../../assets/images/Login/Star.svg';
+import Chalkak from '../../assets/images/Home/Chalkak.svg';
 import Bell from '../../assets/images/Home/Bell.svg';
 import MyPage from '../../assets/images/Home/Mypage.svg';
 import TopBanner from '../../components/Home/TopBanner';
@@ -47,12 +46,11 @@ function HomeScreen() {
 
   return (
     <ScrollView style={styles.fullScreen}>
-      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
+      <StatusBar backgroundColor={colors.primary} barStyle="dark-content" />
       <SafeAreaView>
         <View style={styles.homeTop}>
           <View style={styles.logo}>
             <Chalkak />
-            <Star />
           </View>
           <View style={styles.homeTopRight}>
             <Pressable style={styles.rightIcon}>
@@ -69,9 +67,9 @@ function HomeScreen() {
         <TopBanner />
         <TopButtons />
         <View style={styles.underline} />
-        <VideoSection />
-        <View style={styles.underline} />
         <RecommendSection />
+        <View style={styles.underline} />
+        <VideoSection />
       </SafeAreaView>
       <IsLoginModal visible={visible} onClose={onClose} />
     </ScrollView>
@@ -90,11 +88,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: colors.primary,
   },
   logo: {
     display: 'flex',
     flexDirection: 'row',
     marginLeft: 16,
+    marginTop: 5,
   },
   homeTopRight: {
     display: 'flex',

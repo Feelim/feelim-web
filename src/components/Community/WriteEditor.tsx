@@ -111,9 +111,12 @@ function WriteEditor() {
   };
   const onSelectImage = async () => {
     requestMultiplePermissions();
+
     if (permissionImage !== 'granted') {
       if (Platform.OS === 'android') {
-        requestMultiplePermissions();
+        console.log(permissionImage, 'go');
+
+        await requestMultiplePermissions();
       } else {
         setVisible(true);
       }

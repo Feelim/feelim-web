@@ -30,6 +30,7 @@ import MyPostScreen from './Community/MyPostScreen';
 import MyCommentScreen from './Community/MyCommnentScreen';
 import SearchScreen from './Search/SearchScreen';
 import RequestScreen from './Login/RequestScreen';
+import HomeEventScreen from './Home/HomeEventScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -154,6 +155,11 @@ function RootStack() {
             component={RequestScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="HomeEvent"
+            component={HomeEventScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -270,6 +276,11 @@ function RootStack() {
           <Stack.Screen
             name="Request"
             component={RequestScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="HomeEvent"
+            component={HomeEventScreen}
             options={{headerShown: false}}
           />
         </>

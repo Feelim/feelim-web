@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  StatusBar,
 } from 'react-native';
 import colors from '../../assets/color';
 import WriteEditor from '../../components/Community/WriteEditor';
@@ -17,6 +18,7 @@ import WriteHeader from '../../components/Community/WriteHeader';
 function WriteScreen() {
   return (
     <SafeAreaView style={styles.block}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
       <KeyboardAvoidingView
         style={styles.avoidingView}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
