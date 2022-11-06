@@ -32,7 +32,7 @@ import {
   typeState,
   uriState,
 } from '../../atoms/writePost';
-import {permissionImageState} from '../../atoms/permission';
+import {androidCountState, permissionImageState} from '../../atoms/permission';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../../screens/types';
 import PermissionModal from './PermissionModal';
@@ -57,12 +57,14 @@ function WriteEditor() {
   const setRecoilUri = useSetRecoilState(uriState);
 
   //접근권한
+
   const [visible, setVisible] = useState(false);
   const onClose = () => {
     setVisible(false);
   };
   const [permissionImage, setPermissionImage] =
     useRecoilState(permissionImageState);
+  const [androidCount, setAndroidCount] = useRecoilState(androidCountState);
 
   const requestMultiplePermissions = () => {
     requestMultiple(
@@ -79,6 +81,7 @@ function WriteEditor() {
           ],
     ).then(response => {
       console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
       setPermissionImage(
         Platform.OS === 'ios'
           ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
@@ -113,8 +116,12 @@ function WriteEditor() {
     requestMultiplePermissions();
     if (permissionImage !== 'granted') {
       if (Platform.OS === 'android') {
-        requestMultiplePermissions();
-      } else {
+        if (androidCount >= 2) {
+          setVisible(true);
+        } else {
+          requestMultiplePermissions();
+        }
+      } else if (Platform.OS === 'ios') {
         setVisible(true);
       }
     } else {

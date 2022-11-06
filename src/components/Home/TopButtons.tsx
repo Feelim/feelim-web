@@ -1,8 +1,16 @@
 import React from 'react';
-import {Text, View, StyleSheet, Pressable} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  useWindowDimensions,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import colors from '../../assets/color';
 import Star from '../../assets/images/Home/Star.svg';
-import Location from '../../assets/images/Home/Location.svg';
+import Photographer from '../../assets/images/Home/Photographer.svg';
 import TopButtonsItem from './TopButtonsItem';
 import Use from '../../assets/images/Home/Use.svg';
 import Camera from '../../assets/images/Home/Camera.svg';
@@ -13,34 +21,24 @@ import {RootStackNavigationProp} from '../../screens/types';
 
 function TopButtons() {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const {width} = useWindowDimensions();
+  const itemWidth = width - 48;
 
   return (
     <View style={styles.block}>
       <View style={styles.topBtns}>
-        <Pressable
-          style={[styles.blackBtn, styles.marginRight]}
-          onPress={() => navigation.navigate('Pickup')}>
-          <Star />
-          <Text style={styles.text}>
-            인화픽업{'\n'}
-            서비스 신청
-          </Text>
-        </Pressable>
-        <Pressable
-          style={styles.blackBtn}
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={[styles.whiteBtn, {width: itemWidth}]}
           onPress={() => navigation.navigate('Map')}>
-          <Location />
-          <Text style={styles.text}>
-            내 주변{'\n'}
-            현상소 찾기
-          </Text>
-        </Pressable>
-      </View>
-      <View style={styles.bottomBtns}>
-        <TopButtonsItem name="필카 사용법" icon={<Use />} />
-        <TopButtonsItem name="모델 정보" icon={<Camera />} />
-        <TopButtonsItem name="필름 사용법" icon={<Film />} />
-        <TopButtonsItem name="필름 마켓" icon={<Market />} />
+          <View style={styles.textSection}>
+            <Text style={styles.sub}>
+              내 주변에 있는 {'\n'}현상소가 궁금하다면?
+            </Text>
+            <Text style={styles.text}>내 주변 현상소</Text>
+          </View>
+          <Photographer />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -49,41 +47,46 @@ function TopButtons() {
 const styles = StyleSheet.create({
   block: {
     paddingHorizontal: 16,
-    paddingTop: 22,
+    paddingTop: 24,
     paddingBottom: 24,
     alignItems: 'center',
+    // backgroundColor: '#f5f5f5',
   },
   topBtns: {
     display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 16,
   },
-  blackBtn: {
-    backgroundColor: colors.primary,
-    width: 166,
-    height: 80,
-    borderRadius: 5,
+  whiteBtn: {
+    backgroundColor: colors.secondary,
+    height: 128,
+    borderRadius: 7,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    marginLeft: 48,
+    borderColor: 'rgba(0, 0, 0, 0.04)',
+    borderWidth: 3,
+    borderRightWidth: 0,
+    paddingLeft: 28,
+    paddingRight: 9,
+    paddingVertical: 10,
   },
-  text: {
-    color: colors.on_primary,
-    fontSize: 14,
-    fontWeight: '700',
+  textSection: {},
+  sub: {
+    color: colors.text3,
+    fontSize: 12,
+    lineHeight: 18,
     letterSpacing: -0.408,
-    marginLeft: 20,
+    fontWeight: '400',
+    marginBottom: 20,
   },
-  marginRight: {
-    marginRight: 11,
-  },
-  bottomBtns: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    // paddingHorizontal: 24,
-    width: '100%',
+
+  text: {
+    color: '#000000',
+    fontSize: 18,
+    fontFamily: colors.bold,
+    letterSpacing: -0.408,
+    lineHeight: 27,
   },
 });
 

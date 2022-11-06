@@ -127,14 +127,14 @@ const BottomSheet = ({
             }}
             {...panResponders.panHandlers}>
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.7}
               onPress={onPressModify}
               style={styles.itemFirst}>
               <Write style={{width: 19, height: 19}} />
               <Text style={styles.text}>수정</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.7}
               onPress={onPressDelete}
               style={styles.itemLast}>
               <Close2 style={{width: 19, height: 19}} />

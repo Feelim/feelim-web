@@ -1,4 +1,10 @@
-import {StyleSheet, View, useWindowDimensions, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  useWindowDimensions,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../assets/color';
 import LogoutSection from '../../components/Mypage/LogoutSection';
@@ -10,6 +16,7 @@ function MypageScreen() {
   const {width} = useWindowDimensions();
   return (
     <SafeAreaView style={styles.fullScreen}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
       <MypageHeader name="마이페이지" edit={true} complete={false} />
       <ProfileInfo />
       <View style={styles.banner}>

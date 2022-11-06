@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  StatusBar,
 } from 'react-native';
 import colors from '../../assets/color';
 import PostBody from '../../components/Community/PostBody';
@@ -36,6 +37,7 @@ function PostScreen() {
 
   return (
     <SafeAreaView style={styles.fullScreen}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <PostHeader

@@ -1,38 +1,50 @@
+import {useNavigation} from '@react-navigation/core';
 import {useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../assets/color';
 import MypageHeader from '../../components/Mypage/MypageHeader';
+import {RootStackNavigationProp} from '../types';
 
 function EventScreen() {
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <SafeAreaView style={styles.fullScreen}>
       <MypageHeader name="이벤트" edit={false} complete={false} />
       <ScrollView style={styles.block}>
-        <View style={styles.item}>
+        <Pressable
+          style={styles.item}
+          onPress={() => {
+            navigation.navigate('HomeEvent', {idx: 1});
+          }}>
           <Image
             style={styles.image}
-            source={require('../../assets/images/Home/banner.png')}
+            source={require('../../assets/images/Home/main1.png')}
           />
-          <Text style={styles.title}>필름사면 하나더</Text>
+          <Text style={styles.title}>
+            필카의 A to Z! 찰칵과 함께 시작해 보세요.
+          </Text>
           <Text style={styles.date}>2022. 10. 01 ~ 2022. 10. 31</Text>
-        </View>
-        <View style={styles.item}>
+        </Pressable>
+        <Pressable
+          style={styles.item}
+          onPress={() => {
+            navigation.navigate('HomeEvent', {idx: 2});
+          }}>
           <Image
             style={styles.image}
-            source={require('../../assets/images/Home/banner.png')}
+            source={require('../../assets/images/Home/main2.png')}
           />
-          <Text style={styles.title}>필름사면 하나더</Text>
+          <Text style={styles.title}>우리가 알아야 할 [찰칵] 이야기 </Text>
           <Text style={styles.date}>2022. 10. 01 ~ 2022. 10. 31</Text>
-        </View>
-        <View style={styles.item}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/Home/banner.png')}
-          />
-          <Text style={styles.title}>필름사면 하나더</Text>
-          <Text style={styles.date}>2022. 10. 01 ~ 2022. 10. 31</Text>
-        </View>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );

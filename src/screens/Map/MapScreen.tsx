@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {KakaoMapView} from '@jiggag/react-native-kakao-maps';
-import {useWindowDimensions, Platform, PermissionsAndroid} from 'react-native';
+import {
+  useWindowDimensions,
+  Platform,
+  PermissionsAndroid,
+  StatusBar,
+} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
@@ -85,6 +90,8 @@ function MapScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.fullScreen}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
+
       <View style={{width: width, alignItems: 'center'}}>
         <View style={[styles.pickupTop, {width: width - 32}]}>
           <Pressable onPress={() => navigation.pop()}>

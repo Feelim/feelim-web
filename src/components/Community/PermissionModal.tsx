@@ -1,10 +1,20 @@
 import {useNavigation} from '@react-navigation/core';
 import {useState} from 'react';
-import {Modal, StyleSheet, View, Text, Pressable, Linking} from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Linking,
+  TouchableOpacity,
+} from 'react-native';
 import {useMutation} from 'react-query';
+import {useRecoilState} from 'recoil';
 import {reportPost} from '../../api/post';
 
 import colors from '../../assets/color';
+import {permissionImageState} from '../../atoms/permission';
 import {RootStackNavigationProp} from '../../screens/types';
 
 export interface AlertProps {
@@ -13,8 +23,11 @@ export interface AlertProps {
 }
 
 function PermissionModal({visible, onClose}: AlertProps) {
+  const [permissionImage, setPermissionImage] =
+    useRecoilState(permissionImageState);
   const onPressSetting = () => {
     Linking.openSettings();
+    setPermissionImage('granted');
     onClose();
   };
   const onCancle = () => {
@@ -29,17 +42,23 @@ function PermissionModal({visible, onClose}: AlertProps) {
       <View style={styles.block}>
         <View style={styles.whiteBox}>
           <Text style={styles.text}>
-            사진을 업로드하려면 '설정 {'>'} chalkak'에서 사진을 사용할 수 있도록
-            허용하세요.
+            사진을 업로드하려면 {'\n'} '설정 {'>'} chalkak'에서 사진을{'\n'}{' '}
+            사용할 수 있도록 허용하세요.
           </Text>
         </View>
         <View style={styles.btns}>
-          <Pressable style={styles.btn1} onPress={onCancle}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.btn1}
+            onPress={onCancle}>
             <Text style={styles.btnText}>취소</Text>
-          </Pressable>
-          <Pressable style={styles.btn2} onPress={onPressSetting}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.btn2}
+            onPress={onPressSetting}>
             <Text style={styles.btnText}>설정</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -61,7 +80,7 @@ const styles = StyleSheet.create({
     width: 276,
     borderTopLeftRadius: 3,
     borderTopRightRadius: 3,
-    paddingHorizontal: 55,
+    paddingHorizontal: 35,
   },
   text: {
     fontSize: 16,

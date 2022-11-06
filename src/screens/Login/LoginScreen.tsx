@@ -34,7 +34,7 @@ function LoginScreen() {
       <View style={styles.logo}>
         <View style={styles.logoText}>
           <Text style={styles.text}>필름카메라의 모든것,</Text>
-          <LogoText />
+          <LogoText style={{marginTop: 2}} />
         </View>
         <Logo />
       </View>

@@ -46,7 +46,7 @@ import {
   patchImgTypeState,
   patchImgUrlState,
 } from '../../atoms/patchImg';
-import {permissionImageState} from '../../atoms/permission';
+import {androidCountState, permissionImageState} from '../../atoms/permission';
 import PermissionModal from '../../components/Community/PermissionModal';
 
 export interface Img {
@@ -127,6 +127,7 @@ function ModifyScreen() {
   };
   const [permissionImage, setPermissionImage] =
     useRecoilState(permissionImageState);
+  const [androidCount, setAndroidCount] = useRecoilState(androidCountState);
 
   const requestMultiplePermissions = () => {
     requestMultiple(
@@ -143,6 +144,7 @@ function ModifyScreen() {
           ],
     ).then(response => {
       console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
       setPermissionImage(
         Platform.OS === 'ios'
           ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
@@ -176,7 +178,11 @@ function ModifyScreen() {
   const onSelectImage = async () => {
     if (permissionImage !== 'granted') {
       if (Platform.OS === 'android') {
-        requestMultiplePermissions();
+        if (androidCount >= 2) {
+          setVisible(true);
+        } else {
+          requestMultiplePermissions();
+        }
       } else {
         setVisible(true);
       }
