@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>com.feelim.chalkak</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -24,6 +24,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NMFClientId</key>
+	<string>jtqfsvl5kr</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -37,6 +39,15 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Program requires GPS to track cars and job orders</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NotoSansKR-Light</string>
+		<string>NotoSansKR-Regular</string>
+		<string>NotoSansKR-Thin</string>
+		<string>NotoSansKR-Medium</string>
+		<string>NotoSansKR-Bold</string>
+		<string>NotoSansKR-Black</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

@@ -72,22 +72,6 @@ function DetailTopInfo({data}: DetailTopInfoType) {
                     source={require('../../assets/images/Pickup/call-icon.png')}
                   />
                 </Pressable>
-                <Pressable
-                  onPress={() => {
-                    setLike(!like);
-                  }}>
-                  {like ? (
-                    <Image
-                      style={[{width: 21}, {height: 21}]}
-                      source={require('../../assets/images/Pickup/like-clicked.png')}
-                    />
-                  ) : (
-                    <Image
-                      style={[{width: 21}, {height: 21}]}
-                      source={require('../../assets/images/Pickup/like.png')}
-                    />
-                  )}
-                </Pressable>
               </View>
             </View>
           </View>

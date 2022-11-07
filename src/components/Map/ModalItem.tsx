@@ -11,6 +11,8 @@ import {
 import colors from '../../assets/color';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
+import {useRecoilState} from 'recoil';
+import {mapModalState} from '../../atoms/mapModal';
 
 export interface ModalItemProps {
   address: {
@@ -36,6 +38,7 @@ function ModalItem({
   id,
 }: ModalItemProps) {
   const {width} = useWindowDimensions();
+  const [visible, setVisible] = useRecoilState(mapModalState);
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <Pressable
@@ -43,6 +46,7 @@ function ModalItem({
         navigation.navigate('PickupDetail', {
           id,
         });
+        setVisible(false);
       }}>
       <View style={[styles.block, {width: width}]}>
         <View style={[{height: 90}]}>

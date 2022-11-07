@@ -22,6 +22,7 @@ PODS:
   - libwebp/mux (1.2.3):
     - libwebp/demux
   - libwebp/webp (1.2.3)
+  - NMapsMap (3.16.0)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -252,6 +253,9 @@ PODS:
     - React
   - react-native-image-picker (4.10.0):
     - React-Core
+  - react-native-nmap (0.0.66):
+    - NMapsMap
+    - React
   - react-native-pager-view (6.0.1):
     - React-Core
   - react-native-safe-area-context (4.4.1):
@@ -330,8 +334,6 @@ PODS:
     - React-jsi (= 0.70.1)
     - React-logger (= 0.70.1)
     - React-perflogger (= 0.70.1)
-  - ReactNativeKakaoMaps (0.0.8):
-    - React
   - RNCAsyncStorage (1.17.10):
     - React-Core
   - RNFastImage (8.6.1):
@@ -361,6 +363,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
+  - NMapsMap (= 3.16.0)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -379,6 +382,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-nmap (from `../node_modules/react-native-nmap`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -395,7 +399,6 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "ReactNativeKakaoMaps (from `../node_modules/@jiggag/react-native-kakao-maps`)"
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -408,6 +411,7 @@ SPEC REPOS:
     - fmt
     - libevent
     - libwebp
+    - NMapsMap
     - SDWebImage
     - SDWebImageWebPCoder
 
@@ -458,6 +462,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-nmap:
+    :path: "../node_modules/react-native-nmap"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
@@ -490,8 +496,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  ReactNativeKakaoMaps:
-    :path: "../node_modules/@jiggag/react-native-kakao-maps"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNFastImage:
@@ -515,6 +519,7 @@ SPEC CHECKSUMS:
   hermes-engine: 9cd393f741bfa14d1d0cd90cc373e3619c0bc7ea
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: 60305b2e989864154bd9be3d772730f08fc6a59c
+  NMapsMap: a2593320fca2bb09e521c05b4dffee4da42e96ed
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: 1b4e0388c8ad776b2d23f8135926fa4e7ddacdf4
   RCTTypeSafety: 23dc09d6e9ed210fabab031a568bb0194d492385
@@ -532,6 +537,7 @@ SPEC CHECKSUMS:
   React-logger: 7bd569e3857d74ed412ce0a5c51f421ff7d4ca7f
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-image-picker: 4bc9ed38c8be255b515d8c88babbaf74973f91a8
+  react-native-nmap: cfcc5402746040494c544ea90a6062f49505acdf
   react-native-pager-view: 3051346698a0ba0c4e13e40097cc11b00ee03cca
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
@@ -548,7 +554,6 @@ SPEC CHECKSUMS:
   React-RCTVibration: e9164827303fb6a5cf79e4c4af4846a09956b11f
   React-runtimeexecutor: a11d0c2e14140baf1e449264ca9168ae9ae6bbd0
   ReactCommon: 7f86326b92009925c6dcf93f8e825060171c379f
-  ReactNativeKakaoMaps: e7e917999a613011b7d5d9cf9ea01e40fb9aaed1
   RNCAsyncStorage: 0c357f3156fcb16c8589ede67cc036330b6698ca
   RNFastImage: 3207b9eb17c2425d574ca40db35185db6e324f4e
   RNScreens: 0df01424e9e0ed7827200d6ed1087ddd06c493f9
@@ -558,6 +563,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   Yoga: 6c8252e38d65aa387daee699eacf027e055e0b31
 
-PODFILE CHECKSUM: bbaa89aca0b33d316a27f413fc64127149167d45
+PODFILE CHECKSUM: 8d734f49acdacd93c59d7b409246c9529d3332b1
 
 COCOAPODS: 1.11.3

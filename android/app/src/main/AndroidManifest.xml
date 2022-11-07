@@ -38,4 +38,9 @@
         </intent-filter>
       </activity>
     </application>
+    <application>
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="jtqfsvl5kr" />
+    </application>
 </manifest>
