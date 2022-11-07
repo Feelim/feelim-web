@@ -64,6 +64,9 @@ export type RootStackParamList = {
   }
   Terms: undefined;
   Agree: undefined;
+  Youtube:{
+    id: number;
+  }
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;

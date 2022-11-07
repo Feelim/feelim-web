@@ -27,7 +27,7 @@ function QuestionScreen() {
   return (
     <SafeAreaView style={styles.fullScreen}>
       <MypageHeader name="자주 묻는 질문" edit={false} complete={false} />
-      <ScrollView style={styles.block}>
+      <View style={styles.block}>
         <FlatList
           data={dummy.question}
           renderItem={({item}) => {
@@ -45,7 +45,7 @@ function QuestionScreen() {
           }}
           keyExtractor={item => item.id.toString()}
         />
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

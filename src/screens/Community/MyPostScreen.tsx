@@ -23,6 +23,7 @@ function MyPostScreen() {
   if (!myPostData) {
     return <ActivityIndicator size="large" style={{flex: 1}} color="black" />;
   }
+  console.log(myPostData);
 
   return (
     <SafeAreaView style={styles.fullScreen}>

@@ -49,6 +49,7 @@ function PostHeader({postId, userId}: HeaderProps) {
   return (
     <View style={styles.header}>
       <Pressable
+        hitSlop={8}
         onPress={() => {
           navigation.pop();
         }}>

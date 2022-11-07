@@ -36,6 +36,7 @@ import QuestionContent from './Mypage/QuestionContentScreen';
 import QuestionContentScreen from './Mypage/QuestionContentScreen';
 import TermsScreen from './Mypage/TermsScreen';
 import AgreeScreen from './Login/AgreeScreen';
+import YoutubeScreen from './Home/YoutubeScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -43,9 +44,10 @@ function RootStack() {
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     // AsyncStorage.clear();
-    AsyncStorage.getItem('nickname', (err, result) => {
+    AsyncStorage.getItem('accessToken', (err, result) => {
       if (result) {
         setIsLogin(true);
+        applyToken(result);
       }
     });
   }, []);
@@ -179,6 +181,11 @@ function RootStack() {
           <Stack.Screen
             name="Agree"
             component={AgreeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Youtube"
+            component={YoutubeScreen}
             options={{headerShown: false}}
           />
         </>
@@ -318,6 +325,11 @@ function RootStack() {
           <Stack.Screen
             name="Agree"
             component={AgreeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Youtube"
+            component={YoutubeScreen}
             options={{headerShown: false}}
           />
         </>
