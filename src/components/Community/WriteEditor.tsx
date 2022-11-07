@@ -10,7 +10,15 @@ import {
   Platform,
   Image,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
+import {
+  PERMISSIONS,
+  RESULTS,
+  request,
+  checkMultiple,
+  requestMultiple,
+} from 'react-native-permissions';
 import colors from '../../assets/color';
 import GetImage from '../../assets/images/Community/GetImage.svg';
 import Delete from '../../assets/images/Community/Delete.svg';
@@ -24,6 +32,10 @@ import {
   typeState,
   uriState,
 } from '../../atoms/writePost';
+import {androidCountState, permissionImageState} from '../../atoms/permission';
+import {useNavigation} from '@react-navigation/core';
+import {RootStackNavigationProp} from '../../screens/types';
+import PermissionModal from './PermissionModal';
 
 export interface Img {
   uri: string | undefined;
@@ -32,6 +44,7 @@ export interface Img {
 }
 
 function WriteEditor() {
+  const navigation = useNavigation<RootStackNavigationProp>();
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState('');
   const [response, setResponse] = useState(null);
@@ -43,34 +56,98 @@ function WriteEditor() {
   const setRecoilType = useSetRecoilState(typeState);
   const setRecoilUri = useSetRecoilState(uriState);
 
+  //접근권한
+
+  const [visible, setVisible] = useState(false);
+  const onClose = () => {
+    setVisible(false);
+  };
+  const [permissionImage, setPermissionImage] =
+    useRecoilState(permissionImageState);
+  const [androidCount, setAndroidCount] = useRecoilState(androidCountState);
+
+  const requestMultiplePermissions = () => {
+    requestMultiple(
+      Platform.OS === 'ios'
+        ? [
+            // PERMISSIONS.IOS.CAMERA,
+            PERMISSIONS.IOS.PHOTO_LIBRARY,
+            PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY,
+          ]
+        : [
+            // PERMISSIONS.ANDROID.CAMERA,
+            PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+            PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+          ],
+    ).then(response => {
+      console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
+      setPermissionImage(
+        Platform.OS === 'ios'
+          ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
+          : response['android.permission.WRITE_EXTERNAL_STORAGE'],
+      );
+    });
+  };
+  const checkMultiplePermissions = () => {
+    checkMultiple(
+      Platform.OS === 'ios'
+        ? [
+            // PERMISSIONS.IOS.CAMERA,
+            PERMISSIONS.IOS.PHOTO_LIBRARY,
+            PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY,
+          ]
+        : [
+            // PERMISSIONS.ANDROID.CAMERA,
+            PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+            PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+          ],
+    ).then(response => {
+      console.log('MULTIPLE CHECK RESPONSE : ', response);
+    });
+  };
+
   const image: Img = {
     uri: '',
     type: '',
     name: '',
   };
   const onSelectImage = async () => {
-    await launchImageLibrary(
-      {
-        mediaType: 'photo',
-        includeBase64: true,
-      },
-      res => {
-        if (res.didCancel) {
-          return;
-        } else if (res.assets) {
-          image.name = res.assets[0].fileName;
-          image.type = res.assets[0].type;
-          image.uri =
-            Platform.OS === 'android'
-              ? res.assets[0].uri
-              : res.assets[0].uri.replace('file://', '');
-          setResponse(res);
-          setRecoilName(image.name);
-          setRecoilType(image.type);
-          setRecoilUri(image.uri);
+    requestMultiplePermissions();
+    if (permissionImage !== 'granted') {
+      if (Platform.OS === 'android') {
+        if (androidCount >= 2) {
+          setVisible(true);
+        } else {
+          requestMultiplePermissions();
         }
-      },
-    );
+      } else if (Platform.OS === 'ios') {
+        setVisible(true);
+      }
+    } else {
+      await launchImageLibrary(
+        {
+          mediaType: 'photo',
+          includeBase64: true,
+        },
+        res => {
+          if (res.didCancel) {
+            return;
+          } else if (res.assets) {
+            image.name = res.assets[0].fileName;
+            image.type = res.assets[0].type;
+            image.uri =
+              Platform.OS === 'android'
+                ? res.assets[0].uri
+                : res.assets[0].uri.replace('file://', '');
+            setResponse(res);
+            setRecoilName(image.name);
+            setRecoilType(image.type);
+            setRecoilUri(image.uri);
+          }
+        },
+      );
+    }
   };
 
   const deleteImage = () => {
@@ -183,6 +260,7 @@ function WriteEditor() {
       <Pressable style={styles.selectPhoto} onPress={onSelectImage}>
         <GetImage />
       </Pressable>
+      <PermissionModal visible={visible} onClose={onClose} />
     </View>
   );
 }
@@ -249,13 +327,13 @@ const styles = StyleSheet.create({
   selectPhoto: {
     position: 'absolute',
     bottom: 21,
-    left: 21,
+    right: 21,
   },
 
   photoContainer: {
     position: 'absolute',
     bottom: 82,
-    left: 21,
+    right: 21,
   },
   photo: {
     width: 64,

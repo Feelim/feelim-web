@@ -73,10 +73,10 @@ function CommunityDrawer({open, setOpen}: Drawer) {
               <Write />
               <Text style={styles.pageText}>작성한{'\n'}게시글</Text>
             </Pressable>
-            <Pressable style={styles.page}>
+            {/* <Pressable style={styles.page}>
               <ScrapPage />
               <Text style={styles.pageText}>스크랩{'\n'}게시글</Text>
-            </Pressable>
+            </Pressable> */}
             <Pressable
               style={styles.page}
               hitSlop={8}
@@ -113,14 +113,15 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 13,
     letterSpacing: -0.408,
+    color: colors.text1,
   },
   pages: {
     paddingTop: 22,
     borderTopColor: colors.devider1,
     borderTopWidth: 1,
     flexDirection: 'row',
-    paddingLeft: 24,
-    paddingRight: 31,
+    paddingLeft: 70,
+    paddingRight: 70,
     justifyContent: 'space-between',
   },
   page: {

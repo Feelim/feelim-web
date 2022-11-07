@@ -18,7 +18,13 @@ buildscript {
     }
     repositories {
         google()
-        mavenCentral()
+        mavenCentral {
+            // We don't want to fetch react-native from Maven Central as there are
+            // older versions over there.
+            content {
+                excludeGroup "com.facebook.react"
+            }
+        }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.2.1")
@@ -37,7 +43,7 @@ allprojects {
            // from a local Maven repo inside node_modules/react-native/.
            // (The use of exclusiveContent prevents looking elsewhere like Maven Central
            // and potentially getting a wrong version.)
-           filter {
+          filter {
                includeGroup "com.facebook.react"
            }
            forRepository {

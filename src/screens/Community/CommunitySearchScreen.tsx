@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {
   Pressable,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   TextInput,
   View,
@@ -19,7 +20,7 @@ import {RootStackNavigationProp} from '../types';
 
 function CommunitySearchScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState<string>('');
   const searchTitleQuery = useQuery(['searchTitle', keyword], () =>
     getPostSearchTitle(keyword),
   );
@@ -50,6 +51,7 @@ function CommunitySearchScreen() {
 
   return (
     <SafeAreaView style={styles.block}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
       <View style={styles.searchInput}>
         <Pressable
           style={styles.backButton}

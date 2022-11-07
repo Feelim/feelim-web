@@ -33,7 +33,7 @@ function MypageHeader({name, edit, complete}: HeaderType) {
         <Pressable onPress={() => navigation.pop()} hitSlop={8}>
           <Image source={require('../../assets/images/Pickup/back.png')} />
         </Pressable>
-        <Text style={[styles.title, {width: width}]}>{name}</Text>
+
         {edit && (
           <Pressable hitSlop={8} onPress={() => navigation.navigate('Edit')}>
             <Text style={styles.infoLink}>편집</Text>
@@ -49,6 +49,7 @@ function MypageHeader({name, edit, complete}: HeaderType) {
           </Pressable>
         )}
       </View>
+      <Text style={[styles.title, {}]}>{name}</Text>
     </View>
   );
 }
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     fontFamily: 'NotoSansKR-Bold',
     lineHeight: 27,
     position: 'absolute',
-    left: '40%',
+    top: 8,
   },
   infoLink: {
     fontSize: 12,

@@ -11,6 +11,13 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import {
+  PERMISSIONS,
+  RESULTS,
+  request,
+  checkMultiple,
+  requestMultiple,
+} from 'react-native-permissions';
 import colors from '../../assets/color';
 import GetImage from '../../assets/images/Community/GetImage.svg';
 import Delete from '../../assets/images/Community/Delete.svg';
@@ -39,6 +46,8 @@ import {
   patchImgTypeState,
   patchImgUrlState,
 } from '../../atoms/patchImg';
+import {androidCountState, permissionImageState} from '../../atoms/permission';
+import PermissionModal from '../../components/Community/PermissionModal';
 
 export interface Img {
   uri: string | undefined;
@@ -111,33 +120,95 @@ function ModifyScreen() {
     }
   };
 
+  //접근권한
+  const [visible, setVisible] = useState(false);
+  const onClosePermssion = () => {
+    setVisible(false);
+  };
+  const [permissionImage, setPermissionImage] =
+    useRecoilState(permissionImageState);
+  const [androidCount, setAndroidCount] = useRecoilState(androidCountState);
+
+  const requestMultiplePermissions = () => {
+    requestMultiple(
+      Platform.OS === 'ios'
+        ? [
+            // PERMISSIONS.IOS.CAMERA,
+            PERMISSIONS.IOS.PHOTO_LIBRARY,
+            PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY,
+          ]
+        : [
+            // PERMISSIONS.ANDROID.CAMERA,
+            PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+            PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+          ],
+    ).then(response => {
+      console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
+      setPermissionImage(
+        Platform.OS === 'ios'
+          ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
+          : response['android.permission.WRITE_EXTERNAL_STORAGE'],
+      );
+    });
+  };
+  const checkMultiplePermissions = () => {
+    checkMultiple(
+      Platform.OS === 'ios'
+        ? [
+            // PERMISSIONS.IOS.CAMERA,
+            PERMISSIONS.IOS.PHOTO_LIBRARY,
+            PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY,
+          ]
+        : [
+            // PERMISSIONS.ANDROID.CAMERA,
+            PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+            PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+          ],
+    ).then(response => {
+      console.log('MULTIPLE CHECK RESPONSE : ', response);
+    });
+  };
+
   const image: Img = {
     uri: '',
     type: '',
     name: '',
   };
   const onSelectImage = async () => {
-    await launchImageLibrary(
-      {
-        mediaType: 'photo',
-        includeBase64: true,
-      },
-      res => {
-        if (res.didCancel) {
-          return;
-        } else if (res.assets) {
-          image.name = res.assets[0].fileName;
-          image.type = res.assets[0].type;
-          image.uri =
-            Platform.OS === 'android'
-              ? res.assets[0].uri
-              : res.assets[0].uri.replace('file://', '');
-          setImageName(image.name);
-          setImageType(image.type);
-          setImageUrl(image.uri);
+    if (permissionImage !== 'granted') {
+      if (Platform.OS === 'android') {
+        if (androidCount >= 2) {
+          setVisible(true);
+        } else {
+          requestMultiplePermissions();
         }
-      },
-    );
+      } else {
+        setVisible(true);
+      }
+    } else {
+      await launchImageLibrary(
+        {
+          mediaType: 'photo',
+          includeBase64: true,
+        },
+        res => {
+          if (res.didCancel) {
+            return;
+          } else if (res.assets) {
+            image.name = res.assets[0].fileName;
+            image.type = res.assets[0].type;
+            image.uri =
+              Platform.OS === 'android'
+                ? res.assets[0].uri
+                : res.assets[0].uri.replace('file://', '');
+            setImageName(image.name);
+            setImageType(image.type);
+            setImageUrl(image.uri);
+          }
+        },
+      );
+    }
   };
   const deleteImage = () => {
     setImageUrl(null);
@@ -200,9 +271,10 @@ function ModifyScreen() {
       .then(response => {
         console.log(response.data);
         if (response.data.isSuccess) {
-          navigation.navigate('Community');
           queryClient.invalidateQueries('postAll');
           queryClient.invalidateQueries('postDetail');
+          queryClient.invalidateQueries('postCategory');
+          navigation.navigate('Community');
         }
       })
       .catch(e => {
@@ -303,6 +375,7 @@ function ModifyScreen() {
         </Pressable>
       </View>
       <WriteErrorToast />
+      <PermissionModal visible={visible} onClose={onClosePermssion} />
     </SafeAreaView>
   );
 }
@@ -393,13 +466,13 @@ const styles = StyleSheet.create({
   selectPhoto: {
     position: 'absolute',
     bottom: 21,
-    left: 21,
+    right: 21,
   },
 
   photoContainer: {
     position: 'absolute',
     bottom: 82,
-    left: 21,
+    right: 21,
   },
   photo: {
     width: 64,

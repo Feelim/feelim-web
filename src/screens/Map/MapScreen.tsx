@@ -1,10 +1,12 @@
-import React, {Children, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {KakaoMapView} from '@jiggag/react-native-kakao-maps';
 import {
   useWindowDimensions,
   Platform,
   PermissionsAndroid,
   SafeAreaView,
   FlatList,
+  StatusBar,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
@@ -125,6 +127,8 @@ function MapScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <SafeAreaView style={styles.fullScreen}>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
+
       <View style={{width: width, alignItems: 'center'}}>
         <View style={[styles.pickupTop, {width: width - 32}]}>
           <Pressable onPress={() => navigation.pop()}>

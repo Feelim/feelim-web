@@ -122,6 +122,7 @@ function WriteHeader() {
           setPostId(response.data.result);
           navigation.navigate('Community');
           queryClient.invalidateQueries('postAll');
+          queryClient.invalidateQueries('postCategory');
         }
       })
       .catch(e => {

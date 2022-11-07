@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/core';
 import {useState} from 'react';
-import {Modal, StyleSheet, View, Text, Pressable} from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 
 import colors from '../../assets/color';
 import {RootStackNavigationProp} from '../../screens/types';
@@ -32,12 +39,18 @@ function IsLoginModal({visible, onClose}: AlertProps) {
           </Text>
         </View>
         <View style={styles.btns}>
-          <Pressable style={styles.btn1} onPress={onPressLogin}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.btn1}
+            onPress={onPressLogin}>
             <Text style={styles.btnText}>로그인</Text>
-          </Pressable>
-          <Pressable style={styles.btn2} onPress={onCancle}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.btn2}
+            onPress={onCancle}>
             <Text style={styles.btnText}>아니요</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>

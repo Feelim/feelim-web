@@ -25,9 +25,6 @@ import {useNavigation} from '@react-navigation/core';
 import {MainTabNavigationProp, RootStackNavigationProp} from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {axiosInstance} from '../../queries';
-import {applyToken} from '../../api/client';
-import {useQuery} from 'react-query';
-import {getMyProfile} from '../../api/mypage';
 
 function SetNicknameScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -99,13 +96,12 @@ function SetNicknameScreen() {
   };
 
   const formdata = new FormData();
-  console.log(inputText);
   useEffect(() => {
     formdata.append('nickname', inputText);
     formdata.append('image', {
-      uri: 'file:///data/user/0/com.feelimweb/cache/rn_image_picker_lib_temp_abafb33e-faf6-4507-8508-a87da8c9f164.jpg',
-      type: 'image/jpeg',
-      name: 'rn_image_picker_lib_temp_abafb33e-faf6-4507-8508-a87da8c9f164.jpg',
+      uri: 'https://i.postimg.cc/K8B6F2CK/1.jpg',
+      type: 'image/jpg',
+      name: '1.jpg',
     });
   }, [inputText]);
 

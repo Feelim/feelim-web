@@ -26,6 +26,12 @@ function MypageContents() {
   const onPressService = () => {
     navigation.navigate('Service');
   };
+  const onPressQuestion = () => {
+    navigation.navigate('Question');
+  };
+  const onPressTerms = () => {
+    navigation.navigate('Terms');
+  };
   return (
     <View style={styles.block}>
       {/* <Pressable style={styles.item}>
@@ -48,11 +54,11 @@ function MypageContents() {
         <Set />
         <Text style={styles.text}>환경설정</Text>
       </Pressable>
-      <Pressable style={styles.item}>
+      <Pressable style={styles.item} onPress={onPressTerms}>
         <Terms />
         <Text style={styles.text}>운영정책 및 약관</Text>
       </Pressable>
-      <Pressable style={styles.item}>
+      <Pressable style={styles.item} onPress={onPressQuestion}>
         <Question />
         <Text style={styles.text}>자주 묻는 질문</Text>
       </Pressable>

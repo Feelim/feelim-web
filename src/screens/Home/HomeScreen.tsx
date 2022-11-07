@@ -9,28 +9,24 @@ import {
   StatusBar,
 } from 'react-native';
 import colors from '../../assets/color';
-import Chalkak from '../../assets/images/Login/Chalkak.svg';
-import Star from '../../assets/images/Login/Star.svg';
+import Chalkak from '../../assets/images/Home/Chalkak.svg';
 import Bell from '../../assets/images/Home/Bell.svg';
 import MyPage from '../../assets/images/Home/Mypage.svg';
 import TopBanner from '../../components/Home/TopBanner';
 import TopButtons from '../../components/Home/TopButtons';
 import VideoSection from '../../components/Home/VideoSection';
 import RecommendSection from '../../components/Home/RecommendSection';
-import {usernameState} from '../../atoms/username';
-import {nickNameState} from '../../atoms/nickname';
-import {emailState} from '../../atoms/email';
-import {useRecoilState} from 'recoil';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../types';
 import IsLoginModal from '../../components/Login/IsLoginModal';
+import RequestBottomSheet from '../../components/Home/RequestBottomSheet';
 
 function HomeScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [authUsername, setAuthUsername] = useRecoilState(usernameState);
-  const [authNickname, setAuthNickname] = useRecoilState(nickNameState);
-  const [authEmail, setAuthEmail] = useRecoilState(emailState);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isRequest, setIsRequest] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const [visible, setVisible] = useState(false);
   AsyncStorage.getItem('accessToken', (err, result) => {
@@ -38,25 +34,13 @@ function HomeScreen() {
       setIsLogin(true);
     }
   });
-
-  useEffect(() => {
-    //자동로그인시 리코일에 회원정보 저장
-    const load = async () => {
-      try {
-        await AsyncStorage.getItem('username', (err, result: any) => {
-          setAuthUsername(result);
-        });
-        await AsyncStorage.getItem('nickname', (err, result: any) => {
-          setAuthNickname(result);
-        });
-        await AsyncStorage.getItem('email', (err, result: any) => {
-          setAuthEmail(result);
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    load();
+  //RequestBottomSheet 맨 처음에만
+  AsyncStorage.getItem('request', (err, result) => {
+    if (result) {
+      setIsRequest('true');
+    } else {
+      setIsRequest('false');
+    }
   });
 
   const onPressMypage = () => {
@@ -71,14 +55,21 @@ function HomeScreen() {
     setVisible(false);
   };
 
+  useEffect(() => {
+    if (isRequest === 'false') {
+      setModalVisible(true);
+    } else if (isRequest === 'true') {
+      setModalVisible(false);
+    }
+  }, [isRequest]);
+
   return (
     <ScrollView style={styles.fullScreen}>
-      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
+      <StatusBar backgroundColor={colors.primary} barStyle="dark-content" />
       <SafeAreaView>
         <View style={styles.homeTop}>
           <View style={styles.logo}>
             <Chalkak />
-            <Star />
           </View>
           <View style={styles.homeTopRight}>
             <Pressable style={styles.rightIcon}>
@@ -95,11 +86,15 @@ function HomeScreen() {
         <TopBanner />
         <TopButtons />
         <View style={styles.underline} />
-        <VideoSection />
-        <View style={styles.underline} />
         <RecommendSection />
+        <View style={styles.underline} />
+        <VideoSection />
       </SafeAreaView>
       <IsLoginModal visible={visible} onClose={onClose} />
+      <RequestBottomSheet
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </ScrollView>
   );
 }
@@ -116,11 +111,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: colors.primary,
+    paddingTop: 9,
   },
   logo: {
     display: 'flex',
     flexDirection: 'row',
     marginLeft: 16,
+    marginTop: 5,
   },
   homeTopRight: {
     display: 'flex',

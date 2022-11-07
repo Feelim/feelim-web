@@ -65,7 +65,7 @@ function CommunityFeed() {
       setCategory('QUESTION');
       setCategoryData(postCategory.data?.result);
     }
-  }, [categoryRecoil, category]);
+  }, [categoryRecoil, category, categoryData]);
 
   const {bottom} = useSafeAreaInsets();
 
@@ -88,7 +88,6 @@ function CommunityFeed() {
                 commentNum={item.commentNum}
                 time={item.time}
                 nickname={item.writer.nickname}
-                // image={item.image}
               />
             )}
             keyExtractor={item => item.id.toString()}

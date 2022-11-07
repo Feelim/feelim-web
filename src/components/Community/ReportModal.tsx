@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/core';
 import {useState} from 'react';
-import {Modal, StyleSheet, View, Text, Pressable} from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import {useMutation} from 'react-query';
 import {reportPost} from '../../api/post';
 
@@ -49,12 +56,18 @@ function ReportModal({visible, onClose, postId, reason}: AlertProps) {
           </Text>
         </View>
         <View style={styles.btns}>
-          <Pressable style={styles.btn1} onPress={onCancle}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.btn1}
+            onPress={onCancle}>
             <Text style={styles.btnText}>나가기</Text>
-          </Pressable>
-          <Pressable style={styles.btn2} onPress={onPressReport}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.btn2}
+            onPress={onPressReport}>
             <Text style={styles.btnText}>확인</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>

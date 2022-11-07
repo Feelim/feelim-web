@@ -7,6 +7,7 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
+  StatusBar,
 } from 'react-native';
 import colors from '../../assets/color';
 import CommunityFeed from '../../components/Community/CommunityFeed';
@@ -15,11 +16,14 @@ import PageFilter from '../../components/Community/PageFilter';
 
 function CommunityScreen() {
   return (
-    <View style={styles.fullScreen}>
-      <CommunityHeader />
-      <PageFilter />
-      <CommunityFeed />
-    </View>
+    <>
+      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
+      <View style={styles.fullScreen}>
+        <CommunityHeader />
+        <PageFilter />
+        <CommunityFeed />
+      </View>
+    </>
   );
 }
 

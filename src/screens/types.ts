@@ -55,6 +55,18 @@ export type RootStackParamList = {
   Edit: undefined;
   MyPost: undefined;
   MyComment: undefined;
+  HomeEvent: {
+    idx: number;
+  };
+  Question: undefined;
+  QuestionContent:{
+    id: number;
+  }
+  Terms: undefined;
+  Agree: undefined;
+  Youtube:{
+    id: number;
+  }
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
