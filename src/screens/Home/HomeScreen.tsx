@@ -72,9 +72,9 @@ function HomeScreen() {
             <Chalkak />
           </View>
           <View style={styles.homeTopRight}>
-            <Pressable style={styles.rightIcon}>
+            {/* <Pressable style={styles.rightIcon}>
               <Bell />
-            </Pressable>
+            </Pressable> */}
             <Pressable
               style={styles.rightIcon}
               hitSlop={8}
