@@ -42,11 +42,6 @@ function PickupDetailScreen() {
     <SafeAreaView style={styles.fullScreen}>
       {/* 헤더 (수정하기) */}
       <View style={{width: width, alignItems: 'center'}}>
-        <View style={[styles.pickupTop, {width: width - 32}]}>
-          <Pressable onPress={() => navigation.pop()}>
-            <Image source={require('../../assets/images/Pickup/back.png')} />
-          </Pressable>
-        </View>
         <DetailTopInfo data={data} />
         <Divider />
         <DetailPrice data={data} />

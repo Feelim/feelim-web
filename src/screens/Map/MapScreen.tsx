@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {KakaoMapView} from '@jiggag/react-native-kakao-maps';
 import {
   useWindowDimensions,
   Platform,
@@ -125,6 +124,7 @@ function MapScreen() {
   const P2 = {latitude: 37.565383, longitude: 126.976292};
   const {width, height} = useWindowDimensions();
   const navigation = useNavigation<RootStackNavigationProp>();
+
   return (
     <SafeAreaView style={styles.fullScreen}>
       <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
@@ -156,7 +156,7 @@ function MapScreen() {
             />
           );
         })} */}
-        <FlatList
+        {/* <FlatList
           data={data?.result}
           renderItem={({item}) => (
             <Marker
@@ -166,7 +166,24 @@ function MapScreen() {
           )}
           keyExtractor={item => item.id.toString()}
           // ItemSeparatorComponent={() => <Divider />}
-        />
+        /> */}
+
+        {isFocused &&
+          data?.result.map(item => {
+            return (
+              <Marker
+                coordinate={{latitude: item.x, longitude: item.y}}
+                image={require('../../assets/images/Map/marker.png')}
+                key={item.id.toString()}
+                onClick={() => {
+                  const id: number = item.id;
+                  navigation.navigate('PickupDetail', {
+                    id,
+                  });
+                }}
+              />
+            );
+          })}
         <Marker
           coordinate={P0}
           onClick={() => console.warn('onClick! p0')}
@@ -188,7 +205,11 @@ function MapScreen() {
       <Pressable
         onPress={() => {
           setVisible(true);
+        }}
+        style={{
+          alignItems: 'center',
         }}>
+        <View style={styles.line}></View>
         <View
           style={{
             backgroundColor: colors.on_primary,
@@ -229,6 +250,13 @@ const styles = StyleSheet.create({
   searchWrap: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  line: {
+    marginTop: 10,
+    height: 4,
+    width: 50,
+    backgroundColor: colors.primary,
+    borderRadius: 5,
   },
 });
 
