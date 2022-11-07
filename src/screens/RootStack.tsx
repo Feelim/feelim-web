@@ -31,6 +31,11 @@ import MyCommentScreen from './Community/MyCommnentScreen';
 import SearchScreen from './Search/SearchScreen';
 import RequestScreen from './Login/RequestScreen';
 import HomeEventScreen from './Home/HomeEventScreen';
+import QuestionScreen from './Mypage/QuestionScreen';
+import QuestionContent from './Mypage/QuestionContentScreen';
+import QuestionContentScreen from './Mypage/QuestionContentScreen';
+import TermsScreen from './Mypage/TermsScreen';
+import AgreeScreen from './Login/AgreeScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -160,6 +165,26 @@ function RootStack() {
             component={HomeEventScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="Question"
+            component={QuestionScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="QuestionContent"
+            component={QuestionContentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Terms"
+            component={TermsScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Agree"
+            component={AgreeScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -281,6 +306,26 @@ function RootStack() {
           <Stack.Screen
             name="HomeEvent"
             component={HomeEventScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Question"
+            component={QuestionScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="QuestionContent"
+            component={QuestionContentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Terms"
+            component={TermsScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Agree"
+            component={AgreeScreen}
             options={{headerShown: false}}
           />
         </>

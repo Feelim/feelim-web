@@ -16,24 +16,36 @@ function RecommendSection() {
   return (
     <View style={styles.block}>
       <View style={styles.header}>
-        <Text style={styles.title}>Chalkak* 운영진이 추천하는 글 ✏️</Text>
+        <Text style={styles.title}>Chalkak* 운영진이 추천하는 글 </Text>
       </View>
       <View style={[styles.container, {marginBottom: 12}]}>
-        <Pressable style={styles.item}>
-          <Rec1 />
+        <Pressable style={[styles.item, {marginRight: 12}]}>
+          <Image
+            source={require('../../assets/images/Home/Recommend.png')}
+            style={styles.img}
+          />
           <Text style={styles.text}>필름 최저가 구매 팁</Text>
         </Pressable>
         <Pressable style={styles.item}>
-          <Rec2 />
+          <Image
+            source={require('../../assets/images/Home/Recommend2.png')}
+            style={styles.img}
+          />
         </Pressable>
       </View>
       <View style={styles.container}>
         <Pressable style={styles.item}>
-          <Rec1 />
+          <Image
+            source={require('../../assets/images/Home/Recommend.png')}
+            style={styles.img}
+          />
           <Text style={styles.text}>필름 최저가 구매 팁</Text>
         </Pressable>
         <Pressable style={styles.item}>
-          <Rec2 />
+          <Image
+            source={require('../../assets/images/Home/Recommend2.png')}
+            style={styles.img}
+          />
         </Pressable>
       </View>
     </View>
@@ -62,10 +74,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    height: 166,
   },
   item: {
-    width: 165.4,
-    height: 156.4,
+    width: '48%',
+    height: '100%',
     marginBottom: 16,
     borderRadius: 4,
     position: 'relative',
@@ -77,6 +90,12 @@ const styles = StyleSheet.create({
     fontFamily: colors.bold,
     color: colors.on_primary,
     fontSize: 12,
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(36, 36, 36, 0.54)',
+    borderRadius: 4,
   },
 });
 

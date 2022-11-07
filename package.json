@@ -27,6 +27,7 @@
     "react-hook-form": "^7.36.1",
     "react-native": "0.70.1",
     "react-native-banner-carousel": "^1.0.3",
+    "react-native-bouncy-checkbox": "^3.0.5",
     "react-native-easy-toast": "^2.0.0",
     "react-native-fast-image": "^8.6.1",
     "react-native-geolocation-service": "^5.3.1",

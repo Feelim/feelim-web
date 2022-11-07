@@ -59,6 +59,12 @@ export type RootStackParamList = {
   HomeEvent: {
     idx: number;
   };
+  Question: undefined;
+  QuestionContent:{
+    id: number;
+  }
+  Terms: undefined;
+  Agree: undefined;
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;

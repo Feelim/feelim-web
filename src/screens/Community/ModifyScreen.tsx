@@ -465,13 +465,13 @@ const styles = StyleSheet.create({
   selectPhoto: {
     position: 'absolute',
     bottom: 21,
-    left: 21,
+    right: 21,
   },
 
   photoContainer: {
     position: 'absolute',
     bottom: 82,
-    left: 21,
+    right: 21,
   },
   photo: {
     width: 64,

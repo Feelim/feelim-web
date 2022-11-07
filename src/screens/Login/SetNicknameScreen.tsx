@@ -126,6 +126,7 @@ function SetNicknameScreen() {
     if (authNickName) {
       // navigation.navigate('MainTab');
       navigation.navigate('Request');
+      // navigation.navigate('Agree');
     }
   }, [authNickName]);
 
