@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     height: 174,
     marginTop: 24,
     borderRadius: 13,
-    marginLeft: 33,
+    marginLeft: 23,
   },
   pagination: {
     position: 'absolute',

@@ -10,7 +10,7 @@ function VideoSection() {
   return (
     <View style={styles.block}>
       <View style={styles.header}>
-        <Text style={styles.title}>동영상으로 배우는 필카 📸</Text>
+        <Text style={styles.title}>동영상으로 배우는 필카</Text>
         <Pressable>
           <More />
         </Pressable>

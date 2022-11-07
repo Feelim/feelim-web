@@ -1,5 +1,12 @@
 import {useNavigation} from '@react-navigation/core';
-import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useQuery} from 'react-query';
 import {getMyPost} from '../../api/post';
@@ -12,6 +19,10 @@ function MyPostScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const {bottom} = useSafeAreaInsets();
   const myPostData = useQuery('myPost', getMyPost);
+
+  if (!myPostData) {
+    return <ActivityIndicator size="large" style={{flex: 1}} color="black" />;
+  }
 
   return (
     <SafeAreaView style={styles.fullScreen}>

@@ -65,7 +65,7 @@ function CommunityFeed() {
       setCategory('QUESTION');
       setCategoryData(postCategory.data?.result);
     }
-  }, [categoryRecoil, category]);
+  }, [categoryRecoil, category, categoryData]);
 
   const {bottom} = useSafeAreaInsets();
 

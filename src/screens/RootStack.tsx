@@ -42,7 +42,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootStack() {
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     AsyncStorage.getItem('nickname', (err, result) => {
       if (result) {
         setIsLogin(true);
@@ -155,11 +155,7 @@ function RootStack() {
             component={MyCommentScreen}
             options={{headerShown: false}}
           />
-          <Stack.Screen
-            name="Request"
-            component={RequestScreen}
-            options={{headerShown: false}}
-          />
+
           <Stack.Screen
             name="HomeEvent"
             component={HomeEventScreen}
@@ -298,11 +294,7 @@ function RootStack() {
             component={SearchScreen}
             options={{headerShown: false}}
           />
-          <Stack.Screen
-            name="Request"
-            component={RequestScreen}
-            options={{headerShown: false}}
-          />
+
           <Stack.Screen
             name="HomeEvent"
             component={HomeEventScreen}

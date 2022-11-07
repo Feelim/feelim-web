@@ -178,6 +178,7 @@ function EditScreen() {
           queryClient.invalidateQueries('myProfile');
           queryClient.invalidateQueries('postAll');
           queryClient.invalidateQueries('postDetail');
+          queryClient.invalidateQueries('postCategory');
           navigation.navigate('Mypage');
         } else {
           setPatch(false);

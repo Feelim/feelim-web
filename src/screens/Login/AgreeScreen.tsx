@@ -1,6 +1,7 @@
 import {
   Animated,
   Button,
+  Linking,
   Platform,
   Pressable,
   StatusBar,
@@ -15,6 +16,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../assets/color';
 import Chalkak from '../../assets/images/Login/Chalkak.svg';
 import Star from '../../assets/images/Login/Star.svg';
+import More from '../../assets/images/Mypage/More.svg';
+
 import Unchecked from '../../assets/images/Login/Unchecked.svg';
 import Checked from '../../assets/images/Login/Checked.svg';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
@@ -86,7 +89,7 @@ function AgreeScreen() {
       <View>
         <Text style={styles.title}>서비스 이용 동의</Text>
         <View style={styles.item}>
-          <Pressable onPress={onPressCheckAll}>
+          <Pressable onPress={onPressCheckAll} hitSlop={8}>
             {checkAll ? <Checked /> : <Unchecked />}
           </Pressable>
 
@@ -102,6 +105,7 @@ function AgreeScreen() {
         />
         <View style={styles.item}>
           <Pressable
+            hitSlop={8}
             onPress={() => {
               setCheck1(!check1);
             }}>
@@ -111,39 +115,69 @@ function AgreeScreen() {
         </View>
         <View style={styles.item}>
           <Pressable
+            hitSlop={8}
             onPress={() => {
               setCheck2(!check2);
             }}>
             {check2 ? <Checked /> : <Unchecked />}
           </Pressable>
           <Text style={styles.text}>이용 약관 동의 (필수)</Text>
+          <Pressable
+            style={styles.next}
+            hitSlop={8}
+            onPress={() => {
+              Linking.openURL(
+                'https://gifted-gasosaurus-d61.notion.site/8cc0c638e82a4a97bd4c599b599583e3',
+              );
+            }}>
+            <More />
+          </Pressable>
         </View>
         <View style={styles.item}>
           <Pressable
+            hitSlop={8}
             onPress={() => {
               setCheck3(!check3);
             }}>
             {check3 ? <Checked /> : <Unchecked />}
           </Pressable>
           <Text style={styles.text}>개인정보 수집/이용 동의 (필수)</Text>
+          <Pressable
+            style={styles.next}
+            hitSlop={8}
+            onPress={() => {
+              Linking.openURL(
+                'https://gifted-gasosaurus-d61.notion.site/caefc62c984246d2a04b91e444df00e7',
+              );
+            }}>
+            <More />
+          </Pressable>
         </View>
         <View style={styles.item}>
           <Pressable
+            hitSlop={8}
             onPress={() => {
               setCheck4(!check4);
             }}>
             {check4 ? <Checked /> : <Unchecked />}
           </Pressable>
           <Text style={styles.text}>위치 정보 제공 동의 (선택)</Text>
+          <Pressable style={styles.next} hitSlop={8}>
+            <More />
+          </Pressable>
         </View>
         <View style={styles.item}>
           <Pressable
+            hitSlop={8}
             onPress={() => {
               setCheck5(!check5);
             }}>
             {check5 ? <Checked /> : <Unchecked />}
           </Pressable>
           <Text style={styles.text}>마케팅 수신 동의 (선택)</Text>
+          <Pressable style={styles.next} hitSlop={8}>
+            <More />
+          </Pressable>
         </View>
       </View>
       <TouchableOpacity
@@ -221,6 +255,11 @@ const styles = StyleSheet.create({
     letterSpacing: -0.408,
     color: colors.text1,
     marginLeft: 21,
+    position: 'relative',
+  },
+  next: {
+    position: 'absolute',
+    right: 24,
   },
   button: {
     marginHorizontal: 24,

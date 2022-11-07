@@ -20,15 +20,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../types';
 import IsLoginModal from '../../components/Login/IsLoginModal';
+import RequestBottomSheet from '../../components/Home/RequestBottomSheet';
 
 function HomeScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isRequest, setIsRequest] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const [visible, setVisible] = useState(false);
   AsyncStorage.getItem('accessToken', (err, result) => {
     if (result) {
       setIsLogin(true);
+    }
+  });
+  //RequestBottomSheet 맨 처음에만
+  AsyncStorage.getItem('request', (err, result) => {
+    if (result) {
+      setIsRequest('true');
+    } else {
+      setIsRequest('false');
     }
   });
 
@@ -43,6 +54,14 @@ function HomeScreen() {
   const onClose = () => {
     setVisible(false);
   };
+
+  useEffect(() => {
+    if (isRequest === 'false') {
+      setModalVisible(true);
+    } else if (isRequest === 'true') {
+      setModalVisible(false);
+    }
+  }, [isRequest]);
 
   return (
     <ScrollView style={styles.fullScreen}>
@@ -72,6 +91,10 @@ function HomeScreen() {
         <VideoSection />
       </SafeAreaView>
       <IsLoginModal visible={visible} onClose={onClose} />
+      <RequestBottomSheet
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </ScrollView>
   );
 }

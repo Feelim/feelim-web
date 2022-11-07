@@ -273,6 +273,7 @@ function ModifyScreen() {
         if (response.data.isSuccess) {
           queryClient.invalidateQueries('postAll');
           queryClient.invalidateQueries('postDetail');
+          queryClient.invalidateQueries('postCategory');
           navigation.navigate('Community');
         }
       })

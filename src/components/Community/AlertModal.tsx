@@ -40,6 +40,7 @@ function AlertModal({
   const {mutate: removePost} = useMutation(deletePost, {
     onSuccess: e => {
       queryClient.invalidateQueries('postAll');
+      queryClient.invalidateQueries('postCategory');
       navigation.goBack();
     },
     onError: e => {
@@ -51,6 +52,7 @@ function AlertModal({
       console.log(e);
       queryClient.invalidateQueries('postDetail');
       queryClient.invalidateQueries('postAll');
+      queryClient.invalidateQueries('postCategory');
     },
     onError: e => {
       console.log(e, '댓글 삭제 에러');
