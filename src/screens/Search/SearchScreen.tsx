@@ -8,6 +8,7 @@ import {
   View,
   Image,
   FlatList,
+  SafeAreaView,
 } from 'react-native';
 import colors from '../../assets/color';
 import {searchLaboratory} from '../../constants/SearchLaboratory';
@@ -35,7 +36,7 @@ function SearchScreen() {
   const [enter, setEnter] = useState(false);
 
   return (
-    <View style={[styles.block, {width: width}]}>
+    <SafeAreaView style={[styles.block, {width: width}]}>
       <View style={[styles.searchTop, {width: width - 32}]}>
         <Pressable onPress={() => navigation.pop()}>
           <Image source={require('../../assets/images/Pickup/back.png')} />
@@ -84,7 +85,7 @@ function SearchScreen() {
             ItemSeparatorComponent={() => <Divider />}
           />
         )}
-    </View>
+    </SafeAreaView>
   );
 }
 

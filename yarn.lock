@@ -1036,11 +1036,14 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+<<<<<<< HEAD
+=======
 "@jiggag/react-native-kakao-maps@^0.0.8":
   version "0.0.8"
   resolved "https://registry.npmjs.org/@jiggag/react-native-kakao-maps/-/react-native-kakao-maps-0.0.8.tgz"
   integrity sha512-80DLhxdGz0+mqe7mP1SVu4kT+FjNxgQqZtLa4uRvBZeN96ofj979ub1usMNhcaZg3QautcRNejapjh7CGrr1Og==
 
+>>>>>>> main
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz"
@@ -6435,6 +6438,11 @@ react-native-modal@^13.0.1:
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
+
+react-native-nmap@^0.0.66:
+  version "0.0.66"
+  resolved "https://registry.yarnpkg.com/react-native-nmap/-/react-native-nmap-0.0.66.tgz#caea39b1af54d4e46c4313c21130986d3adea3fc"
+  integrity sha512-+XMJOqn4zZ6PWO0UH478yj0b9PjYGHQcLUd0W5gJQ3DqGeJEb3vvWVDMbkzcuHsh59hkhGPsE9Q6pZkXxKsYtQ==
 
 react-native-pager-view@^6.0.1:
   version "6.0.1"

@@ -15,8 +15,7 @@
 #import <ReactCommon/RCTTurboModuleManager.h>
 
 #import <react/config/ReactNativeConfig.h>
-#if DEBUG
-#import <RNSplashScreen.h>
+// #import <RNSplashScreen.h>
 
 static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
@@ -59,7 +58,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [RNSplashScreen show];
+  // [RNSplashScreen show];
   return YES;
 }
 

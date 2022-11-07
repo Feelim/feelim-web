@@ -35,6 +35,27 @@ function SearchStore() {
   );
 }
 
+// {<View style={[styles.searchWrap, {width: width - 32}]}>
+// <TextInput
+//   style={styles.input}
+//   placeholder="매장명 또는 주소를 입력하세요."
+//   placeholderTextColor={colors.text3}
+//   value={keyword}
+//   onChangeText={setKeyword}
+//   autoFocus
+//   returnKeyType="search"
+//   onSubmitEditing={() => {
+//     setEnter(true);
+//   }}
+// />
+// <Pressable
+//   onPress={() => {
+//     setEnter(true);
+//   }}>
+//   <Image source={require('../../assets/images/Pickup/search.png')} />
+// </Pressable>
+// </View>}
+
 const styles = StyleSheet.create({
   block: {
     flexDirection: 'row',

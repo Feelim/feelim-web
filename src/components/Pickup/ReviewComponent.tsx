@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image, useWindowDimensions} from 'react-native';
 import {Review} from '../../api/types';
 import colors from '../../assets/color';
+import Star from './Star';
 
 type ReviewPropsType = {
   data: Review | undefined;
@@ -21,28 +22,7 @@ function ReviewComponent({data}: ReviewPropsType) {
     <View style={{marginTop: 30, width: width - 32}}>
       <View style={styles.profileWrap}>
         <Text style={styles.name}>{data?.nickname}</Text>
-        <View style={styles.starWrap}>
-          <Image
-            style={starNum >= 1 ? [{opacity: 1}] : [{opacity: 0.2}]}
-            source={require('../../assets/images/Pickup/star.png')}
-          />
-          <Image
-            style={starNum >= 2 ? [{opacity: 1}] : [{opacity: 0.2}]}
-            source={require('../../assets/images/Pickup/star.png')}
-          />
-          <Image
-            style={starNum >= 3 ? [{opacity: 1}] : [{opacity: 0.2}]}
-            source={require('../../assets/images/Pickup/star.png')}
-          />
-          <Image
-            style={starNum >= 4 ? [{opacity: 1}] : [{opacity: 0.2}]}
-            source={require('../../assets/images/Pickup/star.png')}
-          />
-          <Image
-            style={starNum >= 5 ? [{opacity: 1}] : [{opacity: 0.2}]}
-            source={require('../../assets/images/Pickup/star.png')}
-          />
-        </View>
+        <Star starNum={starNum} />
       </View>
       <View style={{marginTop: 10}}>
         <Text style={styles.content}>{data?.content}</Text>

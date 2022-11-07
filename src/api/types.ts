@@ -31,6 +31,8 @@ export interface LaboratoriesResult {
   images: string[];
   reviewNum: number;
   star: number;
+  x: number;
+  y: number;
 }
 
 export interface LaboratoryResult {
@@ -68,13 +70,13 @@ export interface PostAll {
 }
 
 export interface ResultPostAll {
-  category: string,
-  commentNum: number,
-  content: string,
-  id: number,
-  writer: Writer,
-  time: string,
-  title: string,
+  category: string;
+  commentNum: number;
+  content: string;
+  id: number;
+  writer: Writer;
+  time: string;
+  title: string;
 }
 
 export interface PostDetail {
@@ -151,7 +153,7 @@ export interface ResultMypage {
   id: number;
   image?: string;
   nickname: string;
-  introduction? : string;
+  introduction?: string;
 }
 
 export interface searchLaboratories {

@@ -7,6 +7,9 @@ install! 'cocoapods', :deterministic_uuids => false
 target 'FeelimWeb' do
   config = use_native_modules!
 
+  pod 'NMapsMap','3.16.0'
+
+  
 
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"

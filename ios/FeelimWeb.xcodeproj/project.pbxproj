@@ -11,10 +11,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		529A8005CD0E15FF02A04613 /* libPods-FeelimWeb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CFCEBEF7002FE17E0B578AD /* libPods-FeelimWeb.a */; };
+		48E91EB385E0D417F1C00720 /* libPods-FeelimWeb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8A55CC6B7B0B1315A6AAFE /* libPods-FeelimWeb.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A067E3E4290BA481008C46D1 /* Geo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067E3E3290BA481008C46D1 /* Geo.swift */; };
-		DAA34B482076A3B4C8839E64 /* libPods-FeelimWeb-FeelimWebTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9579ABED09B0358765545C13 /* libPods-FeelimWeb-FeelimWebTests.a */; };
+		A0CEF89129194A28004B6538 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = A0CEF89029194A28004B6538 /* Fonts */; };
+		DB8FDA8FA81C8E99B000D335 /* libPods-FeelimWeb-FeelimWebTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2492C6AD2BCF3E01DBE2ED4 /* libPods-FeelimWeb-FeelimWebTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,12 +43,13 @@
 		5709B34CF0A7D63546082F79 /* Pods-FeelimWeb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb.release.xcconfig"; path = "Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-FeelimWeb-FeelimWebTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb-FeelimWebTests.debug.xcconfig"; path = "Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests.debug.xcconfig"; sourceTree = "<group>"; };
 		66165A66526EA299428785C7 /* Pods-FeelimWebTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWebTests.debug.xcconfig"; path = "Target Support Files/Pods-FeelimWebTests/Pods-FeelimWebTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7F8A55CC6B7B0B1315A6AAFE /* libPods-FeelimWeb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FeelimWeb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FeelimWeb/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-FeelimWeb-FeelimWebTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb-FeelimWebTests.release.xcconfig"; path = "Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests.release.xcconfig"; sourceTree = "<group>"; };
-		9579ABED09B0358765545C13 /* libPods-FeelimWeb-FeelimWebTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FeelimWeb-FeelimWebTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CFCEBEF7002FE17E0B578AD /* libPods-FeelimWeb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FeelimWeb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A067E3E2290BA481008C46D1 /* FeelimWeb-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FeelimWeb-Bridging-Header.h"; sourceTree = "<group>"; };
 		A067E3E3290BA481008C46D1 /* Geo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo.swift; sourceTree = "<group>"; };
+		A0CEF89029194A28004B6538 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
+		A2492C6AD2BCF3E01DBE2ED4 /* libPods-FeelimWeb-FeelimWebTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FeelimWeb-FeelimWebTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -56,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAA34B482076A3B4C8839E64 /* libPods-FeelimWeb-FeelimWebTests.a in Frameworks */,
+				DB8FDA8FA81C8E99B000D335 /* libPods-FeelimWeb-FeelimWebTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				529A8005CD0E15FF02A04613 /* libPods-FeelimWeb.a in Frameworks */,
+				48E91EB385E0D417F1C00720 /* libPods-FeelimWeb.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,8 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				9CFCEBEF7002FE17E0B578AD /* libPods-FeelimWeb.a */,
-				9579ABED09B0358765545C13 /* libPods-FeelimWeb-FeelimWebTests.a */,
+				7F8A55CC6B7B0B1315A6AAFE /* libPods-FeelimWeb.a */,
+				A2492C6AD2BCF3E01DBE2ED4 /* libPods-FeelimWeb-FeelimWebTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,6 +125,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A0CEF89029194A28004B6538 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* FeelimWeb */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FeelimWebTests */,
@@ -168,8 +171,8 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				2B5748BE432CE5752B1FFD78 /* [CP] Embed Pods Frameworks */,
-				561E667CCA766E0D1BB94961 /* [CP] Copy Pods Resources */,
+				17BCD41FE96286E7CBC71244 /* [CP] Embed Pods Frameworks */,
+				829D2AE2CFCADF9033362BA0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,8 +194,8 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				BD4E801597C974ABF4E6C880 /* [CP] Embed Pods Frameworks */,
-				8ED0EF0076D61458DC65DF56 /* [CP] Copy Pods Resources */,
+				07F7D0411348FB51EDF791E0 /* [CP] Embed Pods Frameworks */,
+				51806EA4C5552BDB3F05C3BA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -251,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0CEF89129194A28004B6538 /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -275,7 +279,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		2B5748BE432CE5752B1FFD78 /* [CP] Embed Pods Frameworks */ = {
+		07F7D0411348FB51EDF791E0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		17BCD41FE96286E7CBC71244 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -292,24 +313,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		561E667CCA766E0D1BB94961 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8ED0EF0076D61458DC65DF56 /* [CP] Copy Pods Resources */ = {
+		51806EA4C5552BDB3F05C3BA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -324,6 +328,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		829D2AE2CFCADF9033362BA0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -346,23 +367,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD4E801597C974ABF4E6C880 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
@@ -444,6 +448,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 38ZT7Q5UZY;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -473,6 +478,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 38ZT7Q5UZY;
 				INFOPLIST_FILE = FeelimWebTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -498,6 +504,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 38ZT7Q5UZY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FeelimWeb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -509,7 +516,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.feelim.chalkak;
 				PRODUCT_NAME = FeelimWeb;
 				SWIFT_OBJC_BRIDGING_HEADER = "FeelimWeb-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -525,6 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 38ZT7Q5UZY;
 				INFOPLIST_FILE = FeelimWeb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -535,7 +543,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.feelim.chalkak;
 				PRODUCT_NAME = FeelimWeb;
 				SWIFT_OBJC_BRIDGING_HEADER = "FeelimWeb-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

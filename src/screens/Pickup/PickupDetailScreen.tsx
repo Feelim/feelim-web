@@ -9,6 +9,7 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {getLaboratory} from '../../api/laboratories';
 import {useQuery} from 'react-query';
@@ -38,7 +39,7 @@ function PickupDetailScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
-    <ScrollView style={styles.fullScreen} horizontal={true}>
+    <SafeAreaView style={styles.fullScreen}>
       {/* 헤더 (수정하기) */}
       <View style={{width: width, alignItems: 'center'}}>
         <View style={[styles.pickupTop, {width: width - 32}]}>
@@ -52,7 +53,7 @@ function PickupDetailScreen() {
         <Divider />
         <DetailBottomInfo data={data} />
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 

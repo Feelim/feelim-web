@@ -4,10 +4,12 @@ import {
   useWindowDimensions,
   Platform,
   PermissionsAndroid,
+  SafeAreaView,
+  FlatList,
   StatusBar,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 import {View, Pressable, StyleSheet, Image, Text} from 'react-native';
 import colors from '../../assets/color';
@@ -19,20 +21,41 @@ import {mapModalState} from '../../atoms/mapModal';
 import {useRecoilState} from 'recoil';
 import {mapModalHeightState} from '../../atoms/mapModalHeight';
 import BottomSheet from '../../components/Community/BottomSheet';
-import MapBottomSheet from '../../components/Map/BottomSheet';
+import MapBottomSheet from '../../components/Map/MapBottomSheet';
+import NaverMapView, {
+  Circle,
+  Marker,
+  Path,
+  Polyline,
+  Polygon,
+} from 'react-native-nmap';
 
 interface ILocation {
   latitude: number;
   longitude: number;
 }
 
+type makerObj = {
+  coordinate: coordinateObj;
+  id: number;
+};
+
+type coordinateObj = {
+  longitude: number;
+  latitude: number;
+};
+
 function MapScreen() {
   const [location, setLocation] = useState<ILocation | undefined>(undefined);
   const [visible, setVisible] = useRecoilState(mapModalState);
+  const [markerData, setMarkerData] = useState([
+    {
+      coordinate: {longitude: 0, latitude: 0},
+      id: 0,
+    },
+  ]);
 
   console.log(visible);
-
-  // 현재 위치 버튼 클릭하면 실행되도록 바꾸기
   async function requestPermissions() {
     if (Platform.OS === 'ios') {
       const auth = await Geolocation.requestAuthorization('whenInUse');
@@ -53,6 +76,22 @@ function MapScreen() {
 
   useEffect(() => {
     requestPermissions();
+    setVisible(false);
+
+    // const MarkerData = data?.result.map(item => {
+    //   let MarkerObj: makerObj = {
+    //     coordinate: {longitude: 0, latitude: 0},
+    //     id: 0,
+    //   };
+    //   MarkerObj = {
+    //     coordinate: {longitude: item.x, latitude: item.y},
+    //     id: item.id,
+    //   };
+    //   console.log('obj', MarkerObj);
+    //   return MarkerObj;
+    // });
+
+    // setMarkerData(MarkerData);
 
     Geolocation.getCurrentPosition(
       position => {
@@ -75,21 +114,19 @@ function MapScreen() {
   const lon = location ? location.longitude : 0;
   const lat = location ? location.latitude : 0;
 
-  // console.log(x, y);
-
-  // const data = getNearbyLaboratories(x, y);
-  // console.log(data);
-
-  // react-query error남 왜 그럼? -> 고치기..
   const {data, isLoading} = useQuery(['nearby', lon, lat], () =>
     getNearbyLaboratories(lon, lat),
   );
   console.log('hi', data);
+  const isFocused = useIsFocused();
 
+  const P0 = {latitude: 37.564362, longitude: 126.977011};
+  const P1 = {latitude: 37.565051, longitude: 126.978567};
+  const P2 = {latitude: 37.565383, longitude: 126.976292};
   const {width, height} = useWindowDimensions();
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <View style={styles.fullScreen}>
+    <SafeAreaView style={styles.fullScreen}>
       <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
 
       <View style={{width: width, alignItems: 'center'}}>
@@ -104,28 +141,50 @@ function MapScreen() {
       <View style={[styles.searchWrap, {width: width}]}>
         <SearchStore />
       </View>
-
-      <KakaoMapView
-        markerImageUrl="https://imgur.com/a/MObdHBD" // 옵션2
-        markerList={[
-          {
-            lat: 37.59523,
-            lng: 127.086,
-            markerName: 'marker',
-          },
-          {
-            lat: 37.59523,
-            lng: 127.08705,
-            markerName: 'marker2',
-          },
-        ]}
-        width={width}
-        height={height - 150}
-        centerPoint={{
-          lat: 37.4963,
-          lng: 126.9556,
-        }}
-      />
+      <NaverMapView
+        style={{width: '100%', height: height - 200}}
+        showsMyLocationButton={true}
+        center={{...{latitude: 37.566014, longitude: 126.98993}, zoom: 16}}
+        onTouch={undefined}
+        onCameraChange={e => console.log('onCameraChange', JSON.stringify(e))}
+        onMapClick={e => console.log('onMapClick', JSON.stringify(e))}>
+        {/* {markerData.map(marker => {
+          return (
+            <Marker
+              coordinate={marker.coordinate}
+              image={require('../../assets/images/Map/marker.png')}
+            />
+          );
+        })} */}
+        <FlatList
+          data={data?.result}
+          renderItem={({item}) => (
+            <Marker
+              coordinate={{latitude: item.x, longitude: item.y}}
+              image={require('../../assets/images/Map/marker.png')}
+            />
+          )}
+          keyExtractor={item => item.id.toString()}
+          // ItemSeparatorComponent={() => <Divider />}
+        />
+        <Marker
+          coordinate={P0}
+          onClick={() => console.warn('onClick! p0')}
+          image={require('../../assets/images/Map/marker.png')}
+        />
+        <Marker
+          coordinate={P1}
+          onClick={() => console.warn('onClick! p1')}
+          image={require('../../assets/images/Map/marker.png')}
+        />
+        <Marker
+          coordinate={P2}
+          onClick={() => {
+            navigation.navigate('Pickup');
+          }}
+          image={require('../../assets/images/Map/marker.png')}
+        />
+      </NaverMapView>
       <Pressable
         onPress={() => {
           setVisible(true);
@@ -133,13 +192,12 @@ function MapScreen() {
         <View
           style={{
             backgroundColor: colors.on_primary,
-            height: 100,
+            height: 200,
           }}
         />
       </Pressable>
       <MapBottomSheet data={data} />
-      {/* <BottomModal data={data} /> */}
-    </View>
+    </SafeAreaView>
   );
 }
 
