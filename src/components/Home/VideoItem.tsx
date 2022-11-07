@@ -5,9 +5,9 @@ import Youtube from '../../assets/images/Home/Youtube.svg';
 
 function VideoItem() {
   return (
-    <View style={styles.item}>
+    <Pressable style={styles.item}>
       <Youtube />
-    </View>
+    </Pressable>
   );
 }
 

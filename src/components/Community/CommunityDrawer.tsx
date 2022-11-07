@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 13,
     letterSpacing: -0.408,
+    color: colors.text1,
   },
   pages: {
     paddingTop: 22,

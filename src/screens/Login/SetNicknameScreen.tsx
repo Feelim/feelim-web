@@ -124,8 +124,7 @@ function SetNicknameScreen() {
 
   useEffect(() => {
     if (authNickName) {
-      // navigation.navigate('MainTab');
-      navigation.navigate('Request');
+      navigation.navigate('MainTab');
     }
   }, [authNickName]);
 

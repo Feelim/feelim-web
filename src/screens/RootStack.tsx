@@ -31,16 +31,23 @@ import MyCommentScreen from './Community/MyCommnentScreen';
 import SearchScreen from './Search/SearchScreen';
 import RequestScreen from './Login/RequestScreen';
 import HomeEventScreen from './Home/HomeEventScreen';
+import QuestionScreen from './Mypage/QuestionScreen';
+import QuestionContent from './Mypage/QuestionContentScreen';
+import QuestionContentScreen from './Mypage/QuestionContentScreen';
+import TermsScreen from './Mypage/TermsScreen';
+import AgreeScreen from './Login/AgreeScreen';
+import YoutubeScreen from './Home/YoutubeScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
-    AsyncStorage.clear();
-    AsyncStorage.getItem('nickname', (err, result) => {
+    // AsyncStorage.clear();
+    AsyncStorage.getItem('accessToken', (err, result) => {
       if (result) {
         setIsLogin(true);
+        applyToken(result);
       }
     });
   }, []);
@@ -150,14 +157,35 @@ function RootStack() {
             component={MyCommentScreen}
             options={{headerShown: false}}
           />
-          <Stack.Screen
-            name="Request"
-            component={RequestScreen}
-            options={{headerShown: false}}
-          />
+
           <Stack.Screen
             name="HomeEvent"
             component={HomeEventScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Question"
+            component={QuestionScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="QuestionContent"
+            component={QuestionContentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Terms"
+            component={TermsScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Agree"
+            component={AgreeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Youtube"
+            component={YoutubeScreen}
             options={{headerShown: false}}
           />
         </>
@@ -273,14 +301,35 @@ function RootStack() {
             component={SearchScreen}
             options={{headerShown: false}}
           />
-          <Stack.Screen
-            name="Request"
-            component={RequestScreen}
-            options={{headerShown: false}}
-          />
+
           <Stack.Screen
             name="HomeEvent"
             component={HomeEventScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Question"
+            component={QuestionScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="QuestionContent"
+            component={QuestionContentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Terms"
+            component={TermsScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Agree"
+            component={AgreeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Youtube"
+            component={YoutubeScreen}
             options={{headerShown: false}}
           />
         </>

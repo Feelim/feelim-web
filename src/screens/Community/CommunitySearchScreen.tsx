@@ -20,7 +20,7 @@ import {RootStackNavigationProp} from '../types';
 
 function CommunitySearchScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState<string>('');
   const searchTitleQuery = useQuery(['searchTitle', keyword], () =>
     getPostSearchTitle(keyword),
   );

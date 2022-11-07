@@ -1,24 +1,83 @@
 import React from 'react';
-import {Text, View, StyleSheet, Pressable, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  Image,
+  useWindowDimensions,
+} from 'react-native';
 import colors from '../../assets/color';
 import VideoItem from './VideoItem';
 import More from '../../assets/images/Home/More.svg';
-
-const idx = [1, 2, 3];
+import Youtube from '../../assets/images/Home/Youtube.svg';
+import {useNavigation} from '@react-navigation/core';
+import {RootStackNavigationProp} from '../../screens/types';
 
 function VideoSection() {
+  const {width} = useWindowDimensions();
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.block}>
       <View style={styles.header}>
-        <Text style={styles.title}>동영상으로 배우는 필카 📸</Text>
-        <Pressable>
-          <More />
-        </Pressable>
+        <Text style={styles.title}>동영상으로 배우는 필카</Text>
       </View>
       <ScrollView>
-        {idx.map(idx => {
-          return <VideoItem key={idx} />;
-        })}
+        <Pressable
+          onPress={() => {
+            navigation.navigate('Youtube', {id: 0});
+          }}>
+          <Image
+            style={styles.item}
+            source={{
+              uri: 'https://i.ytimg.com/vi/oYmggCa5cdg/maxresdefault.jpg',
+            }}
+          />
+          <Youtube
+            style={{
+              position: 'absolute',
+              top: 45,
+              left: (width - 100) / 2,
+            }}
+          />
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            navigation.navigate('Youtube', {id: 1});
+          }}>
+          <Image
+            style={styles.item}
+            source={{
+              uri: 'https://i.ytimg.com/vi/fad7Q3taGeg/maxresdefault.jpg',
+            }}
+          />
+          <Youtube
+            style={{
+              position: 'absolute',
+              top: 45,
+              left: (width - 100) / 2,
+            }}
+          />
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            navigation.navigate('Youtube', {id: 2});
+          }}>
+          <Image
+            style={styles.item}
+            source={{
+              uri: 'https://i.ytimg.com/vi/SvVFaReb5VE/maxresdefault.jpg',
+            }}
+          />
+          <Youtube
+            style={{
+              position: 'absolute',
+              top: 45,
+              left: (width - 100) / 2,
+            }}
+          />
+        </Pressable>
       </ScrollView>
     </View>
   );
@@ -47,6 +106,16 @@ const styles = StyleSheet.create({
     color: colors.text3,
     fontSize: 11,
     fontWeight: '400',
+  },
+  item: {
+    width: '100%',
+    height: 166,
+    marginBottom: 12,
+    borderRadius: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+    // opacity: 0.7,
   },
 });
 
