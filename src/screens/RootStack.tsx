@@ -74,8 +74,6 @@ function RootStack() {
 
   useEffect(() => {
     if (refresh && access) {
-      console.log(refresh, '리프레시');
-      console.log(access, '억세스');
       mutate({accessToken: access, refreshToken: refresh});
     }
   }, [access, refresh]);

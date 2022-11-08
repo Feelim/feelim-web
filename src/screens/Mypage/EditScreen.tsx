@@ -272,7 +272,7 @@ function EditScreen() {
         />
         <View style={styles.email}>
           <KakaoEmail />
-          <Text style={styles.emailText}>kikikikikikiki@naver.com</Text>
+          <Text style={styles.emailText}>{profileQuery.data.result.email}</Text>
         </View>
       </View>
 
