@@ -21,7 +21,7 @@ import {
 import colors from '../../assets/color';
 import GetImage from '../../assets/images/Community/GetImage.svg';
 import Delete from '../../assets/images/Community/Delete.svg';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import {writeToastState} from '../../atoms/writeToast';
 import {writeToastTextState} from '../../atoms/writeToastText';
@@ -46,8 +46,14 @@ import {
   patchImgTypeState,
   patchImgUrlState,
 } from '../../atoms/patchImg';
-import {androidCountState, permissionImageState} from '../../atoms/permission';
+import {
+  androidCountState,
+  permissionCameraState,
+  permissionImageState,
+} from '../../atoms/permission';
 import PermissionModal from '../../components/Community/PermissionModal';
+import {selectImgState} from '../../atoms/selectImg';
+import CameraBottomSheet from '../../components/Community/CameraBottomSheet';
 
 export interface Img {
   uri: string | undefined;
@@ -170,12 +176,52 @@ function ModifyScreen() {
     });
   };
 
+  const [permissionCamera, setPermissionCamera] = useRecoilState(
+    permissionCameraState,
+  );
+  const requestMultiplePermissionsCamera = () => {
+    requestMultiple(
+      Platform.OS === 'ios'
+        ? [PERMISSIONS.IOS.CAMERA]
+        : [PERMISSIONS.ANDROID.CAMERA],
+    ).then(response => {
+      console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
+      setPermissionCamera(
+        Platform.OS === 'ios'
+          ? response['ios.permission.CAMERA']
+          : response['android.permission.CAMERA'],
+      );
+    });
+  };
+  const checkMultiplePermissionsCamera = () => {
+    checkMultiple(
+      Platform.OS === 'ios'
+        ? [PERMISSIONS.IOS.CAMERA]
+        : [PERMISSIONS.ANDROID.CAMERA],
+    ).then(response => {
+      console.log('MULTIPLE CHECK RESPONSE : ', response);
+    });
+  };
+
+  const [selectImg, setSelectImg] = useRecoilState(selectImgState);
+  const [imgVisible, setImgVisible] = useState(false);
+  useEffect(() => {
+    if (selectImg === 'GALLERY') {
+      onSelectImage();
+    } else if (selectImg === 'CAMERA') {
+      onSelectCamera();
+    }
+  }, [selectImg]);
+
   const image: Img = {
     uri: '',
     type: '',
     name: '',
   };
   const onSelectImage = async () => {
+    setSelectImg('');
+    requestMultiplePermissions();
     if (permissionImage !== 'granted') {
       if (Platform.OS === 'android') {
         if (androidCount >= 2) {
@@ -188,6 +234,44 @@ function ModifyScreen() {
       }
     } else {
       await launchImageLibrary(
+        {
+          mediaType: 'photo',
+          includeBase64: true,
+        },
+        res => {
+          if (res.didCancel) {
+            return;
+          } else if (res.assets) {
+            image.name = res.assets[0].fileName;
+            image.type = res.assets[0].type;
+            image.uri =
+              Platform.OS === 'android'
+                ? res.assets[0].uri
+                : res.assets[0].uri.replace('file://', '');
+            setImageName(image.name);
+            setImageType(image.type);
+            setImageUrl(image.uri);
+          }
+        },
+      );
+    }
+  };
+
+  const onSelectCamera = async () => {
+    setSelectImg('');
+    requestMultiplePermissionsCamera();
+    if (permissionCamera !== 'granted') {
+      if (Platform.OS === 'android') {
+        if (androidCount >= 2) {
+          setVisible(true);
+        } else {
+          requestMultiplePermissionsCamera();
+        }
+      } else {
+        setVisible(true);
+      }
+    } else {
+      await launchCamera(
         {
           mediaType: 'photo',
           includeBase64: true,
@@ -295,8 +379,7 @@ function ModifyScreen() {
         <AlertModal
           visible={alertVisible}
           onClose={onClose}
-          text="작성된 글이 있어요.  
-        정말 나가시겠어요?"
+          text="작성된 글이 있어요. 정말 나가시겠어요?"
           postId={0}
           button="나가기"
           isPost={true}
@@ -370,12 +453,18 @@ function ModifyScreen() {
           <></>
         )}
 
-        <Pressable style={styles.selectPhoto} onPress={onSelectImage}>
+        <Pressable
+          style={styles.selectPhoto}
+          onPress={() => setImgVisible(true)}>
           <GetImage />
         </Pressable>
       </View>
       <WriteErrorToast />
       <PermissionModal visible={visible} onClose={onClosePermssion} />
+      <CameraBottomSheet
+        modalVisible={imgVisible}
+        setModalVisible={setImgVisible}
+      />
     </SafeAreaView>
   );
 }

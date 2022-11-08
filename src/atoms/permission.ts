@@ -6,6 +6,11 @@ export const permissionImageState = atom<string>({
     default: '',
 });
 
+export const permissionCameraState = atom<string>({
+    key: 'permissionCamera', 
+    default: '',
+});
+
 export const androidCountState = atom<number>({
     key: 'androidCount',
     default: 0,
