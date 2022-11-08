@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     letterSpacing: -0.408,
     color: '#000000',
-    paddingVertical: 37,
+    paddingVertical: 30,
     textAlign: 'center',
   },
   btns: {

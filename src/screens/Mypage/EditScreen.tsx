@@ -23,7 +23,7 @@ import Camera from '../../assets/images/Mypage/Camera.svg';
 
 import {useQuery, useQueryClient} from 'react-query';
 import {getMyProfile} from '../../api/mypage';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {axiosInstance} from '../../queries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useRef, useState} from 'react';
@@ -32,8 +32,14 @@ import {patchProfileState} from '../../atoms/patchProfile';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../types';
 import SetNicknameToast from '../../components/Login/SetNicknameToast';
-import {androidCountState, permissionImageState} from '../../atoms/permission';
+import {
+  androidCountState,
+  permissionCameraState,
+  permissionImageState,
+} from '../../atoms/permission';
 import PermissionModal from '../../components/Community/PermissionModal';
+import {selectImgState} from '../../atoms/selectImg';
+import CameraBottomSheet from '../../components/Community/CameraBottomSheet';
 
 export interface Img {
   uri: string | undefined;
@@ -110,12 +116,52 @@ function EditScreen() {
       console.log('MULTIPLE CHECK RESPONSE : ', response);
     });
   };
+
+  const [permissionCamera, setPermissionCamera] = useRecoilState(
+    permissionCameraState,
+  );
+  const requestMultiplePermissionsCamera = () => {
+    requestMultiple(
+      Platform.OS === 'ios'
+        ? [PERMISSIONS.IOS.CAMERA]
+        : [PERMISSIONS.ANDROID.CAMERA],
+    ).then(response => {
+      console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
+      setPermissionCamera(
+        Platform.OS === 'ios'
+          ? response['ios.permission.CAMERA']
+          : response['android.permission.CAMERA'],
+      );
+    });
+  };
+  const checkMultiplePermissionsCamera = () => {
+    checkMultiple(
+      Platform.OS === 'ios'
+        ? [PERMISSIONS.IOS.CAMERA]
+        : [PERMISSIONS.ANDROID.CAMERA],
+    ).then(response => {
+      console.log('MULTIPLE CHECK RESPONSE : ', response);
+    });
+  };
+
+  const [selectImg, setSelectImg] = useRecoilState(selectImgState);
+  const [imgVisible, setImgVisible] = useState(false);
+  useEffect(() => {
+    if (selectImg === 'GALLERY') {
+      onSelectImage();
+    } else if (selectImg === 'CAMERA') {
+      onSelectCamera();
+    }
+  }, [selectImg]);
+
   const image: Img = {
     uri: '',
     type: '',
     name: '',
   };
   const onSelectImage = async () => {
+    setSelectImg('');
     requestMultiplePermissions();
     if (permissionImage !== 'granted') {
       if (Platform.OS === 'android') {
@@ -129,6 +175,44 @@ function EditScreen() {
       }
     } else {
       await launchImageLibrary(
+        {
+          mediaType: 'photo',
+          includeBase64: true,
+        },
+        res => {
+          if (res.didCancel) {
+            return;
+          } else if (res.assets) {
+            image.name = res.assets[0].fileName;
+            image.type = res.assets[0].type;
+            image.uri =
+              Platform.OS === 'android'
+                ? res.assets[0].uri
+                : res.assets[0].uri.replace('file://', '');
+            setImageName(image.name);
+            setImageType(image.type);
+            setImageUrl(image.uri);
+          }
+        },
+      );
+    }
+  };
+
+  const onSelectCamera = async () => {
+    setSelectImg('');
+    requestMultiplePermissionsCamera();
+    if (permissionCamera !== 'granted') {
+      if (Platform.OS === 'android') {
+        if (androidCount >= 2) {
+          setVisible(true);
+        } else {
+          requestMultiplePermissionsCamera();
+        }
+      } else {
+        setVisible(true);
+      }
+    } else {
+      await launchCamera(
         {
           mediaType: 'photo',
           includeBase64: true,
@@ -259,7 +343,10 @@ function EditScreen() {
       <View style={styles.block}>
         <View style={styles.profileImage}>
           <Image style={styles.image} source={{uri: imageUrl}} />
-          <Pressable style={styles.camera} hitSlop={8} onPress={onSelectImage}>
+          <Pressable
+            style={styles.camera}
+            hitSlop={8}
+            onPress={() => setImgVisible(true)}>
             <Camera />
           </Pressable>
         </View>
@@ -297,6 +384,10 @@ function EditScreen() {
         </Animated.View>
       </View>
       <PermissionModal visible={visible} onClose={onClose} />
+      <CameraBottomSheet
+        modalVisible={imgVisible}
+        setModalVisible={setImgVisible}
+      />
     </SafeAreaView>
   );
 }
