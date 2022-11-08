@@ -16,6 +16,7 @@ import {useRecoilState} from 'recoil';
 import {mapModalState} from '../../atoms/mapModal';
 import {nearbyLaboratories} from '../../api/types';
 import Divider from '../Pickup/Divider';
+import colors from '../../assets/color';
 
 type BottomSheetType = {
   data: nearbyLaboratories | undefined;
@@ -89,7 +90,8 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
               transform: [{translateY: translateY}],
             }}
             {...panResponders.panHandlers}>
-            <>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.line} />
               <FlatList
                 data={data?.result}
                 renderItem={({item}) => (
@@ -106,7 +108,7 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
                 keyExtractor={item => item.id.toString()}
                 ItemSeparatorComponent={() => <Divider />}
               />
-            </>
+            </View>
           </Animated.ScrollView>
         </View>
       </Modal>
@@ -131,6 +133,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     paddingTop: 10,
     overflow: 'scroll',
+  },
+  line: {
+    marginTop: 10,
+    height: 4,
+    width: 50,
+    backgroundColor: colors.primary,
+    borderRadius: 5,
   },
 });
 

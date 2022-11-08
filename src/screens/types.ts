@@ -10,7 +10,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type MainTabParamList = {
   Home: undefined;
   Community: undefined;
-
+  Map: undefined;
   //
 };
 export type MainTabNavigationScreenParams =
@@ -59,14 +59,14 @@ export type RootStackParamList = {
     idx: number;
   };
   Question: undefined;
-  QuestionContent:{
+  QuestionContent: {
     id: number;
-  }
+  };
   Terms: undefined;
   Agree: undefined;
-  Youtube:{
+  Youtube: {
     id: number;
-  }
+  };
 };
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
