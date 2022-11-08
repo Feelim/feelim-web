@@ -19,10 +19,13 @@ function MypageScreen() {
       <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
       <MypageHeader name="마이페이지" edit={true} complete={false} />
       <ProfileInfo />
-      <View style={styles.banner}>
-        <View style={[styles.bannerBox, {width: width - 32}]} />
-      </View>
-      <ScrollView style={{overflow: 'scroll', flex: 1}}>
+      <ScrollView
+        style={{
+          overflow: 'scroll',
+          flex: 1,
+          borderTopColor: colors.devider1,
+          borderTopWidth: 4,
+        }}>
         <MypageContents />
         <LogoutSection />
       </ScrollView>

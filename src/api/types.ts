@@ -163,3 +163,19 @@ export interface searchLaboratories {
   message: string;
   result: LaboratoriesResult[];
 }
+
+export interface Auth{
+  code: number;
+  id: number;
+  isSuccess: boolean;
+  message: string;
+  result: ResultAuth;
+}
+
+export interface ResultAuth {
+  accessToken: string,
+    accessTokenExpiresIn: number,
+    grantType: string,
+    refreshToken: string,
+    registerStatus: string,
+}
