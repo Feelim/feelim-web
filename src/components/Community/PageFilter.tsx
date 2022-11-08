@@ -26,7 +26,7 @@ function PageFilter() {
           inactiveTextColor={colors.text3}
           textStyle={{fontSize: 14, fontFamily: 'NotoSansKR-Regular'}}
           activeTextStyle={{
-            fontSize: 16,
+            fontSize: 14,
             fontFamily: 'NotoSansKR-Bold',
             lineHeight: 24,
             letterSpacing: -0.408,

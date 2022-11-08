@@ -35,26 +35,50 @@ import QuestionContentScreen from './Mypage/QuestionContentScreen';
 import TermsScreen from './Mypage/TermsScreen';
 import AgreeScreen from './Login/AgreeScreen';
 import YoutubeScreen from './Home/YoutubeScreen';
+import {useMutation} from 'react-query';
+import {authToken} from '../api/auth';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
   const [isLogin, setIsLogin] = useState(false);
+  const [access, setAccess] = useState('');
+  const [refresh, setRefresh] = useState('');
+  const {mutate} = useMutation(authToken, {
+    onSuccess: e => {
+      console.log(e, '토큰갱신 성공');
+      if (e.isSuccess) {
+        setIsLogin(true);
+        applyToken(e.result.accessToken);
+        AsyncStorage.setItem('accessToken', e.result.accessToken);
+        AsyncStorage.setItem('refreshToken', e.result.refreshToken);
+      }
+    },
+    onError: e => {
+      console.log(e, 'error');
+    },
+  });
   useEffect(() => {
-    // AsyncStorage.clear();
     AsyncStorage.getItem('accessToken', (err, result) => {
       if (result) {
-        setIsLogin(true);
-        applyToken(result);
+        setAccess(result);
+      }
+    });
+    AsyncStorage.getItem('refreshToken', (err, result) => {
+      if (result) {
+        setRefresh(result);
+        console.log(result);
       }
     });
   }, []);
 
   useEffect(() => {
-    if (isLogin) {
-      //refresh token으로 다시
+    if (refresh && access) {
+      console.log(refresh, '리프레시');
+      console.log(access, '억세스');
+      mutate({accessToken: access, refreshToken: refresh});
     }
-  }, [isLogin]);
+  }, [access, refresh]);
 
   return (
     <Stack.Navigator>

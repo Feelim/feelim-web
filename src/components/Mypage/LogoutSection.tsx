@@ -11,8 +11,8 @@ function LogoutSection() {
   const [isLogout, setIsLogout] = useState(false);
   const navigation = useNavigation<RootStackNavigationProp>();
 
-  const onPressLogout = () => {
-    AsyncStorage.clear();
+  const onPressLogout = async () => {
+    await AsyncStorage.clear();
     navigation.navigate('Login');
   };
   const onPressWithdrawal = () => {
