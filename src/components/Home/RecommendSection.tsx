@@ -24,28 +24,30 @@ function RecommendSection() {
             source={require('../../assets/images/Home/Recommend.png')}
             style={styles.img}
           />
-          <Text style={styles.text}>필름 최저가 구매 팁</Text>
+          <Text style={styles.text}>입문 카메라 추천</Text>
         </Pressable>
         <Pressable style={styles.item}>
           <Image
             source={require('../../assets/images/Home/Recommend2.png')}
             style={styles.img}
           />
+          <Text style={styles.text}>필름 촬영시 주의사항</Text>
         </Pressable>
       </View>
       <View style={styles.container}>
         <Pressable style={styles.item}>
           <Image
-            source={require('../../assets/images/Home/Recommend.png')}
+            source={require('../../assets/images/Home/Recommend3.png')}
             style={styles.img}
           />
-          <Text style={styles.text}>필름 최저가 구매 팁</Text>
+          <Text style={styles.text}>필름 최저가 구매 팁!</Text>
         </Pressable>
         <Pressable style={styles.item}>
           <Image
-            source={require('../../assets/images/Home/Recommend2.png')}
+            source={require('../../assets/images/Home/Recommend4.png')}
             style={styles.img}
           />
+          <Text style={styles.text}>카메라 전문 언어 정리</Text>
         </Pressable>
       </View>
     </View>
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
   },
   text: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 5,
     left: 16,
     fontFamily: colors.bold,
     color: colors.on_primary,

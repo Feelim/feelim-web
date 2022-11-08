@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     letterSpacing: -0.408,
     marginBottom: 4,
+    color: colors.text1,
   },
   date: {
     color: colors.text3,

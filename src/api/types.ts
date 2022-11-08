@@ -154,6 +154,7 @@ export interface ResultMypage {
   image?: string;
   nickname: string;
   introduction?: string;
+  email?: string;
 }
 
 export interface searchLaboratories {
