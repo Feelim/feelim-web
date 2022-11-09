@@ -22,7 +22,7 @@ import {
 import colors from '../../assets/color';
 import GetImage from '../../assets/images/Community/GetImage.svg';
 import Delete from '../../assets/images/Community/Delete.svg';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useSetRecoilState, useRecoilState} from 'recoil';
 import {
   bodyState,
@@ -32,10 +32,16 @@ import {
   typeState,
   uriState,
 } from '../../atoms/writePost';
-import {androidCountState, permissionImageState} from '../../atoms/permission';
+import {
+  androidCountState,
+  permissionCameraState,
+  permissionImageState,
+} from '../../atoms/permission';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../../screens/types';
 import PermissionModal from './PermissionModal';
+import {selectImgState} from '../../atoms/selectImg';
+import CameraBottomSheet from './CameraBottomSheet';
 
 export interface Img {
   uri: string | undefined;
@@ -107,12 +113,51 @@ function WriteEditor() {
     });
   };
 
+  const [permissionCamera, setPermissionCamera] = useRecoilState(
+    permissionCameraState,
+  );
+  const requestMultiplePermissionsCamera = () => {
+    requestMultiple(
+      Platform.OS === 'ios'
+        ? [PERMISSIONS.IOS.CAMERA]
+        : [PERMISSIONS.ANDROID.CAMERA],
+    ).then(response => {
+      console.log('MULTIPLE REQUEST RESPONSE : ', response);
+      setAndroidCount(androidCount + 1);
+      setPermissionCamera(
+        Platform.OS === 'ios'
+          ? response['ios.permission.CAMERA']
+          : response['android.permission.CAMERA'],
+      );
+    });
+  };
+  const checkMultiplePermissionsCamera = () => {
+    checkMultiple(
+      Platform.OS === 'ios'
+        ? [PERMISSIONS.IOS.CAMERA]
+        : [PERMISSIONS.ANDROID.CAMERA],
+    ).then(response => {
+      console.log('MULTIPLE CHECK RESPONSE : ', response);
+    });
+  };
+
+  const [selectImg, setSelectImg] = useRecoilState(selectImgState);
+  const [imgVisible, setImgVisible] = useState(false);
+  useEffect(() => {
+    if (selectImg === 'GALLERY') {
+      onSelectImage();
+    } else if (selectImg === 'CAMERA') {
+      onSelectCamera();
+    }
+  }, [selectImg]);
+
   const image: Img = {
     uri: '',
     type: '',
     name: '',
   };
   const onSelectImage = async () => {
+    setSelectImg('');
     requestMultiplePermissions();
     if (permissionImage !== 'granted') {
       if (Platform.OS === 'android') {
@@ -126,6 +171,45 @@ function WriteEditor() {
       }
     } else {
       await launchImageLibrary(
+        {
+          mediaType: 'photo',
+          includeBase64: true,
+        },
+        res => {
+          if (res.didCancel) {
+            return;
+          } else if (res.assets) {
+            image.name = res.assets[0].fileName;
+            image.type = res.assets[0].type;
+            image.uri =
+              Platform.OS === 'android'
+                ? res.assets[0].uri
+                : res.assets[0].uri.replace('file://', '');
+            setResponse(res);
+            setRecoilName(image.name);
+            setRecoilType(image.type);
+            setRecoilUri(image.uri);
+          }
+        },
+      );
+    }
+  };
+
+  const onSelectCamera = async () => {
+    setSelectImg('');
+    requestMultiplePermissionsCamera();
+    if (permissionCamera !== 'granted') {
+      if (Platform.OS === 'android') {
+        if (androidCount >= 2) {
+          setVisible(true);
+        } else {
+          requestMultiplePermissionsCamera();
+        }
+      } else {
+        setVisible(true);
+      }
+    } else {
+      await launchCamera(
         {
           mediaType: 'photo',
           includeBase64: true,
@@ -257,10 +341,14 @@ function WriteEditor() {
         <></>
       )}
 
-      <Pressable style={styles.selectPhoto} onPress={onSelectImage}>
+      <Pressable style={styles.selectPhoto} onPress={() => setImgVisible(true)}>
         <GetImage />
       </Pressable>
       <PermissionModal visible={visible} onClose={onClose} />
+      <CameraBottomSheet
+        modalVisible={imgVisible}
+        setModalVisible={setImgVisible}
+      />
     </View>
   );
 }

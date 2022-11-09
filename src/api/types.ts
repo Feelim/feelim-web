@@ -162,6 +162,7 @@ export interface ResultMypage {
   image?: string;
   nickname: string;
   introduction?: string;
+  email?: string;
 }
 
 export interface searchLaboratories {
@@ -171,6 +172,7 @@ export interface searchLaboratories {
   message: string;
   result: LaboratoriesResult[];
 }
+
 
 export interface postReview {
   code: number;
@@ -184,3 +186,20 @@ export interface image {
   type: string;
   name: string;
 }
+
+export interface Auth{
+  code: number;
+  id: number;
+  isSuccess: boolean;
+  message: string;
+  result: ResultAuth;
+}
+
+export interface ResultAuth {
+  accessToken: string,
+    accessTokenExpiresIn: number,
+    grantType: string,
+    refreshToken: string,
+    registerStatus: string,
+}
+

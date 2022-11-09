@@ -8,8 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WebViewScreen = ({}) => {
   const navigation = useNavigation<RootStackNavigationProp>();
-  let url =
-    'http://chalkak-env-1.eba-rbm59tk3.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/kakao';
+  let url = 'https://chalkak.shop/oauth2/authorization/kakao';
 
   const urlChange = (url: string) => {
     if (url.includes('accessToken')) {
