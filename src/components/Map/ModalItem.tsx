@@ -40,6 +40,8 @@ function ModalItem({
   const {width} = useWindowDimensions();
   const [visible, setVisible] = useRecoilState(mapModalState);
   const navigation = useNavigation<RootStackNavigationProp>();
+
+  console.log(images[0], images.length);
   return (
     <Pressable
       onPress={() => {
@@ -56,11 +58,10 @@ function ModalItem({
                 <Text style={styles.title}>{name}</Text>
                 <Text>·</Text>
                 <Text style={styles.distance}>
-                  {(distance / 1000).toFixed(1)}
+                  {distance < 1000
+                    ? `${distance.toFixed(1)}m`
+                    : `${(distance / 1000).toFixed(1)}km`}
                 </Text>
-                <Image
-                  source={require('../../assets/images/Pickup/frame.png')}
-                />
               </View>
               <Text style={styles.address}>
                 {`${address.city && address.city}${
@@ -74,7 +75,14 @@ function ModalItem({
                 <Text>{`${star.toFixed(1)}(${reviewNum})`}</Text>
               </View>
             </View>
-            <Image source={require('../../assets/images/Pickup/image.png')} />
+            <Image
+              style={{width: 72, height: 72, borderRadius: 3}}
+              source={
+                images.length >= 1
+                  ? {uri: `${images[0]}`}
+                  : require('../../assets/images/Pickup/image.png')
+              }
+            />
           </View>
         </View>
       </View>
@@ -84,7 +92,6 @@ function ModalItem({
 
 const styles = StyleSheet.create({
   block: {
-    flex: 1,
     height: 120,
     flexDirection: 'column',
     alignItems: 'center',
@@ -111,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   textWrap: {
-    width: 200,
+    width: 160,
     height: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',

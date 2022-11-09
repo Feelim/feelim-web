@@ -29,6 +29,7 @@ function DetailPrice({data}: DetailPriceType) {
                 style={{height: 96, width: 96, marginTop: 10, borderRadius: 4}}
                 source={{uri: `${url}`}}
                 key={index}
+                modalImageStyle={{minWidth: width}}
               />
             );
           })}

@@ -21,6 +21,13 @@ export interface Review {
   userId: number;
   nickname: string;
   star: number;
+  images: reviewImage[];
+}
+
+export interface reviewImage {
+  url: string;
+  filename: string;
+  fileType: string;
 }
 
 export interface LaboratoriesResult {
@@ -47,6 +54,7 @@ export interface LaboratoryResult {
   reviews: Review[];
   star: number;
   url: string;
+  background: string;
 }
 
 export interface Address {
@@ -162,4 +170,17 @@ export interface searchLaboratories {
   isSuccess: boolean;
   message: string;
   result: LaboratoriesResult[];
+}
+
+export interface postReview {
+  code: number;
+  isSuccess: boolean;
+  message: string;
+  result: number;
+}
+
+export interface image {
+  uri: string;
+  type: string;
+  name: string;
 }

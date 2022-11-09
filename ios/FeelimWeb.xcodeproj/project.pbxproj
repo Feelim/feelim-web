@@ -14,6 +14,12 @@
 		48E91EB385E0D417F1C00720 /* libPods-FeelimWeb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8A55CC6B7B0B1315A6AAFE /* libPods-FeelimWeb.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A067E3E4290BA481008C46D1 /* Geo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067E3E3290BA481008C46D1 /* Geo.swift */; };
+		A08337A2291999B80014B08C /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A08337A1291999B80014B08C /* NotoSansKR-Thin.otf */; };
+		A08337A4291999C80014B08C /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A08337A3291999C80014B08C /* NotoSansKR-Medium.otf */; };
+		A08337A6291999D20014B08C /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A08337A5291999D20014B08C /* NotoSansKR-Regular.otf */; };
+		A08337A8291999E30014B08C /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A08337A7291999E30014B08C /* NotoSansKR-Bold.otf */; };
+		A08337AA291999EF0014B08C /* NotoSansKR-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A08337A9291999EE0014B08C /* NotoSansKR-Light.otf */; };
+		A08337AC291999FA0014B08C /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A08337AB291999FA0014B08C /* NotoSansKR-Black.otf */; };
 		A0CEF89129194A28004B6538 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = A0CEF89029194A28004B6538 /* Fonts */; };
 		DB8FDA8FA81C8E99B000D335 /* libPods-FeelimWeb-FeelimWebTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2492C6AD2BCF3E01DBE2ED4 /* libPods-FeelimWeb-FeelimWebTests.a */; };
 /* End PBXBuildFile section */
@@ -48,6 +54,12 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-FeelimWeb-FeelimWebTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb-FeelimWebTests.release.xcconfig"; path = "Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests.release.xcconfig"; sourceTree = "<group>"; };
 		A067E3E2290BA481008C46D1 /* FeelimWeb-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FeelimWeb-Bridging-Header.h"; sourceTree = "<group>"; };
 		A067E3E3290BA481008C46D1 /* Geo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo.swift; sourceTree = "<group>"; };
+		A08337A1291999B80014B08C /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Thin.otf"; path = "Fonts/NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
+		A08337A3291999C80014B08C /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Medium.otf"; path = "Fonts/NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
+		A08337A5291999D20014B08C /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Regular.otf"; path = "Fonts/NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		A08337A7291999E30014B08C /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Bold.otf"; path = "Fonts/NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
+		A08337A9291999EE0014B08C /* NotoSansKR-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Light.otf"; path = "Fonts/NotoSansKR-Light.otf"; sourceTree = "<group>"; };
+		A08337AB291999FA0014B08C /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Black.otf"; path = "Fonts/NotoSansKR-Black.otf"; sourceTree = "<group>"; };
 		A0CEF89029194A28004B6538 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		A2492C6AD2BCF3E01DBE2ED4 /* libPods-FeelimWeb-FeelimWebTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FeelimWeb-FeelimWebTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -125,6 +137,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A08337AB291999FA0014B08C /* NotoSansKR-Black.otf */,
+				A08337A9291999EE0014B08C /* NotoSansKR-Light.otf */,
+				A08337A7291999E30014B08C /* NotoSansKR-Bold.otf */,
+				A08337A5291999D20014B08C /* NotoSansKR-Regular.otf */,
+				A08337A3291999C80014B08C /* NotoSansKR-Medium.otf */,
+				A08337A1291999B80014B08C /* NotoSansKR-Thin.otf */,
 				A0CEF89029194A28004B6538 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* FeelimWeb */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -254,6 +272,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A08337AC291999FA0014B08C /* NotoSansKR-Black.otf in Resources */,
+				A08337AA291999EF0014B08C /* NotoSansKR-Light.otf in Resources */,
+				A08337A8291999E30014B08C /* NotoSansKR-Bold.otf in Resources */,
+				A08337A6291999D20014B08C /* NotoSansKR-Regular.otf in Resources */,
+				A08337A4291999C80014B08C /* NotoSansKR-Medium.otf in Resources */,
+				A08337A2291999B80014B08C /* NotoSansKR-Thin.otf in Resources */,
 				A0CEF89129194A28004B6538 /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,

@@ -41,7 +41,7 @@ function PickupDetailScreen() {
   return (
     <SafeAreaView style={styles.fullScreen}>
       {/* 헤더 (수정하기) */}
-      <View style={{width: width, alignItems: 'center'}}>
+      <View style={{width: width, alignItems: 'center', flex: 1}}>
         <DetailTopInfo data={data} />
         <Divider />
         <DetailPrice data={data} />

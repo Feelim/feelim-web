@@ -18,11 +18,30 @@ function ReviewComponent({data}: ReviewPropsType) {
     }
   }, [data?.star]);
 
+  const [image, setImage] = useState('');
+  const images = data?.images;
+
+  // console.log(images[0]);
+  useEffect(() => {
+    if (images[0]) {
+      console.log(images[0].url);
+      setImage(images[0].url);
+    }
+  }, [images, image]);
+
   return (
     <View style={{marginTop: 30, width: width - 32}}>
       <View style={styles.profileWrap}>
         <Text style={styles.name}>{data?.nickname}</Text>
         <Star starNum={starNum} />
+      </View>
+      <View>
+        {image ? (
+          <Image
+            style={{height: 65, width: 65, marginVertical: 10}}
+            source={{uri: `${image}`}}
+          />
+        ) : null}
       </View>
       <View style={{marginTop: 10}}>
         <Text style={styles.content}>{data?.content}</Text>
