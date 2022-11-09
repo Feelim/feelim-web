@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   StatusBar,
   Linking,
+  Platform,
 } from 'react-native';
 import colors from '../../assets/color';
 import Logo from '../../assets/images/Login/Logo.svg';
@@ -19,6 +20,83 @@ import {
   MainTabParamList,
   RootStackNavigationProp,
 } from '../types';
+import {
+  appleAuth,
+  AppleButton,
+} from '@invertase/react-native-apple-authentication';
+
+/**
+ * You'd technically persist this somewhere for later use.
+ */
+// let user: any = null;
+
+// /**
+//  * Fetches the credential state for the current user, if any, and updates state on completion.
+//  */
+// async function fetchAndUpdateCredentialState(
+//   updateCredentialStateForUser: any,
+// ) {
+//   if (user === null) {
+//     updateCredentialStateForUser('N/A');
+//   } else {
+//     const credentialState = await appleAuth.getCredentialStateForUser(user);
+//     if (credentialState === appleAuth.State.AUTHORIZED) {
+//       updateCredentialStateForUser('AUTHORIZED');
+//     } else {
+//       updateCredentialStateForUser(credentialState);
+//     }
+//   }
+// }
+
+// /**
+//  * Starts the Sign In flow.
+//  */
+// async function onAppleButtonPress(updateCredentialStateForUser: any) {
+//   console.warn('Beginning Apple Authentication');
+
+//   // start a login request
+//   try {
+//     const appleAuthRequestResponse = await appleAuth.performRequest({
+//       requestedOperation: appleAuth.Operation.LOGIN,
+//       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+//     });
+
+//     console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+
+//     const {
+//       user: newUser,
+//       email,
+//       nonce,
+//       identityToken,
+//       realUserStatus /* etc */,
+//     } = appleAuthRequestResponse;
+
+//     user = newUser;
+
+//     fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+//       updateCredentialStateForUser(`Error: ${error.code}`),
+//     );
+
+//     if (identityToken) {
+//       // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
+//       console.log(nonce, identityToken);
+//     } else {
+//       // no token - failed sign-in?
+//     }
+
+//     if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
+//       console.log("I'm a real person!");
+//     }
+
+//     console.warn(`Apple Authentication Completed, ${user}, ${email}`);
+//   } catch (error: any) {
+//     if (error.code === appleAuth.Error.CANCELED) {
+//       console.warn('User canceled Apple Sign in.');
+//     } else {
+//       console.error(error);
+//     }
+//   }
+// }
 
 function LoginScreen() {
   const navigation = useNavigation<MainTabNavigationProp>();
@@ -27,6 +105,35 @@ function LoginScreen() {
   const signInWithKakao = async (): Promise<void> => {
     navigation2.navigate('WebView');
   };
+
+  // const [credentialStateForUser, updateCredentialStateForUser] =
+  //   useState<any>(-1);
+  // useEffect(() => {
+  //   if (!appleAuth.isSupported) return;
+
+  //   fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+  //     updateCredentialStateForUser(`Error: ${error.code}`),
+  //   );
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!appleAuth.isSupported) return;
+
+  //   return appleAuth.onCredentialRevoked(async () => {
+  //     console.warn('Credential Revoked');
+  //     fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+  //       updateCredentialStateForUser(`Error: ${error.code}`),
+  //     );
+  //   });
+  // }, []);
+
+  // if (!appleAuth.isSupported) {
+  //   return (
+  //     <View style={[styles.container, styles.horizontal]}>
+  //       <Text>Apple Authentication is not supported on this device.</Text>
+  //     </View>
+  //   );
+  // }
 
   return (
     <SafeAreaView style={styles.fullScreen}>
@@ -45,6 +152,15 @@ function LoginScreen() {
           }}>
           <Kakao />
         </Pressable>
+        {Platform.OS === 'ios' ? (
+          <AppleButton
+            style={styles.appleButton}
+            cornerRadius={5}
+            buttonStyle={AppleButton.Style.WHITE}
+            buttonType={AppleButton.Type.CONTINUE}
+            onPress={() => onAppleButtonPress(updateCredentialStateForUser)}
+          />
+        ) : null}
 
         <Pressable
           onPress={() => {
@@ -56,6 +172,8 @@ function LoginScreen() {
     </SafeAreaView>
   );
 }
+
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   fullScreen: {
@@ -98,6 +216,20 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontFamily: 'NotoSansKR-Thin',
   },
+  appleButton: {
+    width: 300,
+    height: 45,
+    margin: 10,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'pink',
+  },
+  horizontal: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
 });
-
-export default LoginScreen;

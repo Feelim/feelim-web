@@ -55,46 +55,13 @@ function MapScreen() {
   ]);
 
   console.log(visible);
-  async function requestPermissions() {
-    if (Platform.OS === 'ios') {
-      const auth = await Geolocation.requestAuthorization('whenInUse');
-      if (auth === 'granted') {
-        console.log('granted');
-      }
-    }
-
-    if (Platform.OS === 'android') {
-      await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-      if ('granted' === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('granted');
-      }
-    }
-  }
 
   useEffect(() => {
-    requestPermissions();
     setVisible(false);
-
-    // const MarkerData = data?.result.map(item => {
-    //   let MarkerObj: makerObj = {
-    //     coordinate: {longitude: 0, latitude: 0},
-    //     id: 0,
-    //   };
-    //   MarkerObj = {
-    //     coordinate: {longitude: item.x, latitude: item.y},
-    //     id: item.id,
-    //   };
-    //   console.log('obj', MarkerObj);
-    //   return MarkerObj;
-    // });
-
-    // setMarkerData(MarkerData);
 
     Geolocation.getCurrentPosition(
       position => {
-        const {latitude, longitude} = position.coords;
+        const {longitude, latitude} = position.coords;
         setLocation({
           latitude,
           longitude,
@@ -113,15 +80,14 @@ function MapScreen() {
   const lon = location ? location.longitude : 0;
   const lat = location ? location.latitude : 0;
 
+  console.log(lon, lat);
+
   const {data, isLoading} = useQuery(['nearby', lon, lat], () =>
-    getNearbyLaboratories(lon, lat),
+    getNearbyLaboratories(lat, lon),
   );
   console.log('hi', data);
   const isFocused = useIsFocused();
 
-  const P0 = {latitude: 37.564362, longitude: 126.977011};
-  const P1 = {latitude: 37.565051, longitude: 126.978567};
-  const P2 = {latitude: 37.565383, longitude: 126.976292};
   const {width, height} = useWindowDimensions();
   const navigation = useNavigation<RootStackNavigationProp>();
 
@@ -131,7 +97,7 @@ function MapScreen() {
 
       <View style={{width: width, alignItems: 'center'}}>
         <View style={[styles.pickupTop, {width: width - 32}]}>
-          <Pressable onPress={() => navigation.pop()}>
+          <Pressable onPress={() => navigation.navigate('Home')} hitSlop={8}>
             <Image source={require('../../assets/images/Pickup/back.png')} />
           </Pressable>
           <Text style={styles.title}>내 주변 현상소</Text>
@@ -144,30 +110,10 @@ function MapScreen() {
       <NaverMapView
         style={{width: '100%', height: height - 200}}
         showsMyLocationButton={true}
-        center={{...{latitude: 37.566014, longitude: 126.98993}, zoom: 16}}
+        center={{...{latitude: lat, longitude: lon}, zoom: 16}}
         onTouch={undefined}
         onCameraChange={e => console.log('onCameraChange', JSON.stringify(e))}
         onMapClick={e => console.log('onMapClick', JSON.stringify(e))}>
-        {/* {markerData.map(marker => {
-          return (
-            <Marker
-              coordinate={marker.coordinate}
-              image={require('../../assets/images/Map/marker.png')}
-            />
-          );
-        })} */}
-        {/* <FlatList
-          data={data?.result}
-          renderItem={({item}) => (
-            <Marker
-              coordinate={{latitude: item.x, longitude: item.y}}
-              image={require('../../assets/images/Map/marker.png')}
-            />
-          )}
-          keyExtractor={item => item.id.toString()}
-          // ItemSeparatorComponent={() => <Divider />}
-        /> */}
-
         {isFocused &&
           data?.result.map(item => {
             return (
@@ -184,23 +130,6 @@ function MapScreen() {
               />
             );
           })}
-        <Marker
-          coordinate={P0}
-          onClick={() => console.warn('onClick! p0')}
-          image={require('../../assets/images/Map/marker.png')}
-        />
-        <Marker
-          coordinate={P1}
-          onClick={() => console.warn('onClick! p1')}
-          image={require('../../assets/images/Map/marker.png')}
-        />
-        <Marker
-          coordinate={P2}
-          onClick={() => {
-            navigation.navigate('Pickup');
-          }}
-          image={require('../../assets/images/Map/marker.png')}
-        />
       </NaverMapView>
       <Pressable
         onPress={() => {

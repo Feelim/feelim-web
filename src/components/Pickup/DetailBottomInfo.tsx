@@ -7,6 +7,7 @@ import {
   Text,
   FlatList,
   ScrollView,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import colors from '../../assets/color';
 import PickupFee from './PickupFee';
@@ -17,6 +18,8 @@ import MaterialTabs from 'react-native-material-tabs';
 import Divider from './Divider';
 import ReviewComponent from './ReviewComponent';
 import Star from './Star';
+import {useNavigation} from '@react-navigation/core';
+import {RootStackNavigationProp} from '../../screens/types';
 
 type DetailBottomInfoType = {
   data: Laboratory | undefined;
@@ -24,11 +27,14 @@ type DetailBottomInfoType = {
 
 function DetailBottomInfo({data}: DetailBottomInfoType) {
   const {width} = useWindowDimensions();
+  const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedTab, setSelectedTab] = useState(0);
   console.log(data?.result.reviews);
+  const name = data?.result.name;
+  const id = data?.result.id;
 
   return (
-    <View style={{width: width, alignItems: 'center', flex: 1}}>
+    <View style={{width: width, flex: 1}}>
       <View style={[{width: width}, styles.tabButtons]}>
         <View style={{width: width}}>
           <MaterialTabs
@@ -51,16 +57,22 @@ function DetailBottomInfo({data}: DetailBottomInfoType) {
           />
         </View>
       </View>
-      <ScrollView style={{width: width, flex: 1}}>
+      <ScrollView style={{width: width}}>
         {selectedTab === 0 ? (
           <Introduction data={data} />
         ) : (
-          <View style={{width: width, alignItems: 'center', paddingBottom: 20}}>
-            <View style={{width: width - 32}}>
+          <View
+            style={{
+              width: width,
+              alignItems: 'center',
+              paddingBottom: 20,
+              flex: 1,
+            }}>
+            <View style={{width: width - 32, flex: 1}}>
               <View style={styles.reviewTopWrap}>
                 <View>
                   <View style={styles.reviewStarWrap}>
-                    <Star starNum={5} />
+                    <Star starNum={data?.result.star} />
                     <Text style={styles.starText}>
                       {data?.result.star.toFixed(1)}
                     </Text>
@@ -70,7 +82,8 @@ function DetailBottomInfo({data}: DetailBottomInfoType) {
                       styles.reviewNumText
                     }>{`${data?.result.reviewNum}건의 후기가 있어요.`}</Text>
                 </View>
-                <Pressable>
+                <Pressable
+                  onPress={() => navigation.navigate('Review', {name, id})}>
                   <View style={styles.writeButton}>
                     <Text style={{color: colors.on_primary, fontSize: 12}}>
                       후기 작성
@@ -78,22 +91,13 @@ function DetailBottomInfo({data}: DetailBottomInfoType) {
                   </View>
                 </Pressable>
               </View>
-              <FlatList
-                data={data?.result.reviews}
-                renderItem={({item}) => <ReviewComponent data={item} />}
-                keyExtractor={item => item.reviewId.toString()}
-                // ItemSeparatorComponent={() => <Divider />}
-              />
-              <FlatList
-                data={data?.result.reviews}
-                renderItem={({item}) => <ReviewComponent data={item} />}
-                keyExtractor={item => item.reviewId.toString()}
-                // ItemSeparatorComponent={() => <Divider />}
-              />
+              {data?.result.reviews.map(item => {
+                return (
+                  <ReviewComponent data={item} key={item.reviewId.toString()} />
+                );
+              })}
             </View>
           </View>
-
-          // <View></View>
         )}
       </ScrollView>
     </View>
@@ -137,6 +141,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   reviewTopWrap: {
+    flex: 1,
     padding: 16,
     borderWidth: 0,
     borderRadius: 6,

@@ -10,6 +10,7 @@ import {
   Image,
   ActivityIndicator,
   Linking,
+  ImageBackground,
 } from 'react-native';
 import {Laboratory} from '../../api/types';
 import colors from '../../assets/color';
@@ -34,13 +35,17 @@ function DetailTopInfo({data}: DetailTopInfoType) {
 
   return (
     <View style={{width: width}}>
-      <View style={styles.topBanner}>
+      <ImageBackground
+        style={styles.topBanner}
+        source={
+          data?.result.background ? {uri: `${data?.result.background}`} : null
+        }>
         <Pressable
           onPress={() => navigation.pop()}
           style={{marginTop: 7, marginLeft: 10, height: 30, width: 30}}>
           <Image source={require('../../assets/images/Pickup/backwhite.png')} />
         </Pressable>
-      </View>
+      </ImageBackground>
       <View style={[{width: width - 32, alignSelf: 'center'}]}>
         <View style={[styles.detailTopWrap, {width: width - 32}]}>
           <View
@@ -50,13 +55,11 @@ function DetailTopInfo({data}: DetailTopInfoType) {
               justifyContent: 'space-between',
               alignItems: 'center',
             }}>
-            {/* <Text style={styles.name}>{data?.result.name}</Text> */}
-            <Text style={styles.name}>망우삼림</Text>
+            <Text style={styles.name}>{data?.result.name}</Text>
             <View style={styles.starWrap}>
               <Star starNum={data?.result.star} />
               <Text style={styles.starText}>
-                {/* {data?.result.star.toFixed(1)} */}
-                4.8
+                {data?.result.star.toFixed(1)}
               </Text>
             </View>
           </View>

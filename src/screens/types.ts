@@ -55,6 +55,10 @@ export type RootStackParamList = {
   Edit: undefined;
   MyPost: undefined;
   MyComment: undefined;
+  Review: {
+    name: string;
+    id: number;
+  };
   HomeEvent: {
     idx: number;
   };

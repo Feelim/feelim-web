@@ -35,8 +35,10 @@ import QuestionContentScreen from './Mypage/QuestionContentScreen';
 import TermsScreen from './Mypage/TermsScreen';
 import AgreeScreen from './Login/AgreeScreen';
 import YoutubeScreen from './Home/YoutubeScreen';
+import ReviewScreen from './Pickup/ReviewScreen';
 import {useMutation} from 'react-query';
 import {authToken} from '../api/auth';
+
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -208,6 +210,11 @@ function RootStack() {
             component={YoutubeScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="Review"
+            component={ReviewScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -350,6 +357,11 @@ function RootStack() {
           <Stack.Screen
             name="Youtube"
             component={YoutubeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Review"
+            component={ReviewScreen}
             options={{headerShown: false}}
           />
         </>

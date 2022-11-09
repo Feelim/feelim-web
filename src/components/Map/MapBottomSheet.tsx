@@ -10,6 +10,7 @@ import {
   PanResponder,
   TouchableOpacity,
   FlatList,
+  useWindowDimensions,
 } from 'react-native';
 import ModalItem from './ModalItem';
 import {useRecoilState} from 'recoil';
@@ -71,6 +72,7 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
       setVisible(false);
     });
   };
+  const {width} = useWindowDimensions();
 
   return (
     <>
@@ -84,7 +86,6 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
             <View style={styles.background} />
           </TouchableWithoutFeedback>
           <Animated.ScrollView
-            horizontal={true}
             style={{
               ...styles.bottomSheetContainer,
               transform: [{translateY: translateY}],
@@ -92,22 +93,31 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
             {...panResponders.panHandlers}>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <View style={styles.line} />
-              <FlatList
-                data={data?.result}
-                renderItem={({item}) => (
-                  <ModalItem
-                    address={item.address}
-                    images={item.images}
-                    distance={item.distance}
-                    reviewNum={item.reviewNum}
-                    star={item.star}
-                    name={item.name}
-                    id={item.id}
-                  />
-                )}
-                keyExtractor={item => item.id.toString()}
-                ItemSeparatorComponent={() => <Divider />}
-              />
+              <View>
+                {data?.result.map(item => {
+                  return (
+                    <>
+                      <ModalItem
+                        address={item.address}
+                        images={item.images}
+                        distance={item.distance}
+                        reviewNum={item.reviewNum}
+                        star={item.star}
+                        name={item.name}
+                        id={item.id}
+                        key={item.id.toString()}
+                      />
+                      <View
+                        style={{
+                          backgroundColor: colors.devider1,
+                          height: 4,
+                          width: width,
+                        }}
+                        key={item.id.toString() + 'd'}></View>
+                    </>
+                  );
+                })}
+              </View>
             </View>
           </Animated.ScrollView>
         </View>
