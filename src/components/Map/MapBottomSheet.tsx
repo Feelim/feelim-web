@@ -96,25 +96,16 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
               <View>
                 {data?.result.map(item => {
                   return (
-                    <>
-                      <ModalItem
-                        address={item.address}
-                        images={item.images}
-                        distance={item.distance}
-                        reviewNum={item.reviewNum}
-                        star={item.star}
-                        name={item.name}
-                        id={item.id}
-                        key={item.id.toString()}
-                      />
-                      <View
-                        style={{
-                          backgroundColor: colors.devider1,
-                          height: 4,
-                          width: width,
-                        }}
-                        key={item.id.toString() + 'd'}></View>
-                    </>
+                    <ModalItem
+                      address={item.address}
+                      images={item.images}
+                      distance={item.distance}
+                      reviewNum={item.reviewNum}
+                      star={item.star}
+                      name={item.name}
+                      id={item.id}
+                      key={item.id.toString()}
+                    />
                   );
                 })}
               </View>
@@ -125,6 +116,15 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
     </>
   );
 };
+
+// {/* <View
+//                         style={{
+//                           backgroundColor: colors.devider1,
+//                           height: 4,
+//                           width: width,
+//                         }}
+//                         key={item.id.toString() + 'ddd'}
+//                       /> */}
 
 const styles = StyleSheet.create({
   overlay: {

@@ -20,6 +20,9 @@ import ReviewComponent from './ReviewComponent';
 import Star from './Star';
 import {useNavigation} from '@react-navigation/core';
 import {RootStackNavigationProp} from '../../screens/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useRecoilState} from 'recoil';
+import {loginState, visibleState} from '../../atoms/reviewPermission';
 
 type DetailBottomInfoType = {
   data: Laboratory | undefined;
@@ -32,6 +35,22 @@ function DetailBottomInfo({data}: DetailBottomInfoType) {
   console.log(data?.result.reviews);
   const name = data?.result.name;
   const id = data?.result.id;
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
+  const [visible, setVisible] = useRecoilState(visibleState);
+
+  AsyncStorage.getItem('accessToken', (err, result) => {
+    if (result) {
+      setIsLogin(true);
+    }
+  });
+
+  const onPressReviewWrite = () => {
+    if (isLogin) {
+      navigation.navigate('Review', {name, id});
+    } else {
+      setVisible(true);
+    }
+  };
 
   return (
     <View style={{width: width, flex: 1}}>
@@ -82,8 +101,7 @@ function DetailBottomInfo({data}: DetailBottomInfoType) {
                       styles.reviewNumText
                     }>{`${data?.result.reviewNum}건의 후기가 있어요.`}</Text>
                 </View>
-                <Pressable
-                  onPress={() => navigation.navigate('Review', {name, id})}>
+                <Pressable onPress={onPressReviewWrite}>
                   <View style={styles.writeButton}>
                     <Text style={{color: colors.on_primary, fontSize: 12}}>
                       후기 작성
