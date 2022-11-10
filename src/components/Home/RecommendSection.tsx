@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {
   Text,
@@ -11,22 +12,32 @@ import {
 import colors from '../../assets/color';
 import Rec1 from '../../assets/images/Home/Rec1.svg';
 import Rec2 from '../../assets/images/Home/Rec2.svg';
+import {RootStackNavigationProp} from '../../screens/types';
 
 function RecommendSection() {
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.block}>
       <View style={styles.header}>
         <Text style={styles.title}>Chalkak* 운영진이 추천하는 글 </Text>
       </View>
       <View style={[styles.container, {marginBottom: 12}]}>
-        <Pressable style={[styles.item, {marginRight: 12}]}>
+        <Pressable
+          style={[styles.item, {marginRight: 12}]}
+          onPress={() => {
+            navigation.navigate('Post', {id: 3});
+          }}>
           <Image
             source={require('../../assets/images/Home/Recommend.png')}
             style={styles.img}
           />
           <Text style={styles.text}>입문 카메라 추천</Text>
         </Pressable>
-        <Pressable style={styles.item}>
+        <Pressable
+          style={styles.item}
+          onPress={() => {
+            navigation.navigate('Post', {id: 1});
+          }}>
           <Image
             source={require('../../assets/images/Home/Recommend2.png')}
             style={styles.img}
@@ -35,14 +46,22 @@ function RecommendSection() {
         </Pressable>
       </View>
       <View style={styles.container}>
-        <Pressable style={styles.item}>
+        <Pressable
+          style={styles.item}
+          onPress={() => {
+            navigation.navigate('Post', {id: 2});
+          }}>
           <Image
             source={require('../../assets/images/Home/Recommend3.png')}
             style={styles.img}
           />
           <Text style={styles.text}>필름 최저가 구매 팁!</Text>
         </Pressable>
-        <Pressable style={styles.item}>
+        <Pressable
+          style={styles.item}
+          onPress={() => {
+            navigation.navigate('Post', {id: 4});
+          }}>
           <Image
             source={require('../../assets/images/Home/Recommend4.png')}
             style={styles.img}

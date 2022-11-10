@@ -344,7 +344,6 @@ function ModifyScreen() {
         name: imageName,
       });
     }
-    console.log(formdata);
   }, [titles, bodys, filters, imageUrl]);
 
   const patchPost = () => {
