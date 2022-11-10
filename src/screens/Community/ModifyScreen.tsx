@@ -332,15 +332,19 @@ function ModifyScreen() {
   };
 
   const formdata = new FormData();
+
   useEffect(() => {
     formdata.append('title', titles);
     formdata.append('content', bodys);
     formdata.append('category', filters);
-    formdata.append('images', {
-      uri: imageUrl,
-      type: imageType,
-      name: imageName,
-    });
+    if (imageUrl) {
+      formdata.append('images', {
+        uri: imageUrl,
+        type: imageType,
+        name: imageName,
+      });
+    }
+    console.log(formdata);
   }, [titles, bodys, filters, imageUrl]);
 
   const patchPost = () => {
@@ -359,6 +363,9 @@ function ModifyScreen() {
           queryClient.invalidateQueries('postDetail');
           queryClient.invalidateQueries('postCategory');
           navigation.navigate('Community');
+          setImageName('');
+          setImageType('');
+          setImageUrl('');
         }
       })
       .catch(e => {

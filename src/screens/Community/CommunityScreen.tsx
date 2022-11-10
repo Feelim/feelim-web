@@ -18,11 +18,11 @@ function CommunityScreen() {
   return (
     <>
       <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
-      <View style={styles.fullScreen}>
+      <SafeAreaView style={styles.fullScreen}>
         <CommunityHeader />
         <PageFilter />
         <CommunityFeed />
-      </View>
+      </SafeAreaView>
     </>
   );
 }
