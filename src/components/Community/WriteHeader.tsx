@@ -38,9 +38,9 @@ function WriteHeader() {
   const navigation = useNavigation<MainTabNavigationProp>();
   const title = useRecoilValue(titleState);
   const content = useRecoilValue(bodyState);
-  const name = useRecoilValue(nameState);
-  const type = useRecoilValue(typeState);
-  const uri = useRecoilValue(uriState);
+  const [name, setName] = useRecoilState(nameState);
+  const [type, setType] = useRecoilState(typeState);
+  const [uri, setUri] = useRecoilState(uriState);
   const category = useRecoilValue(categoryState);
   const [toastVisible, setToastVisible] = useRecoilState(writeToastState);
   const [toastText, setToastText] = useRecoilState(writeToastTextState);
@@ -101,11 +101,15 @@ function WriteHeader() {
   formdata.append('title', title);
   formdata.append('content', content);
   formdata.append('category', category);
-  formdata.append('images', {
-    uri: uri,
-    type: type,
-    name: name,
-  });
+  useEffect(() => {
+    if (uri) {
+      formdata.append('images', {
+        uri: uri,
+        type: type,
+        name: name,
+      });
+    }
+  }, [uri]);
 
   const writeNewPost = () => {
     axiosInstance
@@ -123,6 +127,9 @@ function WriteHeader() {
           navigation.navigate('Community');
           queryClient.invalidateQueries('postAll');
           queryClient.invalidateQueries('postCategory');
+          setName('');
+          setType('');
+          setUri('');
         }
       })
       .catch(e => {

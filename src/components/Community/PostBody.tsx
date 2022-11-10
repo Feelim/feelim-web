@@ -47,7 +47,7 @@ function PostBody({content, images}: Item) {
   return (
     <View style={styles.block}>
       <ScrollView>
-        {images ? (
+        {images?.length >= 1 ? (
           <>
             <ImageModal
               resizeMode="contain"

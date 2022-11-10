@@ -23,15 +23,13 @@ function FeedItem({title, id, commentNum, time, nickname}: Item) {
 
   const postDetailQuery = useQuery(['postDetail', id], () => getPostDetail(id));
   const images = postDetailQuery.data?.result?.images;
-
   useEffect(() => {
-    if (images) {
+    if (images?.length >= 1) {
       setImage(images[images.length - 1].url);
     }
   }, [images, image]);
 
   return (
-    // 이미지 없을때 기준
     <Pressable
       style={styles.item}
       onPress={() => {
