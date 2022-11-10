@@ -22,6 +22,10 @@ import DetailTopInfo from '../../components/Pickup/DetailTopInfo';
 import Divider from '../../components/Pickup/Divider';
 import DetailPrice from '../../components/Pickup/DetailPrice';
 import DetailBottomInfo from '../../components/Pickup/DetailBottomInfo';
+import IsLoginModal from '../../components/Login/IsLoginModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useRecoilState} from 'recoil';
+import {loginState, visibleState} from '../../atoms/reviewPermission';
 
 type PickupDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -38,6 +42,12 @@ function PickupDetailScreen() {
   const {width} = useWindowDimensions();
   const navigation = useNavigation<RootStackNavigationProp>();
 
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
+  const [visible, setVisible] = useRecoilState(visibleState);
+
+  const onClose = () => {
+    setVisible(false);
+  };
   return (
     <SafeAreaView style={styles.fullScreen}>
       {/* 헤더 (수정하기) */}
@@ -48,6 +58,7 @@ function PickupDetailScreen() {
         <Divider />
         <DetailBottomInfo data={data} />
       </View>
+      <IsLoginModal visible={visible} onClose={onClose} />
     </SafeAreaView>
   );
 }

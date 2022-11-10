@@ -93,6 +93,9 @@ function ReviewScreen() {
         if (response.data.isSuccess) {
           setToastText('💡 후기가 등록됐어요!');
           setToastVisible(true);
+          setRecoilName('');
+          setRecoilType('');
+          setRecoilUri('');
           setTimeout(() => {
             setToastVisible(false);
             navigation.navigate('Home');
