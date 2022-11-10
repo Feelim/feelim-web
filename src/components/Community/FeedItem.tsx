@@ -26,6 +26,8 @@ function FeedItem({title, id, commentNum, time, nickname}: Item) {
   useEffect(() => {
     if (images?.length >= 1) {
       setImage(images[images.length - 1].url);
+    } else {
+      setImage('');
     }
   }, [images, image]);
 

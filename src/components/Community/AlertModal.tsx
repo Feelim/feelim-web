@@ -9,10 +9,16 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {InfiniteData, useMutation, useQueryClient} from 'react-query';
+import {useSetRecoilState} from 'recoil';
 import {deleteComment} from '../../api/comments';
 import {deletePost} from '../../api/post';
 import {Post} from '../../api/types';
 import colors from '../../assets/color';
+import {
+  patchImgNameState,
+  patchImgTypeState,
+  patchImgUrlState,
+} from '../../atoms/patchImg';
 import {RootStackNavigationProp} from '../../screens/types';
 
 export interface AlertProps {
@@ -36,6 +42,9 @@ function AlertModal({
 }: AlertProps) {
   const navigation = useNavigation<RootStackNavigationProp>();
   const queryClient = useQueryClient();
+  const setImgName = useSetRecoilState(patchImgNameState);
+  const setImgUrl = useSetRecoilState(patchImgUrlState);
+  const setImgType = useSetRecoilState(patchImgTypeState);
 
   const {mutate: removePost} = useMutation(deletePost, {
     onSuccess: e => {
@@ -62,6 +71,9 @@ function AlertModal({
   const onPressRemove = () => {
     if (button === '나가기') {
       navigation.goBack();
+      setImgName('');
+      setImgType('');
+      setImgUrl('');
     } else if (button === '네' && isPost) {
       removePost(postId);
     } else if (button === '네' && !isPost) {
