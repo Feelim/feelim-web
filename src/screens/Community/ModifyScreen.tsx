@@ -332,37 +332,20 @@ function ModifyScreen() {
   };
 
   const formdata = new FormData();
-  // useEffect(() => {
-  //   formdata.append('title', titles);
-  //   formdata.append('content', bodys);
-  //   formdata.append('category', filters);
-  //   if (imageUrl) {
-  //     formdata.append('images', {
-  //       uri: imageUrl,
-  //       type: imageType,
-  //       name: imageName,
-  //     });
-  //   }
-  //   console.log(titles);
-  // }, [titles, bodys, filters, imageUrl]);
 
-  formdata.append('title', titles);
-  formdata.append('content', bodys);
-  formdata.append('category', filters);
-  formdata.append('images', {
-    uri: imageUrl,
-    type: imageType,
-    name: imageName,
-  });
-  // useEffect(() => {
-  //   if (imageUrl) {
-  //     formdata.append('images', {
-  //       uri: imageUrl,
-  //       type: imageType,
-  //       name: imageName,
-  //     });
-  //   }
-  // }, [imageUrl]);
+  useEffect(() => {
+    formdata.append('title', titles);
+    formdata.append('content', bodys);
+    formdata.append('category', filters);
+    if (imageUrl) {
+      formdata.append('images', {
+        uri: imageUrl,
+        type: imageType,
+        name: imageName,
+      });
+    }
+    console.log(formdata);
+  }, [titles, bodys, filters, imageUrl]);
 
   const patchPost = () => {
     axiosInstance
@@ -403,7 +386,8 @@ function ModifyScreen() {
         <AlertModal
           visible={alertVisible}
           onClose={onClose}
-          text="작성된 글이 있어요. 정말 나가시겠어요?"
+          text="작성된 글이 있어요. 
+  정말 나가시겠어요?"
           postId={0}
           button="나가기"
           isPost={true}

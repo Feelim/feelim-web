@@ -142,7 +142,7 @@ function MapScreen() {
         <View
           style={{
             backgroundColor: colors.on_primary,
-            height: 200,
+            height: 500,
           }}
         />
       </Pressable>

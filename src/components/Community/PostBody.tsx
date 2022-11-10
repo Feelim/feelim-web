@@ -41,6 +41,10 @@ function PostBody({content, images}: Item) {
       setImgName(image.fileName);
       setImgType(image.fileType);
       setImgUrl(image.url);
+    } else {
+      setImgName('');
+      setImgType('');
+      setImgUrl('');
     }
   }, [image, url]);
 
