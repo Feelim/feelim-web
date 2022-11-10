@@ -20,7 +20,8 @@ function DetailPrice({data}: DetailPriceType) {
   return (
     <View style={{width: width - 32}}>
       <Text style={styles.title}>가격표</Text>
-      <View style={{height: 96, width: 96, marginBottom: 24}}>
+      <View
+        style={{height: 96, width: 96, marginBottom: 24, flexDirection: 'row'}}>
         {data &&
           data.result.bills.map((url, index) => {
             return (

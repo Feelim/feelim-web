@@ -154,6 +154,7 @@ function LoginScreen() {
           }}>
           <Kakao />
         </Pressable>
+
         {Platform.OS === 'ios' ? (
           <AppleButton
             style={styles.appleButton}
