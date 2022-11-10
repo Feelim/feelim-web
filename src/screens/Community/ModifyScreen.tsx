@@ -332,16 +332,37 @@ function ModifyScreen() {
   };
 
   const formdata = new FormData();
-  useEffect(() => {
-    formdata.append('title', titles);
-    formdata.append('content', bodys);
-    formdata.append('category', filters);
-    formdata.append('images', {
-      uri: imageUrl,
-      type: imageType,
-      name: imageName,
-    });
-  }, [titles, bodys, filters, imageUrl]);
+  // useEffect(() => {
+  //   formdata.append('title', titles);
+  //   formdata.append('content', bodys);
+  //   formdata.append('category', filters);
+  //   if (imageUrl) {
+  //     formdata.append('images', {
+  //       uri: imageUrl,
+  //       type: imageType,
+  //       name: imageName,
+  //     });
+  //   }
+  //   console.log(titles);
+  // }, [titles, bodys, filters, imageUrl]);
+
+  formdata.append('title', titles);
+  formdata.append('content', bodys);
+  formdata.append('category', filters);
+  formdata.append('images', {
+    uri: imageUrl,
+    type: imageType,
+    name: imageName,
+  });
+  // useEffect(() => {
+  //   if (imageUrl) {
+  //     formdata.append('images', {
+  //       uri: imageUrl,
+  //       type: imageType,
+  //       name: imageName,
+  //     });
+  //   }
+  // }, [imageUrl]);
 
   const patchPost = () => {
     axiosInstance
@@ -359,6 +380,9 @@ function ModifyScreen() {
           queryClient.invalidateQueries('postDetail');
           queryClient.invalidateQueries('postCategory');
           navigation.navigate('Community');
+          setImageName('');
+          setImageType('');
+          setImageUrl('');
         }
       })
       .catch(e => {
