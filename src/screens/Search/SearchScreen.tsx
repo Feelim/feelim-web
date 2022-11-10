@@ -21,18 +21,45 @@ import SearchMain from '../../components/Community/SearchMain';
 import SearchNo from '../../components/Community/SearchNo';
 import ModalItem from '../../components/Map/ModalItem';
 import Divider from '../../components/Pickup/Divider';
+import Geolocation from 'react-native-geolocation-service';
+
+interface ILocation {
+  latitude: number;
+  longitude: number;
+}
 
 function SearchScreen() {
   const {width} = useWindowDimensions();
   const navigation = useNavigation<RootStackNavigationProp>();
   const [keyword, setKeyword] = useState('');
-  const searchLaboratoryQuery = useQuery(['searchLaboratory', keyword], () =>
-    getSearchLaboratory(keyword),
+  const [location, setLocation] = useState<ILocation | undefined>(undefined);
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const {longitude, latitude} = position.coords;
+        setLocation({
+          latitude,
+          longitude,
+        });
+      },
+      error => {
+        console.log(error.code, error.message);
+      },
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    );
+  }, []);
+
+  const y = location ? location.longitude : 0;
+  const x = location ? location.latitude : 0;
+
+  const searchLaboratoryQuery = useQuery(
+    ['searchLaboratory', keyword, x, y],
+    () => getSearchLaboratory(keyword, x, y),
   );
 
   useEffect(() => {
     searchLaboratoryQuery;
-  }, [keyword]);
+  }, [keyword, x, y]);
   const [enter, setEnter] = useState(false);
 
   return (
