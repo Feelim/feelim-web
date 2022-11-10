@@ -28,75 +28,75 @@ import {
 /**
  * You'd technically persist this somewhere for later use.
  */
-// let user: any = null;
+let user: any = null;
 
-// /**
-//  * Fetches the credential state for the current user, if any, and updates state on completion.
-//  */
-// async function fetchAndUpdateCredentialState(
-//   updateCredentialStateForUser: any,
-// ) {
-//   if (user === null) {
-//     updateCredentialStateForUser('N/A');
-//   } else {
-//     const credentialState = await appleAuth.getCredentialStateForUser(user);
-//     if (credentialState === appleAuth.State.AUTHORIZED) {
-//       updateCredentialStateForUser('AUTHORIZED');
-//     } else {
-//       updateCredentialStateForUser(credentialState);
-//     }
-//   }
-// }
+/**
+ * Fetches the credential state for the current user, if any, and updates state on completion.
+ */
+async function fetchAndUpdateCredentialState(
+  updateCredentialStateForUser: any,
+) {
+  if (user === null) {
+    updateCredentialStateForUser('N/A');
+  } else {
+    const credentialState = await appleAuth.getCredentialStateForUser(user);
+    if (credentialState === appleAuth.State.AUTHORIZED) {
+      updateCredentialStateForUser('AUTHORIZED');
+    } else {
+      updateCredentialStateForUser(credentialState);
+    }
+  }
+}
 
 // /**
 //  * Starts the Sign In flow.
 //  */
-// async function onAppleButtonPress(updateCredentialStateForUser: any) {
-//   console.warn('Beginning Apple Authentication');
+async function onAppleButtonPress(updateCredentialStateForUser: any) {
+  console.warn('Beginning Apple Authentication');
 
-//   // start a login request
-//   try {
-//     const appleAuthRequestResponse = await appleAuth.performRequest({
-//       requestedOperation: appleAuth.Operation.LOGIN,
-//       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-//     });
+  // start a login request
+  try {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
 
-//     console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
 
-//     const {
-//       user: newUser,
-//       email,
-//       nonce,
-//       identityToken,
-//       realUserStatus /* etc */,
-//     } = appleAuthRequestResponse;
+    const {
+      user: newUser,
+      email,
+      nonce,
+      identityToken,
+      realUserStatus /* etc */,
+    } = appleAuthRequestResponse;
 
-//     user = newUser;
+    user = newUser;
 
-//     fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
-//       updateCredentialStateForUser(`Error: ${error.code}`),
-//     );
+    fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+      updateCredentialStateForUser(`Error: ${error.code}`),
+    );
 
-//     if (identityToken) {
-//       // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
-//       console.log(nonce, identityToken);
-//     } else {
-//       // no token - failed sign-in?
-//     }
+    if (identityToken) {
+      // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
+      console.log(nonce, identityToken);
+    } else {
+      // no token - failed sign-in?
+    }
 
-//     if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
-//       console.log("I'm a real person!");
-//     }
+    if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
+      console.log("I'm a real person!");
+    }
 
-//     console.warn(`Apple Authentication Completed, ${user}, ${email}`);
-//   } catch (error: any) {
-//     if (error.code === appleAuth.Error.CANCELED) {
-//       console.warn('User canceled Apple Sign in.');
-//     } else {
-//       console.error(error);
-//     }
-//   }
-// }
+    console.warn(`Apple Authentication Completed, ${user}, ${email}`);
+  } catch (error: any) {
+    if (error.code === appleAuth.Error.CANCELED) {
+      console.warn('User canceled Apple Sign in.');
+    } else {
+      console.error(error);
+    }
+  }
+}
 
 function LoginScreen() {
   const navigation = useNavigation<MainTabNavigationProp>();
@@ -106,34 +106,36 @@ function LoginScreen() {
     navigation2.navigate('WebView');
   };
 
-  // const [credentialStateForUser, updateCredentialStateForUser] =
-  //   useState<any>(-1);
-  // useEffect(() => {
-  //   if (!appleAuth.isSupported) return;
+  const [credentialStateForUser, updateCredentialStateForUser] =
+    useState<any>(-1);
+  if (Platform.OS === 'ios') {
+    useEffect(() => {
+      if (!appleAuth.isSupported) return;
 
-  //   fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
-  //     updateCredentialStateForUser(`Error: ${error.code}`),
-  //   );
-  // }, []);
+      fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+        updateCredentialStateForUser(`Error: ${error.code}`),
+      );
+    }, []);
 
-  // useEffect(() => {
-  //   if (!appleAuth.isSupported) return;
+    useEffect(() => {
+      if (!appleAuth.isSupported) return;
 
-  //   return appleAuth.onCredentialRevoked(async () => {
-  //     console.warn('Credential Revoked');
-  //     fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
-  //       updateCredentialStateForUser(`Error: ${error.code}`),
-  //     );
-  //   });
-  // }, []);
+      return appleAuth.onCredentialRevoked(async () => {
+        console.warn('Credential Revoked');
+        fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(
+          error => updateCredentialStateForUser(`Error: ${error.code}`),
+        );
+      });
+    }, []);
 
-  // if (!appleAuth.isSupported) {
-  //   return (
-  //     <View style={[styles.container, styles.horizontal]}>
-  //       <Text>Apple Authentication is not supported on this device.</Text>
-  //     </View>
-  //   );
-  // }
+    if (!appleAuth.isSupported) {
+      return (
+        <View style={[styles.container, styles.horizontal]}>
+          <Text>Apple Authentication is not supported on this device.</Text>
+        </View>
+      );
+    }
+  }
 
   return (
     <SafeAreaView style={styles.fullScreen}>

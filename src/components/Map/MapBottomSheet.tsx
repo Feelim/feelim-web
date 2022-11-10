@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   FlatList,
   useWindowDimensions,
+  ScrollView,
 } from 'react-native';
 import ModalItem from './ModalItem';
 import {useRecoilState} from 'recoil';
@@ -85,15 +86,16 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
           <TouchableWithoutFeedback onPress={closeModal}>
             <View style={styles.background} />
           </TouchableWithoutFeedback>
-          <Animated.ScrollView
+          <Animated.View
             style={{
               ...styles.bottomSheetContainer,
               transform: [{translateY: translateY}],
             }}
             {...panResponders.panHandlers}>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View
+              style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
               <View style={styles.line} />
-              <View>
+              <ScrollView style={{flex: 1}}>
                 {data?.result.map(item => {
                   return (
                     <ModalItem
@@ -108,9 +110,9 @@ const MapBottomSheet = ({data}: BottomSheetType) => {
                     />
                   );
                 })}
-              </View>
+              </ScrollView>
             </View>
-          </Animated.ScrollView>
+          </Animated.View>
         </View>
       </Modal>
     </>
@@ -146,6 +148,7 @@ const styles = StyleSheet.create({
   },
   line: {
     marginTop: 10,
+    marginBottom: 10,
     height: 4,
     width: 50,
     backgroundColor: colors.primary,
