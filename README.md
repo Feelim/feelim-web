@@ -1,4 +1,5 @@
 # Chalkak<img src="https://user-images.githubusercontent.com/78731710/201506727-f2e0d189-25c1-4a39-bc9c-54f9445502ae.png" width="100px" align="left" />
+필름 현상/스캔 과정을 돕고, 필름 사진 및 관련 정보를 공유하는 서비스
 
 <br>
 <br>
