@@ -24,7 +24,7 @@ function CommunitySearchScreen() {
   const searchTitleQuery = useQuery(['searchTitle', keyword], () =>
     getPostSearchTitle(keyword),
   );
-
+  console.log(searchTitleQuery.data?.result);
   const [enter, setEnter] = useState(false);
 
   // 최근검색어
