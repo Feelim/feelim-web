@@ -17,6 +17,7 @@ export interface SearchProps {
 
 function SearchYes({data}: SearchProps) {
   const {bottom} = useSafeAreaInsets();
+  console.log('gere');
   return (
     <View style={styles.block}>
       <View style={styles.top}>
