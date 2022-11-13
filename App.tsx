@@ -17,7 +17,7 @@ function App() {
       console.warn('스플래시 에러발생');
       console.warn(e);
     }
-  });
+  }, []);
 
   const queryClient = new QueryClient();
 

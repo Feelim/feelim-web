@@ -47,6 +47,9 @@ export type RootStackParamList = {
     postId: number;
   };
   WebView: undefined;
+  AppleWebView: {
+    url: string;
+  };
   Mypage: undefined;
   Notice: undefined;
   Event: undefined;

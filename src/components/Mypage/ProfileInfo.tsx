@@ -18,7 +18,16 @@ function ProfileInfo() {
           {profileQuery.data?.result?.nickname}
         </Text>
         <View style={styles.email}>
-          <KakaoEmail />
+          {/* <KakaoEmail /> */}
+          {profileQuery.data?.result?.email.includes('@apple') ? (
+            <Image
+              source={require('../../assets/images/Mypage/AppleEmail.png')}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/Mypage/KakaoEmail.png')}
+            />
+          )}
           <Text style={styles.emailText}>
             {profileQuery.data?.result?.email}
           </Text>
