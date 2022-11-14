@@ -98,7 +98,7 @@ function LoginScreen() {
 
         <Pressable
           onPress={() => {
-            navigation.navigate('MainTab');
+            navigation2.navigate('Agree');
           }}>
           <Text style={styles.noLogin}>로그인 없이 둘러보기</Text>
         </Pressable>

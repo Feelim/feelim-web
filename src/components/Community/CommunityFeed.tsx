@@ -74,6 +74,7 @@ function CommunityFeed() {
       <ActivityIndicator size="large" style={styles.spinner} color="black" />
     );
   }
+
   return (
     <View style={styles.feed}>
       {categoryRecoil > 0 ? (

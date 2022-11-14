@@ -36,7 +36,7 @@ export async function deletePost(id: number){
 }
 
 export async function getPostSearchTitle(keyword: string) {
-    const response = await client.get<PostSearch>(`/post/search/title/${keyword}`);
+    const response = await client.get<PostSearch>(`/post/search/title?title=${keyword}`);
     return response.data;
 }
 
