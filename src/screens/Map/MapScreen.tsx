@@ -108,7 +108,7 @@ function MapScreen() {
         <SearchStore />
       </View>
       <NaverMapView
-        style={{width: '100%', height: height - 200}}
+        style={{width: '100%', height: height - 300, zIndex: 0}}
         showsMyLocationButton={true}
         center={{...{latitude: lat, longitude: lon}, zoom: 16}}
         onTouch={undefined}
@@ -142,7 +142,7 @@ function MapScreen() {
         <View
           style={{
             backgroundColor: colors.on_primary,
-            height: 500,
+            height: 200,
           }}
         />
       </Pressable>

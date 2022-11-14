@@ -9,8 +9,6 @@ target 'FeelimWeb' do
 
   pod 'NMapsMap','3.16.0'
 
-  
-
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"

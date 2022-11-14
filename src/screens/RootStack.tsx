@@ -38,7 +38,7 @@ import YoutubeScreen from './Home/YoutubeScreen';
 import ReviewScreen from './Pickup/ReviewScreen';
 import {useMutation} from 'react-query';
 import {authToken} from '../api/auth';
-
+import AppleWebViewScreen from './Login/AppleWebViewScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -215,6 +215,11 @@ function RootStack() {
             component={ReviewScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="AppleWebView"
+            component={AppleWebViewScreen}
+            options={{headerShown: false}}
+          />
         </>
       ) : (
         <>
@@ -362,6 +367,11 @@ function RootStack() {
           <Stack.Screen
             name="Review"
             component={ReviewScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="AppleWebView"
+            component={AppleWebViewScreen}
             options={{headerShown: false}}
           />
         </>

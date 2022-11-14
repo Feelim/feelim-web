@@ -24,78 +24,31 @@ import {
   appleAuth,
   AppleButton,
 } from '@invertase/react-native-apple-authentication';
+import client, {applyToken} from '../../api/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+import {useQuery} from 'react-query';
+import {getAppleLogin} from '../../api/appleAuth';
 
 /**
  * You'd technically persist this somewhere for later use.
  */
 let user: any = null;
 
-/**
- * Fetches the credential state for the current user, if any, and updates state on completion.
- */
-async function fetchAndUpdateCredentialState(
-  updateCredentialStateForUser: any,
-) {
-  if (user === null) {
-    updateCredentialStateForUser('N/A');
-  } else {
-    const credentialState = await appleAuth.getCredentialStateForUser(user);
-    if (credentialState === appleAuth.State.AUTHORIZED) {
-      updateCredentialStateForUser('AUTHORIZED');
-    } else {
-      updateCredentialStateForUser(credentialState);
-    }
-  }
-}
-
-// /**
-//  * Starts the Sign In flow.
-//  */
-async function onAppleButtonPress(updateCredentialStateForUser: any) {
-  console.warn('Beginning Apple Authentication');
-
-  // start a login request
-  try {
-    const appleAuthRequestResponse = await appleAuth.performRequest({
-      requestedOperation: appleAuth.Operation.LOGIN,
-      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-    });
-
-    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
-
-    const {
-      user: newUser,
-      email,
-      nonce,
-      identityToken,
-      realUserStatus /* etc */,
-    } = appleAuthRequestResponse;
-
-    user = newUser;
-
-    fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
-      updateCredentialStateForUser(`Error: ${error.code}`),
-    );
-
-    if (identityToken) {
-      // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
-      console.log(nonce, identityToken);
-    } else {
-      // no token - failed sign-in?
-    }
-
-    if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
-      console.log("I'm a real person!");
-    }
-
-    console.warn(`Apple Authentication Completed, ${user}, ${email}`);
-  } catch (error: any) {
-    if (error.code === appleAuth.Error.CANCELED) {
-      console.warn('User canceled Apple Sign in.');
-    } else {
-      console.error(error);
-    }
-  }
+interface tokenType {
+  aud: string;
+  auth_time: number;
+  c_hash: string;
+  email: string;
+  email_verified: string;
+  exp: number;
+  iat: number;
+  is_private_email: string;
+  iss: string;
+  nonce: string;
+  nonce_supported: boolean;
+  sub: string;
 }
 
 function LoginScreen() {
@@ -106,36 +59,14 @@ function LoginScreen() {
     navigation2.navigate('WebView');
   };
 
-  const [credentialStateForUser, updateCredentialStateForUser] =
-    useState<any>(-1);
-  if (Platform.OS === 'ios') {
-    useEffect(() => {
-      if (!appleAuth.isSupported) return;
+  const {data: url} = useQuery('appleLogin', getAppleLogin);
+  console.log(url);
 
-      fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
-        updateCredentialStateForUser(`Error: ${error.code}`),
-      );
-    }, []);
-
-    useEffect(() => {
-      if (!appleAuth.isSupported) return;
-
-      return appleAuth.onCredentialRevoked(async () => {
-        console.warn('Credential Revoked');
-        fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(
-          error => updateCredentialStateForUser(`Error: ${error.code}`),
-        );
-      });
-    }, []);
-
-    if (!appleAuth.isSupported) {
-      return (
-        <View style={[styles.container, styles.horizontal]}>
-          <Text>Apple Authentication is not supported on this device.</Text>
-        </View>
-      );
-    }
-  }
+  const signInWithApple = async (): Promise<void> => {
+    navigation2.navigate('AppleWebView', {
+      url,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.fullScreen}>
@@ -161,7 +92,7 @@ function LoginScreen() {
             cornerRadius={5}
             buttonStyle={AppleButton.Style.WHITE}
             buttonType={AppleButton.Type.CONTINUE}
-            onPress={() => onAppleButtonPress(updateCredentialStateForUser)}
+            onPress={() => signInWithApple()}
           />
         ) : null}
 
