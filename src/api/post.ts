@@ -31,7 +31,7 @@ export async function getPostDetail(id:number) {
 }
 
 export async function deletePost(id: number){
-    await client.delete<Post>(`/post/${id}`);
+    await client.patch<Post>(`/post/${id}`);
     return null;
 }
 

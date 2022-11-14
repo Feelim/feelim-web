@@ -20,7 +20,7 @@ export async function deleteComment(params: {
     commentId: number;
 }) {
     const {postId, commentId} = params;
-    await client.delete<Post>(`/post/${postId}/comment/${commentId}`);
+    await client.patch<Post>(`/post/${postId}/comment/${commentId}`);
     return null;
 }
 
