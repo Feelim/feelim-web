@@ -24,7 +24,11 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 import colors from '../../assets/color';
-import {androidCountState, permissionImageState} from '../../atoms/permission';
+import {
+  androidCountState,
+  permissionCameraState,
+  permissionImageState,
+} from '../../atoms/permission';
 import Vector from '../../assets/images/Home/Vector.svg';
 import Img from '../../assets/images/Home/Img.svg';
 
@@ -91,7 +95,7 @@ const RequestBottomSheet = ({
 
   const setPermissionImage = useSetRecoilState(permissionImageState);
   const [androidCount, setAndroidCount] = useRecoilState(androidCountState);
-
+  const setPermissionCamera = useSetRecoilState(permissionCameraState);
   const requestMultiplePermissions = () => {
     requestMultiple(
       Platform.OS === 'ios'
@@ -114,6 +118,11 @@ const RequestBottomSheet = ({
         Platform.OS === 'ios'
           ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
           : response['android.permission.WRITE_EXTERNAL_STORAGE'],
+      );
+      setPermissionCamera(
+        Platform.OS === 'ios'
+          ? response['ios.permission.CAMERA']
+          : response['android.permission.CAMERA'],
       );
       closeModal();
     });

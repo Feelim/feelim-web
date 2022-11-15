@@ -23,11 +23,13 @@ import Checked from '../../assets/images/Login/Checked.svg';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
-import {RootStackNavigationProp} from '../types';
+import {MainTabNavigationProp, RootStackNavigationProp} from '../types';
 import SetNicknameToast from '../../components/Login/SetNicknameToast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AgreeScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const navigation2 = useNavigation<MainTabNavigationProp>();
   const {width} = useWindowDimensions();
   const [checkAll, setCheckAll] = useState(false);
   const [check1, setCheck1] = useState(false);
@@ -36,6 +38,13 @@ function AgreeScreen() {
   const [check4, setCheck4] = useState(false);
   const [check5, setCheck5] = useState(false);
   const [hidden1, setHidden1] = useState(true);
+
+  const [isLogin, setIsLogin] = useState(false);
+  AsyncStorage.getItem('accessToken', (err, result) => {
+    if (result) {
+      setIsLogin(true);
+    }
+  });
 
   const animation1 = useRef(new Animated.Value(0)).current;
   useEffect(() => {
@@ -69,7 +78,11 @@ function AgreeScreen() {
 
   const onPressNext = () => {
     if (check1 && check2 && check3) {
-      navigation.navigate('SetNickname');
+      if (isLogin) {
+        navigation.navigate('SetNickname');
+      } else {
+        navigation2.navigate('MainTab');
+      }
     } else {
       setHidden1(false);
     }
@@ -162,7 +175,14 @@ function AgreeScreen() {
             {check4 ? <Checked /> : <Unchecked />}
           </Pressable>
           <Text style={styles.text}>위치 정보 제공 동의 (선택)</Text>
-          <Pressable style={styles.next} hitSlop={8}>
+          <Pressable
+            style={styles.next}
+            hitSlop={8}
+            onPress={() => {
+              Linking.openURL(
+                'https://gifted-gasosaurus-d61.notion.site/e8077cee9b9749358384cadfeb527c9c',
+              );
+            }}>
             <More />
           </Pressable>
         </View>
@@ -175,7 +195,14 @@ function AgreeScreen() {
             {check5 ? <Checked /> : <Unchecked />}
           </Pressable>
           <Text style={styles.text}>마케팅 수신 동의 (선택)</Text>
-          <Pressable style={styles.next} hitSlop={8}>
+          <Pressable
+            style={styles.next}
+            hitSlop={8}
+            onPress={() => {
+              Linking.openURL(
+                'https://gifted-gasosaurus-d61.notion.site/950751ae104246589ac5aa89919f7566',
+              );
+            }}>
             <More />
           </Pressable>
         </View>
