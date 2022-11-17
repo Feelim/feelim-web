@@ -152,9 +152,7 @@ function LoginScreen() {
           onPress={() => {
             signInWithKakao();
           }}>
-          <Image
-            source={require('../../assets/images/Mypage/KakaoEmail.png')}
-          />
+          <Kakao />
         </Pressable>
 
         {Platform.OS === 'ios' ? (
