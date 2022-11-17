@@ -37,9 +37,13 @@ function PostScreen() {
 
   return (
     <SafeAreaView style={styles.fullScreen}>
-      <StatusBar backgroundColor={colors.on_primary} barStyle="dark-content" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <StatusBar
+          backgroundColor={colors.on_primary}
+          barStyle="dark-content"
+        />
+
         <PostHeader
           postId={id}
           userId={postDetailQuery.data?.result?.writer.id}
