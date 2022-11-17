@@ -69,7 +69,7 @@ function SearchScreen() {
           <Image source={require('../../assets/images/Pickup/back.png')} />
         </Pressable>
         <Text style={styles.title}>매장 검색</Text>
-        <View></View>
+        <View style={{width: 24}}></View>
       </View>
       <View style={[styles.searchWrap, {width: width - 32}]}>
         <TextInput

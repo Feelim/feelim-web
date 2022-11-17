@@ -123,14 +123,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.text2,
   },
   starText: {
-    height: 21,
     fontSize: 14,
     color: colors.primary,
     fontWeight: '700',
     marginLeft: 9.5,
   },
   name: {
-    height: 36.5,
     fontSize: 24,
     color: colors.primary,
     fontWeight: '700',

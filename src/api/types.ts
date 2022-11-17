@@ -53,8 +53,10 @@ export interface LaboratoryResult {
   reviewNum: number;
   reviews: Review[];
   star: number;
-  url: string;
   background: string;
+  homepage: string;
+  instagram: string;
+  blog: string;
 }
 
 export interface Address {
@@ -173,7 +175,6 @@ export interface searchLaboratories {
   result: LaboratoriesResult[];
 }
 
-
 export interface postReview {
   code: number;
   isSuccess: boolean;
@@ -187,7 +188,7 @@ export interface image {
   name: string;
 }
 
-export interface Auth{
+export interface Auth {
   code: number;
   id: number;
   isSuccess: boolean;
@@ -196,10 +197,9 @@ export interface Auth{
 }
 
 export interface ResultAuth {
-  accessToken: string,
-    accessTokenExpiresIn: number,
-    grantType: string,
-    refreshToken: string,
-    registerStatus: string,
+  accessToken: string;
+  accessTokenExpiresIn: number;
+  grantType: string;
+  refreshToken: string;
+  registerStatus: string;
 }
-
