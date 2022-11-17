@@ -358,7 +358,15 @@ function EditScreen() {
           onChangeText={setNickname}
         />
         <View style={styles.email}>
-          <KakaoEmail />
+          {profileQuery.data?.result?.email.includes('@apple') ? (
+            <Image
+              source={require('../../assets/images/Mypage/AppleEmail.png')}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/Mypage/KakaoEmail.png')}
+            />
+          )}
           <Text style={styles.emailText}>{profileQuery.data.result.email}</Text>
         </View>
       </View>

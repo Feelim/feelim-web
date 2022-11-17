@@ -19,14 +19,14 @@ function NoticeScreen() {
   return (
     <SafeAreaView style={styles.fullScreen}>
       <MypageHeader name="공지사항" edit={false} complete={false} />
-      {!press && <NoticeFeed setPress={setPress} />}
+      {/* {!press && <NoticeFeed setPress={setPress} />}
       {press && (
         <NoticeContent
           title={item[0].title}
           date={item[0].date}
           content={item[0].content}
         />
-      )}
+      )} */}
     </SafeAreaView>
   );
 }

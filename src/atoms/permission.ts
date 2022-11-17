@@ -3,12 +3,12 @@ import { atom } from "recoil";
 
 export const permissionImageState = atom<string>({
     key: 'permissionImage', 
-    default: '',
+    default: 'granted',
 });
 
 export const permissionCameraState = atom<string>({
     key: 'permissionCamera', 
-    default: '',
+    default: 'granted',
 });
 
 export const androidCountState = atom<number>({
