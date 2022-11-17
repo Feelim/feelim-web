@@ -53,10 +53,7 @@ function PostCommentInput({
   }, [visible]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.select({ios: 'padding'})}
-      style={styles.keyboardAvoiding}
-      keyboardVerticalOffset={Platform.select({ios: -bottom})}>
+    <>
       <Modal
         transparent
         visible={visible}
@@ -95,7 +92,7 @@ function PostCommentInput({
           </Pressable>
         </View>
       </Modal>
-    </KeyboardAvoidingView>
+    </>
   );
 }
 

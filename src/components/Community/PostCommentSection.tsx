@@ -139,7 +139,8 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
 
   const img = profileQuery.data?.result?.image;
   return (
-    <>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <View style={[styles.block, {height: height - 476}]}>
         {writingComment ? (
           <>
@@ -209,7 +210,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
       />
 
       <IsLoginModal visible={visibleLogin} onClose={onCloseLogin} />
-    </>
+    </KeyboardAvoidingView>
   );
 }
 
