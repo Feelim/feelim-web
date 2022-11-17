@@ -87,13 +87,19 @@ function LoginScreen() {
         </Pressable>
 
         {Platform.OS === 'ios' ? (
-          <AppleButton
-            style={styles.appleButton}
-            cornerRadius={5}
-            buttonStyle={AppleButton.Style.WHITE}
-            buttonType={AppleButton.Type.CONTINUE}
-            onPress={() => signInWithApple()}
-          />
+          // <AppleButton
+          //   style={styles.appleButton}
+          //   cornerRadius={5}
+          //   buttonStyle={AppleButton.Style.WHITE}
+          //   buttonType={AppleButton.Type.CONTINUE}
+          //   onPress={() => signInWithApple()}
+          // />
+          <Pressable onPress={() => signInWithApple()}>
+            <Image
+              source={require('../../assets/images/Login/appleid_button.png')}
+              style={styles.appleButton}
+            />
+          </Pressable>
         ) : null}
 
         <Pressable
@@ -151,8 +157,6 @@ const styles = StyleSheet.create({
     fontFamily: 'NotoSansKR-Thin',
   },
   appleButton: {
-    width: 300,
-    height: 45,
     margin: 10,
   },
   container: {
