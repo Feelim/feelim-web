@@ -11,6 +11,7 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {
   PERMISSIONS,
@@ -90,7 +91,7 @@ function WriteEditor() {
       setAndroidCount(androidCount + 1);
       setPermissionImage(
         Platform.OS === 'ios'
-          ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
+          ? response['ios.permission.PHOTO_LIBRARY']
           : response['android.permission.WRITE_EXTERNAL_STORAGE'],
       );
     });
@@ -270,7 +271,9 @@ function WriteEditor() {
   };
 
   return (
-    <View style={styles.block}>
+    <KeyboardAvoidingView
+    behavior={Platform.select({ios: 'padding'})}
+    style={{flex: 1}}>
       <TextInput
         placeholder="제목"
         placeholderTextColor={colors.text5}
@@ -349,7 +352,7 @@ function WriteEditor() {
         modalVisible={imgVisible}
         setModalVisible={setImgVisible}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

@@ -116,7 +116,7 @@ const RequestBottomSheet = ({
       setAndroidCount(androidCount + 1);
       setPermissionImage(
         Platform.OS === 'ios'
-          ? response['ios.permission.PHOTO_LIBRARY_ADD_ONLY']
+          ? response['ios.permission.PHOTO_LIBRARY']
           : response['android.permission.WRITE_EXTERNAL_STORAGE'],
       );
       setPermissionCamera(

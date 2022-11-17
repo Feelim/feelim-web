@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   text: {
     position: 'absolute',
-    bottom: 5,
+    bottom: 12,
     left: 16,
     fontFamily: colors.bold,
     color: colors.on_primary,
