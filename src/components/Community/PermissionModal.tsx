@@ -14,7 +14,10 @@ import {useRecoilState} from 'recoil';
 import {reportPost} from '../../api/post';
 
 import colors from '../../assets/color';
-import {permissionImageState} from '../../atoms/permission';
+import {
+  permissionCameraState,
+  permissionImageState,
+} from '../../atoms/permission';
 import {RootStackNavigationProp} from '../../screens/types';
 
 export interface AlertProps {
@@ -25,9 +28,13 @@ export interface AlertProps {
 function PermissionModal({visible, onClose}: AlertProps) {
   const [permissionImage, setPermissionImage] =
     useRecoilState(permissionImageState);
+  const [permissionCamera, setPermissionCamera] = useRecoilState(
+    permissionCameraState,
+  );
   const onPressSetting = () => {
     Linking.openSettings();
     setPermissionImage('granted');
+    setPermissionCamera('granted');
     onClose();
   };
   const onCancle = () => {

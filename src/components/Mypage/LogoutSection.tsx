@@ -12,11 +12,14 @@ function LogoutSection() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   const onPressLogout = async () => {
-    await AsyncStorage.clear();
     navigation.navigate('Login');
+    setVisible(false);
+    await AsyncStorage.clear();
   };
-  const onPressWithdrawal = () => {
-    console.log('탈퇴');
+  const onPressWithdrawal = async () => {
+    navigation.navigate('Login');
+    setVisible(false);
+    await AsyncStorage.clear();
   };
 
   const onClose = () => {

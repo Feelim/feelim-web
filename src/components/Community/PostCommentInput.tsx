@@ -53,15 +53,12 @@ function PostCommentInput({
   }, [visible]);
 
   return (
-    <Modal
-      transparent
-      visible={visible}
-      animationType="fade"
-      onRequestClose={onClose}>
-      <KeyboardAvoidingView
-        behavior={Platform.select({ios: 'padding'})}
-        style={styles.keyboardAvoiding}
-        keyboardVerticalOffset={Platform.select({ios: -bottom})}>
+    <>
+      <Modal
+        transparent
+        visible={visible}
+        animationType="fade"
+        onRequestClose={onClose}>
         <View style={styles.commentInput}>
           <Image
             style={styles.inputProfile}
@@ -94,8 +91,8 @@ function PostCommentInput({
             <Send />
           </Pressable>
         </View>
-      </KeyboardAvoidingView>
-    </Modal>
+      </Modal>
+    </>
   );
 }
 
