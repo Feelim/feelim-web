@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		48E91EB385E0D417F1C00720 /* libPods-FeelimWeb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8A55CC6B7B0B1315A6AAFE /* libPods-FeelimWeb.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A016D6A82926CCB20036BAD1 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = A016D6A72926CCB20036BAD1 /* AppCenter-Config.plist */; };
 		A03975A1291D4ADC00651CE6 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A03975A0291D4ADC00651CE6 /* SplashScreen.storyboard */; };
 		A08337A2291999B80014B08C /* NotoSansKR-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A08337A1291999B80014B08C /* NotoSansKR-Thin.otf */; };
 		A08337A4291999C80014B08C /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A08337A3291999C80014B08C /* NotoSansKR-Medium.otf */; };
@@ -47,11 +48,13 @@
 		3B4392A12AC88292D35C810B /* Pods-FeelimWeb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb.debug.xcconfig"; path = "Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb.debug.xcconfig"; sourceTree = "<group>"; };
 		463DEBEED5FE79E3594EF4F6 /* Pods-FeelimWebTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWebTests.release.xcconfig"; path = "Target Support Files/Pods-FeelimWebTests/Pods-FeelimWebTests.release.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-FeelimWeb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb.release.xcconfig"; path = "Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb.release.xcconfig"; sourceTree = "<group>"; };
+		59936B35D61BD7D95DC8C45C /* Pods-FeelimWeb-FeelimWebTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb-FeelimWebTests.staging.xcconfig"; path = "Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests.staging.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-FeelimWeb-FeelimWebTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb-FeelimWebTests.debug.xcconfig"; path = "Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests.debug.xcconfig"; sourceTree = "<group>"; };
 		66165A66526EA299428785C7 /* Pods-FeelimWebTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWebTests.debug.xcconfig"; path = "Target Support Files/Pods-FeelimWebTests/Pods-FeelimWebTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7F8A55CC6B7B0B1315A6AAFE /* libPods-FeelimWeb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FeelimWeb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FeelimWeb/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-FeelimWeb-FeelimWebTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb-FeelimWebTests.release.xcconfig"; path = "Target Support Files/Pods-FeelimWeb-FeelimWebTests/Pods-FeelimWeb-FeelimWebTests.release.xcconfig"; sourceTree = "<group>"; };
+		A016D6A72926CCB20036BAD1 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "FeelimWeb/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		A039759B291D40EC00651CE6 /* FeelimWebDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FeelimWebDebug.entitlements; path = FeelimWeb/FeelimWebDebug.entitlements; sourceTree = "<group>"; };
 		A03975A0291D4ADC00651CE6 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 		A08337A1291999B80014B08C /* NotoSansKR-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Thin.otf"; path = "Fonts/NotoSansKR-Thin.otf"; sourceTree = "<group>"; };
@@ -62,6 +65,7 @@
 		A08337AB291999FA0014B08C /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansKR-Black.otf"; path = "Fonts/NotoSansKR-Black.otf"; sourceTree = "<group>"; };
 		A0CEF89029194A28004B6538 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		A2492C6AD2BCF3E01DBE2ED4 /* libPods-FeelimWeb-FeelimWebTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FeelimWeb-FeelimWebTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA0BFE3DF9CFF80535DE15DF /* Pods-FeelimWeb.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FeelimWeb.staging.xcconfig"; path = "Target Support Files/Pods-FeelimWeb/Pods-FeelimWeb.staging.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -136,6 +140,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A016D6A72926CCB20036BAD1 /* AppCenter-Config.plist */,
 				A03975A0291D4ADC00651CE6 /* SplashScreen.storyboard */,
 				A08337AB291999FA0014B08C /* NotoSansKR-Black.otf */,
 				A08337A9291999EE0014B08C /* NotoSansKR-Light.otf */,
@@ -174,6 +179,8 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-FeelimWeb-FeelimWebTests.release.xcconfig */,
 				66165A66526EA299428785C7 /* Pods-FeelimWebTests.debug.xcconfig */,
 				463DEBEED5FE79E3594EF4F6 /* Pods-FeelimWebTests.release.xcconfig */,
+				CA0BFE3DF9CFF80535DE15DF /* Pods-FeelimWeb.staging.xcconfig */,
+				59936B35D61BD7D95DC8C45C /* Pods-FeelimWeb-FeelimWebTests.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -281,6 +288,7 @@
 				A08337A2291999B80014B08C /* NotoSansKR-Thin.otf in Resources */,
 				A0CEF89129194A28004B6538 /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				A016D6A82926CCB20036BAD1 /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,7 +536,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				CODE_SIGN_ENTITLEMENTS = FeelimWeb/FeelimWebDebug.entitlements;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3AQ2WDVH35;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FeelimWeb/Info.plist;
@@ -539,7 +547,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -562,7 +570,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_LINK_OBJC_RUNTIME = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3AQ2WDVH35;
 				INFOPLIST_FILE = FeelimWeb/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Chalkak;
@@ -572,7 +580,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -615,6 +623,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODEPUSH_KEY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -646,6 +655,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
+				MULTI_DEPLOYMENT_CONFIG = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -687,6 +697,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODEPUSH_KEY = 1O37nZfiNDZAWTX5tKEbaVJsK6u5eqTW1vj3o;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -711,6 +722,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MULTI_DEPLOYMENT_CONFIG = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -723,6 +735,130 @@
 			};
 			name = Release;
 		};
+		A0C395372926C86100EBCD45 /* Staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODEPUSH_KEY = 1O37nZfiNDZAWTX5tKEbaVJsK6u5eqTW1vj3o;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MULTI_DEPLOYMENT_CONFIG = "$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Staging;
+		};
+		A0C395382926C86100EBCD45 /* Staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA0BFE3DF9CFF80535DE15DF /* Pods-FeelimWeb.staging.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3AQ2WDVH35;
+				INFOPLIST_FILE = FeelimWeb/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Chalkak;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chalkak.com;
+				PRODUCT_NAME = FeelimWeb;
+				SWIFT_OBJC_BRIDGING_HEADER = "FeelimWeb-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Staging;
+		};
+		A0C395392926C86100EBCD45 /* Staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59936B35D61BD7D95DC8C45C /* Pods-FeelimWeb-FeelimWebTests.staging.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 3AQ2WDVH35;
+				INFOPLIST_FILE = FeelimWebTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chalkak.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FeelimWeb.app/FeelimWeb";
+			};
+			name = Staging;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -731,6 +867,7 @@
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
 				00E356F71AD99517003FC87E /* Release */,
+				A0C395392926C86100EBCD45 /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -740,6 +877,7 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				A0C395382926C86100EBCD45 /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -749,6 +887,7 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				A0C395372926C86100EBCD45 /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
