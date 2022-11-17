@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:FeelimWeb.xcodeproj">
+      location = "group:/Users/sum/Desktop/Github/feelim-web/ios/FeelimWeb.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

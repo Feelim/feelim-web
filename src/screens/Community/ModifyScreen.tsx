@@ -348,7 +348,7 @@ function ModifyScreen() {
 
   const patchPost = () => {
     axiosInstance
-      .patch(`/post/${params.postId}`, formdata, {
+      .patch(`/post/${params.postId}/modification`, formdata, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',

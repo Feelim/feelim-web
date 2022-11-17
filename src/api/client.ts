@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-const baseURL = __DEV__
-
-  ? 'https://chalkak.shop'
-
-  : 'https://articles.example.com';
+const baseURL = __DEV__ ? 'https://chalkak.shop' : 'https://chalkak.shop';
 
 const client = axios.create({
   baseURL,
