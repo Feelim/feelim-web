@@ -53,50 +53,64 @@ function PostCommentInput({
   }, [visible]);
 
   return (
-    <>
-      <Modal
-        transparent
-        visible={visible}
-        animationType="fade"
-        onRequestClose={onClose}>
-        <View style={styles.commentInput}>
-          <Image
-            style={styles.inputProfile}
-            source={
-              uri
-                ? {
-                    uri: uri,
-                  }
-                : require('../../assets/images/Community/default.png')
-            }
-          />
-          <TextInput
-            ref={inputRef}
-            style={styles.input}
-            placeholder="댓글을 입력해주세요."
-            placeholderTextColor={colors.text3}
-            value={content}
-            onChangeText={setContent}
-            onSubmitEditing={() => {
-              onSubmit(content);
-              setContent('');
-            }}
-          />
-          <Pressable
-            style={styles.send}
-            onPress={() => {
-              onSubmit(content);
-              setContent('');
-            }}>
-            <Send />
-          </Pressable>
+    <Modal
+      transparent
+      visible={visible}
+      animationType="fade"
+      onRequestClose={onClose}>
+      <KeyboardAvoidingView
+        behavior={Platform.select({ios: 'padding'})}
+        style={{flex: 1}}
+        keyboardVerticalOffset={Platform.select({ios: -bottom})}>
+        <View style={styles.block}>
+          <Pressable style={styles.dismissArea} onTouchStart={onClose} />
+          <View style={styles.commentInput}>
+            <Image
+              style={styles.inputProfile}
+              source={
+                uri
+                  ? {
+                      uri: uri,
+                    }
+                  : require('../../assets/images/Community/default.png')
+              }
+            />
+            <TextInput
+              autoFocus
+              ref={inputRef}
+              style={styles.input}
+              placeholder="댓글을 입력해주세요."
+              placeholderTextColor={colors.text3}
+              value={content}
+              onChangeText={setContent}
+              onSubmitEditing={() => {
+                onSubmit(content);
+                setContent('');
+              }}
+            />
+            <Pressable
+              style={styles.send}
+              onPress={() => {
+                onSubmit(content);
+                setContent('');
+              }}>
+              <Send />
+            </Pressable>
+          </View>
         </View>
-      </Modal>
-    </>
+      </KeyboardAvoidingView>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
+  block: {
+    width: '100%',
+    flex: 1,
+  },
+  dismissArea: {
+    flex: 1,
+  },
   commentInput: {
     paddingTop: 11,
     paddingBottom: 14,

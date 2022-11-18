@@ -55,10 +55,10 @@ const AppleWebViewScreen = () => {
     const data = e.nativeEvent.data;
     console.log(data);
     const startToken = data.indexOf('"accessToken":"');
-    const endToken = data.indexOf('","acceessTokenExpires');
+    const endToken = data.indexOf('","refreshToken');
     const token = data.slice(startToken + 15, endToken);
     const startRefresh = data.indexOf('"refreshToken":"');
-    const endRefresh = data.indexOf('","role');
+    const endRefresh = data.indexOf('","accessTokenExpiresIn');
     const refreshToken = data.slice(startRefresh + 16, endRefresh);
     const startId = url.indexOf('"userId":');
     const endId = url.indexOf('","accessToken');
@@ -84,10 +84,10 @@ const AppleWebViewScreen = () => {
           const data = e.nativeEvent.data;
           console.log(data);
           const startToken = data.indexOf('"accessToken":"');
-          const endToken = data.indexOf('","accessTokenExpiresIn"');
+          const endToken = data.indexOf('","refreshToken"');
           const token = data.slice(startToken + 15, endToken);
           const startRefresh = data.indexOf('"refreshToken":"');
-          const endRefresh = data.indexOf('","role');
+          const endRefresh = data.indexOf('","accessTokenExpiresIn');
           const refreshToken = data.slice(startRefresh + 16, endRefresh);
           const startId = url.indexOf('"userId":');
           const endId = url.indexOf('","accessToken');
