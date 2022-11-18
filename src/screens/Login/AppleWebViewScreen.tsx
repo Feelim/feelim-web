@@ -39,8 +39,7 @@ const AppleWebViewScreen = () => {
 
   const runFirst = `
       const hello = document.body.innerHTML;
-      
-      console.log(hello)
+      document.body.style.color = 'white';
       setTimeout(function() { window.ReactNativeWebView.postMessage(hello); }, 2000);
       true; // note: this is required, or you'll sometimes get silent failures
     `;
