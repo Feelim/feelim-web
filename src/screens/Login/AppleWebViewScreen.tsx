@@ -55,15 +55,19 @@ const AppleWebViewScreen = () => {
     const data = e.nativeEvent.data;
     console.log(data);
     const startToken = data.indexOf('"accessToken":"');
-    const endToken = data.indexOf('","acceessTokenExpires');
+    const endToken = data.indexOf('","refreshToken');
     const token = data.slice(startToken + 15, endToken);
     const startRefresh = data.indexOf('"refreshToken":"');
-    const endRefresh = data.indexOf('","role');
+    const endRefresh = data.indexOf('","accessTokenExpiresIn');
     const refreshToken = data.slice(startRefresh + 16, endRefresh);
+    const startId = url.indexOf('"userId":');
+    const endId = url.indexOf('","accessToken');
+    const id = url.slice(startId + 9, endId);
     applyToken(token);
     console.log(token);
     AsyncStorage.setItem('accessToken', token);
     AsyncStorage.setItem('refreshToken', refreshToken);
+    AsyncStorage.setItem('userId', id);
     navigation.navigate('Agree');
   }
 
@@ -80,15 +84,19 @@ const AppleWebViewScreen = () => {
           const data = e.nativeEvent.data;
           console.log(data);
           const startToken = data.indexOf('"accessToken":"');
-          const endToken = data.indexOf('","accessTokenExpiresIn"');
+          const endToken = data.indexOf('","refreshToken"');
           const token = data.slice(startToken + 15, endToken);
           const startRefresh = data.indexOf('"refreshToken":"');
-          const endRefresh = data.indexOf('","role');
+          const endRefresh = data.indexOf('","accessTokenExpiresIn');
           const refreshToken = data.slice(startRefresh + 16, endRefresh);
+          const startId = url.indexOf('"userId":');
+          const endId = url.indexOf('","accessToken');
+          const id = url.slice(startId + 9, endId);
           applyToken(token);
           console.log('token', token, 'refresh', refreshToken);
           AsyncStorage.setItem('accessToken', token);
           AsyncStorage.setItem('refreshToken', refreshToken);
+          AsyncStorage.setItem('userId', id);
           navigation.navigate('Agree');
         }}
         injectedJavaScript={runFirst}

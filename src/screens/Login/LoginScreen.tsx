@@ -83,7 +83,11 @@ function LoginScreen() {
           onPress={() => {
             signInWithKakao();
           }}>
-          <Kakao />
+          <Image
+            source={{uri: 'https://ibb.co/BKWxwmc'}}
+            style={{width: 300, height: 45}}
+          />
+          {/* <Kakao /> */}
         </Pressable>
 
         {Platform.OS === 'ios' ? (

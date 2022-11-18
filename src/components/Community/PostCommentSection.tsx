@@ -139,10 +139,9 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
 
   const img = profileQuery.data?.result?.image;
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <>
       <View style={[styles.block, {height: height - 476}]}>
-        {writingComment ? (
+        {/* {writingComment ? (
           <>
             <TextInput
               autoFocus
@@ -153,52 +152,52 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
               }}
             />
           </>
-        ) : (
-          <>
-            <View style={styles.commentInput}>
-              <Image
-                style={styles.inputProfile}
-                source={
-                  img
-                    ? {
-                        uri: img,
-                      }
-                    : require('../../assets/images/Community/default.png')
-                }
+        ) : ( */}
+        <>
+          <View style={styles.commentInput}>
+            <Image
+              style={styles.inputProfile}
+              source={
+                img
+                  ? {
+                      uri: img,
+                    }
+                  : require('../../assets/images/Community/default.png')
+              }
+            />
+            <Pressable style={styles.input} onPress={onPress}>
+              <Text style={styles.inputText}>댓글을 입력해주세요.</Text>
+              <TextInput
+                ref={inputRef}
+                style={{
+                  height: 0,
+                  width: 0,
+                }}
               />
-              <Pressable style={styles.input} onPress={onPress}>
-                <Text style={styles.inputText}>댓글을 입력해주세요.</Text>
-                <TextInput
-                  ref={inputRef}
-                  style={{
-                    height: 0,
-                    width: 0,
-                  }}
-                />
-                <Pressable style={styles.send}>
-                  <Send />
-                </Pressable>
+              <Pressable style={styles.send}>
+                <Send />
               </Pressable>
-            </View>
-            <SafeAreaView style={styles.commentSection}>
-              <FlatList
-                data={commentData}
-                renderItem={({item}) => (
-                  <PostComment
-                    postId={postId}
-                    commentId={item.id}
-                    content={item.content}
-                    createdAt={item.createdAt}
-                    nickname={item.nickname}
-                    picture={item.picture}
-                    userId={item.userId}
-                  />
-                )}
-                keyExtractor={item => item.id.toString()}
-              />
-            </SafeAreaView>
-          </>
-        )}
+            </Pressable>
+          </View>
+          <SafeAreaView style={styles.commentSection}>
+            <FlatList
+              data={commentData}
+              renderItem={({item}) => (
+                <PostComment
+                  postId={postId}
+                  commentId={item.id}
+                  content={item.content}
+                  createdAt={item.createdAt}
+                  nickname={item.nickname}
+                  picture={item.picture}
+                  userId={item.userId}
+                />
+              )}
+              keyExtractor={item => item.id.toString()}
+            />
+          </SafeAreaView>
+        </>
+        {/* )} */}
       </View>
 
       <PostCommentInput
@@ -210,7 +209,7 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
       />
 
       <IsLoginModal visible={visibleLogin} onClose={onCloseLogin} />
-    </KeyboardAvoidingView>
+    </>
   );
 }
 
