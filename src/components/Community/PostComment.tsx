@@ -68,10 +68,12 @@ function PostComment({
             }
           />
           <Text style={styles.userName}>{nickname}</Text>
-          <Text style={styles.date}>{formattedDate}</Text>
-          <Text style={styles.time}>
-            {hour}:{minute}
-          </Text>
+          <View style={styles.box}>
+            <Text style={styles.date}>{formattedDate}</Text>
+            <Text style={styles.time}>
+              {hour}:{minute}
+            </Text>
+          </View>
         </View>
         <Pressable onPress={onPressMore} hitSlop={8}>
           <CommentMore />
@@ -140,6 +142,11 @@ const styles = StyleSheet.create({
     marginLeft: 62,
     fontSize: 13,
     color: colors.text1,
+  },
+  box: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 16.5,
   },
 });
 
