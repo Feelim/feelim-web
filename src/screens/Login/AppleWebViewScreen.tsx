@@ -61,10 +61,10 @@ const AppleWebViewScreen = () => {
     const endRefresh = data.indexOf('","accessTokenExpiresIn');
     const refreshToken = data.slice(startRefresh + 16, endRefresh);
     const startId = url.indexOf('"userId":');
-    const endId = url.indexOf('","accessToken');
+    const endId = url.indexOf(',"accessToken');
     const id = url.slice(startId + 9, endId);
     applyToken(token);
-    console.log(token);
+    console.log(id, '아이디 제대로 찍히나용');
     AsyncStorage.setItem('accessToken', token);
     AsyncStorage.setItem('refreshToken', refreshToken);
     AsyncStorage.setItem('userId', id);
@@ -90,9 +90,10 @@ const AppleWebViewScreen = () => {
           const endRefresh = data.indexOf('","accessTokenExpiresIn');
           const refreshToken = data.slice(startRefresh + 16, endRefresh);
           const startId = url.indexOf('"userId":');
-          const endId = url.indexOf('","accessToken');
+          const endId = url.indexOf(',"accessToken');
           const id = url.slice(startId + 9, endId);
           applyToken(token);
+          console.log(id, '아이디 제대로 찍히나용');
           console.log('token', token, 'refresh', refreshToken);
           AsyncStorage.setItem('accessToken', token);
           AsyncStorage.setItem('refreshToken', refreshToken);

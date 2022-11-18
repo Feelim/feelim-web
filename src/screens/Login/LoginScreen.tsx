@@ -84,7 +84,7 @@ function LoginScreen() {
             signInWithKakao();
           }}>
           <Image
-            source={{uri: 'https://ibb.co/BKWxwmc'}}
+            source={{uri: 'https://ifh.cc/g/xjgdP2.png'}}
             style={{width: 300, height: 45}}
           />
           {/* <Kakao /> */}
