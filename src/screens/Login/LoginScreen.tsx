@@ -85,7 +85,7 @@ function LoginScreen() {
           }}>
           <Image
             source={{uri: 'https://ifh.cc/g/xjgdP2.png'}}
-            style={{width: 300, height: 45}}
+            style={{width: 300, height: 45, borderRadius: 5}}
           />
           {/* <Kakao /> */}
         </Pressable>
