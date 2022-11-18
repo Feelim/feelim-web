@@ -141,63 +141,63 @@ function PostCommentSection({postId, commentData}: CommentInputProps) {
   return (
     <>
       <View style={[styles.block, {height: height - 476}]}>
-        {/* {writingComment ? (
+        {writingComment ? (
           <>
-            <TextInput
+            {/* <TextInput
               autoFocus
               ref={inputRef}
               style={{
                 height: 0,
                 width: 1,
               }}
-            />
+            /> */}
           </>
-        ) : ( */}
-        <>
-          <View style={styles.commentInput}>
-            <Image
-              style={styles.inputProfile}
-              source={
-                img
-                  ? {
-                      uri: img,
-                    }
-                  : require('../../assets/images/Community/default.png')
-              }
-            />
-            <Pressable style={styles.input} onPress={onPress}>
-              <Text style={styles.inputText}>댓글을 입력해주세요.</Text>
-              <TextInput
-                ref={inputRef}
-                style={{
-                  height: 0,
-                  width: 0,
-                }}
+        ) : (
+          <>
+            <View style={styles.commentInput}>
+              <Image
+                style={styles.inputProfile}
+                source={
+                  img
+                    ? {
+                        uri: img,
+                      }
+                    : require('../../assets/images/Community/default.png')
+                }
               />
-              <Pressable style={styles.send}>
-                <Send />
-              </Pressable>
-            </Pressable>
-          </View>
-          <SafeAreaView style={styles.commentSection}>
-            <FlatList
-              data={commentData}
-              renderItem={({item}) => (
-                <PostComment
-                  postId={postId}
-                  commentId={item.id}
-                  content={item.content}
-                  createdAt={item.createdAt}
-                  nickname={item.nickname}
-                  picture={item.picture}
-                  userId={item.userId}
+              <Pressable style={styles.input} onPress={onPress}>
+                <Text style={styles.inputText}>댓글을 입력해주세요.</Text>
+                <TextInput
+                  ref={inputRef}
+                  style={{
+                    height: 0,
+                    width: 0,
+                  }}
                 />
-              )}
-              keyExtractor={item => item.id.toString()}
-            />
-          </SafeAreaView>
-        </>
-        {/* )} */}
+                <Pressable style={styles.send}>
+                  <Send />
+                </Pressable>
+              </Pressable>
+            </View>
+            <SafeAreaView style={styles.commentSection}>
+              <FlatList
+                data={commentData}
+                renderItem={({item}) => (
+                  <PostComment
+                    postId={postId}
+                    commentId={item.id}
+                    content={item.content}
+                    createdAt={item.createdAt}
+                    nickname={item.nickname}
+                    picture={item.picture}
+                    userId={item.userId}
+                  />
+                )}
+                keyExtractor={item => item.id.toString()}
+              />
+            </SafeAreaView>
+          </>
+        )}
       </View>
 
       <PostCommentInput

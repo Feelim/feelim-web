@@ -8,11 +8,12 @@ import {
   Platform,
   Image,
   Keyboard,
+  NativeModules,
 } from 'react-native';
 import Send from '../../assets/images/Community/Send.svg';
 import colors from '../../assets/color';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useEffect, useRef, useState} from 'react';
+import {SetStateAction, useEffect, useRef, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 import {patchCommentState} from '../../atoms/patchComment';
 
@@ -23,6 +24,8 @@ export interface CommentFormProps {
   uri?: string;
   patchValue?: string;
 }
+
+const {StatusBarManager} = NativeModules;
 
 function PostCommentInput({
   visible,
@@ -52,6 +55,18 @@ function PostCommentInput({
     }
   }, [visible]);
 
+  const [statusBarHeight, setStatusBarHeight] = useState(0);
+
+  useEffect(() => {
+    Platform.OS == 'ios'
+      ? StatusBarManager.getHeight(
+          (statusBarFrameData: {height: SetStateAction<number>}) => {
+            setStatusBarHeight(statusBarFrameData.height);
+          },
+        )
+      : null;
+  }, []);
+
   return (
     <Modal
       transparent
@@ -61,7 +76,7 @@ function PostCommentInput({
       <KeyboardAvoidingView
         behavior={Platform.select({ios: 'padding'})}
         style={{flex: 1}}
-        keyboardVerticalOffset={Platform.select({ios: -bottom})}>
+        keyboardVerticalOffset={statusBarHeight + 44}>
         <View style={styles.block}>
           <Pressable style={styles.dismissArea} onTouchStart={onClose} />
           <View style={styles.commentInput}>
