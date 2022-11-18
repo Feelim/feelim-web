@@ -76,7 +76,7 @@ function PostCommentInput({
       <KeyboardAvoidingView
         behavior={Platform.select({ios: 'padding'})}
         style={{flex: 1}}
-        keyboardVerticalOffset={statusBarHeight + 44}>
+        keyboardVerticalOffset={statusBarHeight - 44}>
         <View style={styles.block}>
           <Pressable style={styles.dismissArea} onTouchStart={onClose} />
           <View style={styles.commentInput}>
