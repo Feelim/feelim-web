@@ -60,10 +60,14 @@ const AppleWebViewScreen = () => {
     const startRefresh = data.indexOf('"refreshToken":"');
     const endRefresh = data.indexOf('","role');
     const refreshToken = data.slice(startRefresh + 16, endRefresh);
+    const startId = url.indexOf('"userId":');
+    const endId = url.indexOf('","accessToken');
+    const id = url.slice(startId + 9, endId);
     applyToken(token);
     console.log(token);
     AsyncStorage.setItem('accessToken', token);
     AsyncStorage.setItem('refreshToken', refreshToken);
+    AsyncStorage.setItem('userId', id);
     navigation.navigate('Agree');
   }
 
@@ -85,10 +89,14 @@ const AppleWebViewScreen = () => {
           const startRefresh = data.indexOf('"refreshToken":"');
           const endRefresh = data.indexOf('","role');
           const refreshToken = data.slice(startRefresh + 16, endRefresh);
+          const startId = url.indexOf('"userId":');
+          const endId = url.indexOf('","accessToken');
+          const id = url.slice(startId + 9, endId);
           applyToken(token);
           console.log('token', token, 'refresh', refreshToken);
           AsyncStorage.setItem('accessToken', token);
           AsyncStorage.setItem('refreshToken', refreshToken);
+          AsyncStorage.setItem('userId', id);
           navigation.navigate('Agree');
         }}
         injectedJavaScript={runFirst}
