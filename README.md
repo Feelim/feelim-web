@@ -13,6 +13,10 @@
 <img width="990" alt="스크린샷 2022-11-30 오전 11 10 05" src="https://user-images.githubusercontent.com/78731710/204690641-ec2f9f32-bd5c-468f-ac1e-61efe363a333.png">
 <img width="995" alt="스크린샷 2022-11-30 오전 11 09 19" src="https://user-images.githubusercontent.com/78731710/204690736-b1ed3708-1d00-4c6f-8838-b3efea7aba45.png">
 
+## Demo
+현상소
+https://drive.google.com/file/d/17IqI6OY4GZixGU_bn9sDibBPwylT2vn7/view?usp=sharing
+
 ## Library
 - React-native
 - TypeScript
